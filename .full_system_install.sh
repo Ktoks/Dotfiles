@@ -1,5 +1,9 @@
+# This script is an install of most of the things I use on a daily for work.
+# install copyq
+sudo add-apt-repository ppa:hluk/copyq
+sudo apt update
 # basic stuff I will need to get things rolling
-sudo apt install tmux fd-find ripgrep vim-gtk3 ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen gnome-tweaks
+sudo apt install tmux fd-find ripgrep vim-gtk3 ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen gnome-tweaks copyq
 cd 
 # install rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
