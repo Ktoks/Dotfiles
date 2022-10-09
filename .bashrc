@@ -127,6 +127,5 @@ export NVM_DIR="$HOME/.nvm"
 if [ "$COLORTERM" = "gnome-terminal" -a "$TERM" =~ xterm.* ]; then
     export TERM=vte-256color
 fi
-source /home/kacy/Downloads/alacritty/extra/completions/alacritty.bash
 
-alias config='/usr/bin/git --git-dir=/home/kacy/.cfg/.git/ --work-tree=/home/kacy'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/.git/ --work-tree=$HOME'
