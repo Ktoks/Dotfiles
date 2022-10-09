@@ -102,7 +102,7 @@ source $ZSH/oh-my-zsh.sh
 export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="$PATH:/home/kacy/.local/bin"
-export PATH="$PATH:/home/kacy/local/nvim/bin"
-export PATH="$PATH:/home/kacy/qemu"
-alias config='/usr/bin/git --git-dir=/home/kacy/.cfg/.git/ --work-tree=/home/kacy'
+export PATH="$PATH:/$HOME/.local/bin"
+export PATH="$PATH:/$HOME/local/nvim/bin"
+export PATH="$PATH:$HOME/qemu"
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/.git/ --work-tree=$HOME'
