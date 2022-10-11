@@ -1,5 +1,7 @@
 # This script is an install of most of the things I use on a daily for work.
 # install copyq
+sudo apt update
+sudo apt upgrade -y
 sudo add-apt-repository ppa:hluk/copyq
 sudo apt update
 # basic stuff I will need to get things rolling
