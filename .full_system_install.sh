@@ -5,7 +5,7 @@ sudo apt upgrade -y
 sudo add-apt-repository ppa:hluk/copyq
 sudo apt update
 # basic stuff I will need to get things rolling
-sudo apt install tmux fd-find ripgrep vim-gtk3 ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen gnome-tweaks copyq
+sudo apt install zsh tmux fd-find ripgrep vim-gtk3 ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen gnome-tweaks copyq
 cd 
 # install rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -73,9 +73,10 @@ cd luarocks-3.9.1
 ./configure --with-lua-include=/usr/local/include
 make
 sudo make install
-cd 
+cd
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 echo "Don't forget the following steps for git!"
-echo 'ssh-keygen -t ed25519 -C "kstocks0811@gmail.com"'
+echo 'ssh-keygen -t ed25519 -C "<useremail>"'
 echo 'eval "$(ssh-agent -s)"'
 echo 'ssh-add ~/.ssh/id_ed25519'
 echo 'cat ~/.ssh/id_ed25519.pub'
