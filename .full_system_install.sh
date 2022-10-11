@@ -1,22 +1,23 @@
 # This script is an install of most of the things I use on a daily for work.
+set -e
 # install copyq
 sudo apt update
 sudo apt upgrade -y
 sudo add-apt-repository ppa:hluk/copyq
 sudo apt update
 # basic stuff I will need to get things rolling
-sudo apt install zsh tmux fd-find ripgrep vim-gtk3 ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen gnome-tweaks copyq
+sudo apt install zsh tmux fd-find ripgrep vim-gtk3 ninja-build gettext libtool libtool-bin autoconf automake cmake g++ python3-pip pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev unzip curl doxygen gnome-tweaks copyq
 cd 
 # install rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source .profile
 rustup component add rust-src
 rustup toolchain install nightly
 rustup default stable
-cargo install stylua
-cargo install cargo-update
+cargo install stylua cargo-update
 # get python ready for development
 pip install --upgrade pip
-pip install pynvim cmake venv prettier
+pip install pynvim cmake prettier
 # get fonts installed for alacritty and neovim
 sudo mkdir -p ~/.local/share/fonts
 cd ~/.local/share/fonts
@@ -37,14 +38,15 @@ npm install -g tree-sitter
 # install alacritty
 git clone https://github.com/alacritty/alacritty.git
 cd alacritty
+cargo build --release
 sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
 infocmp alacritty
-sudo cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH\
-sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg\
+sudo cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
+sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
 sudo desktop-file-install extra/linux/Alacritty.desktop
 sudo update-desktop-database
-sudo update-alternatives --config x-terminal-emulator\
-gsettings set org.gnome.desktop.default-applications.terminal exec alacritty\
+sudo update-alternatives --config x-terminal-emulator
+gsettings set org.gnome.desktop.default-applications.terminal exec alacritty
 gsettings set org.gnome.desktop.default-applications.terminal exec-arg ''
 cd 
 # install neovim
@@ -75,6 +77,10 @@ make
 sudo make install
 cd
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo 'export PATH="$HOME/neovim/bin:$PATH"' >> .bashrc
+echo 'export PATH="$HOME/neovim/bin:$PATH"' >> .zshrc
+source .profile
+source .zshrc
 echo "Don't forget the following steps for git!"
 echo 'ssh-keygen -t ed25519 -C "<useremail>"'
 echo 'eval "$(ssh-agent -s)"'
