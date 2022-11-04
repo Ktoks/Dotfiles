@@ -105,4 +105,6 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:/$HOME/.local/bin"
 export PATH="$PATH:/$HOME/local/nvim/bin"
 export PATH="$PATH:$HOME/qemu"
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/.git/ --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
