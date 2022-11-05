@@ -29,5 +29,4 @@ name = "python"
 auto-format = true
 comment-token = "#"
 indent = { tab-width = 2, unit = " " }
-file-types = "py"
 
