@@ -4,7 +4,7 @@ use-grammars = { only = ["rust", "python", "bash", "perl", "xml", "json", "toml"
 name = "rust"
 auto-format = true
 comment-token = "//"
-indent = { tab-width = 2, unit = " " }
+indent = { tab-width = 4, unit = " " }
 file-types = ["rs", "rlib"]
 
 [language.debugger]
@@ -28,5 +28,5 @@ runInTerminal = true
 name = "python"
 auto-format = true
 comment-token = "#"
-indent = { tab-width = 2, unit = " " }
+indent = { tab-width = 4, unit = " " }
 
