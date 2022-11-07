@@ -110,7 +110,7 @@ D = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "delete_select
 C = ["goto_line_start", "extend_to_line_bounds", "change_selection"]
 c = "change_selection"
 S = "surround_add" # Basically 99% of what I use vim-surround for
-j = { k = ["collapse_selection", "normal_mode"] } # Maps `jk` to exit insert mode
+# j = { k = ["collapse_selection", "normal_mode"] } # Maps `jk` to exit insert mode
 
 # Visual-mode specific muscle memory
 i = "select_textobject_inner"
