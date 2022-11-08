@@ -5,7 +5,7 @@ line-number = "relative"
 scrolloff = 3
 shell = ["sh", "-c"]
 auto-completion = true
-completion-trigger-len = 0
+completion-trigger-len = 1
 
 
 [editor.cursor-shape]
