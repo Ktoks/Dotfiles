@@ -105,15 +105,9 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:/$HOME/.local/bin"
 export PATH="$PATH:/$HOME/local/nvim/bin"
 export PATH="$PATH:$HOME/qemu"
-<<<<<<< HEAD
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-
-=======
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/.git/ --work-tree=$HOME'
 alias Cemu='/home/kacy/Cemu/Cemu_release'
 alias brody="bash ~/brody.sh"
 alias kacy="bash ~/kacy.sh"
 alias cemu="sudo modprobe xpad ; nohup /home/kacy/Cemu/bin/Cemu_release &"
 alias garage="ssh kacy@192.168.1.11"
->>>>>>> ac31fadd5045d9295caff439733e17256c48e10a
