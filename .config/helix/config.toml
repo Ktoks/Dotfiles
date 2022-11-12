@@ -17,7 +17,7 @@ normal = "block"
 hidden = false
 
 [editor.lsp]
-display-messages = false
+display-messages = true
 
 [editor.search]
 smart-case = true
@@ -65,6 +65,7 @@ G = "goto_file_end"
 V = ["select_mode", "extend_to_line_bounds"]
 C = ["collapse_selection", "extend_to_line_end", "change_selection"] # Requires https://github.com/helix-editor/helix/issues/2051#issuecomment-1140358950
 S = "surround_add" # Would be nice to be able to do something after this but it isn't chainable
+a = ["move_char_right", "collapse_selection", "insert_mode"]
 
 # uncanny valley stuff, this makes w and b behave as they do Vim
 # I may try this for a while and see how I like the highlighting while moving
