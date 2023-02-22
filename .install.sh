@@ -7,6 +7,6 @@ cat ~/.ssh/id_ed25519.pub
 git clone --bare git@github.com:Ktoks/Dotfiles.git $HOME/.cfg
 config checkout
 echo ".cfg" >> .gitignore
-alias config=\'/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME\'
+alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 config config --local status.showUntrackedFiles no' >> $HOME/.install.sh
 
