@@ -103,11 +103,17 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH="$PATH:/$HOME/.local/bin"
+export PATH="$PATH:/$HOME/.local/libs"
 export PATH="$PATH:/$HOME/local/nvim/bin"
 export PATH="$PATH:$HOME/qemu"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias Cemu='/home/kacy/Cemu/Cemu_release'
-alias brody="bash ~/brody.sh"
-alias kacy="bash ~/kacy.sh"
-alias cemu="sudo modprobe xpad ; nohup /home/kacy/Cemu/bin/Cemu_release &"
-alias garage="ssh kacy@192.168.1.11"
+alias Cemu='$HOME/Code/Cemu/bin/Cemu_relwithdebinfo'
+alias brody="bash $HOME/brody.sh"
+alias kacy="bash $HOME/kacy.sh"
+alias cemu="sudo modprobe xpad ; nohup $HOME/Cemu/bin/Cemu_release &"
+alias garage="ssh ktoks@192.168.1.15"
+alias PROTON="$HOME/.steam/debian-installation/steamapps/common/Proton\ -\ Experimental"
+
+# fnm
+export PATH="$HOME/.local/share/fnm:$PATH"
+eval "`fnm env`"

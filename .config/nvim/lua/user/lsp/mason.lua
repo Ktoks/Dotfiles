@@ -1,10 +1,10 @@
 local servers = {
 	"sumneko_lua",
-	"html",
-	"rust-analyzer",
 	"pyright",
 	"bashls",
 	"jsonls",
+	"yamlls",
+  "rust-analyzer"
 }
 
 local settings = {
