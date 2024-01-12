@@ -1,11 +1,14 @@
-use-grammars = { only = ["rust", "python", "bash", "perl", "xml", "json", "toml", "yaml", "markdown"]}
+# use-grammars = { only = ["bash", "comment", "json", "markdown", "perl", "python", "rust", "toml", "xml", "yaml"]}
 
 [[language]]
 name = "rust"
 auto-format = true
 comment-token = "//"
-indent = { tab-width = 4, unit = " " }
+indent = { tab-width = 2, unit = " " }
 file-types = ["rs", "rlib"]
+
+[[language-server.rust-analyzer.config.check]]
+command = "clippy"
 
 [language.debugger]
 command = "codelldb"
@@ -28,5 +31,25 @@ runInTerminal = true
 name = "python"
 auto-format = true
 comment-token = "#"
-indent = { tab-width = 4, unit = " " }
+indent = { tab-width = 2, unit = " " }
 
+[[language]]
+name = "bash"
+auto-format = true
+comment-token = "#"
+indent = {tab-width = 2, unit = " " }
+
+[[language]]
+name = "toml"
+#formatter = { command = "taplo", args = ["fmt", "-"] }
+
+[[language]]
+name = "yaml"
+
+[language-server.yaml-language-server.config.yaml]
+format = { enable = true }
+validation = true
+
+[language-server.yaml-language-server.config.yaml.schemas]
+"https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}"
+"https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json" = "roles/{tasks,handlers}/*.{yml,yaml}"

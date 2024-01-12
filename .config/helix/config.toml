@@ -1,61 +1,107 @@
-theme = "dark_plus"
+theme = "gruvbox_material_dark_hard"
 
 [editor]
 line-number = "relative"
-scrolloff = 3
+mouse = true
+scrolloff = 6
+bufferline = "multiple"
 shell = ["sh", "-c"]
 auto-completion = true
 completion-trigger-len = 1
 
 
 [editor.cursor-shape]
-select = "block"
 insert = "bar"
-normal = "block"
 
 [editor.file-picker]
 hidden = false
 
+# [editor.gutters]
+# layout = ["diff", "diagnostics", "line-numbers"]
+
+[editor.indent-guides]
+render = true
+character = "|"
+skip-levels = 1
+
 [editor.lsp]
+enable = true
 display-messages = true
 
 [editor.search]
 smart-case = true
 wrap-around = true
 
-[editor.indent-guides]
-render = true
-character = "|"
 
+#### Keymaps ####
+[keys.normal.c]
+e = ["move_next_word_end", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
+E = ["move_next_long_word_end", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
+w = ["move_next_word_start", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
+W = ["move_next_long_word_start", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
+b = ["move_prev_word_start", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
+B = ["move_prev_long_word_start", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"] # stuff and things
+i = ["select_textobject_inner", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
+f = ["find_next_char", "collapse_selection"]
+F = ["find_prev_char", "collapse_selection"]
+t = ["extend_till_char","yank_main_selection_to_clipboard","delete_selection"]
+s = ["surround_delete"]
+
+[keys.normal.d]
+s = "surround_delete"
+d = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "delete_selection"]
+e = ["move_next_word_end", "yank_main_selection_to_clipboard", "delete_selection"]
+E = ["move_next_long_word_end", "yank_main_selection_to_clipboard", "delete_selection"]
+w = ["move_next_word_start", "yank_main_selection_to_clipboard", "delete_selection"]
+W = ["move_next_long_word_start", "yank_main_selection_to_clipboard", "delete_selection"]
+b = ["move_prev_word_start", "yank_main_selection_to_clipboard", "delete_selection"]
+B = ["move_prev_long_word_start", "yank_main_selection_to_clipboard", "delete_selection"]
+G = ["select_mode", "goto_file_end", "yank_main_selection_to_clipboard", "delete_selection"]
+# t = ["find_till_char","yank_main_selection_to_clipboard", "delete_selection"]
+# T = ["till_prev_char","yank_main_selection_to_clipboard", "delete_selection"]
+j = ["extend_visual_line_down", "yank_main_selection_to_clipboard", "delete_selection"]
+k = ["extend_visual_line_up", "yank_main_selection_to_clipboard", "delete_selection"]
+
+
+[keys.normal.d.g]
+g = ["select_mode", "goto_file_start", "yank_main_selection_to_clipboard", "delete_selection"]
+
+[keys.normal.g]
+a = "code_action" # Maps `ga` to show possible code actions
+
+[keys.normal.Z]
+Z = ":write-quit"
+
+[keys.normal.y]
+y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "collapse_selection"]
 
 [keys.normal]
-# Quick iteration on config changes
+C = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
+D = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection"]
+"%" = "match_brackets"
 C-o = ":config-open"
 C-r = ":config-reload"
-
 "'" = ["repeat_last_motion"]
+"*" = ["select_mode", "move_prev_word_start", "move_next_word_end", "normal_mode", "search_selection", "search_next"]
 
-C-s = ":w" # Maps the Control-s to the typable command :w which is an alias for :write (save file)
-g = { a = "code_action" } # Maps `ga` to show possible code actions
-"ret" = ["open_below", "normal_mode"] # Maps the enter key to open_below then re-enter normal mode
+C-s = ":w"
+"ret" = ["open_below", "normal_mode"]
     
 # buffer navigation
-H = ["goto_previous_buffer"]
-L = ["goto_next_buffer"]
+H = "goto_previous_buffer"
+L = "goto_next_buffer"
 
 # Some nice Helix stuff (may try later)
-# C-h = "select_prev_sibling"
-# C-j = "shrink_selection"
-# C-k = "expand_selection"
-# C-l = "select_next_sibling"
+C-h = "select_prev_sibling"
+C-j = "shrink_selection"
+C-k = "expand_selection"
+C-l = "select_next_sibling"
 
 u = ["undo", "collapse_selection"]
 
-# Vim mappings: Personal preference
 o = ["open_below", "insert_mode"]
 O = ["open_above", "insert_mode"]
 
-# Muscle memory
 "{" = ["goto_prev_paragraph", "collapse_selection"]
 "}" = ["goto_next_paragraph", "collapse_selection"]
 0 = "goto_line_start"
@@ -63,7 +109,6 @@ O = ["open_above", "insert_mode"]
 "^" = "goto_first_nonwhitespace"
 G = "goto_file_end"
 V = ["select_mode", "extend_to_line_bounds"]
-C = ["collapse_selection", "extend_to_line_end", "change_selection"] # Requires https://github.com/helix-editor/helix/issues/2051#issuecomment-1140358950
 S = "surround_add" # Would be nice to be able to do something after this but it isn't chainable
 a = ["move_char_right", "collapse_selection", "insert_mode"]
 
@@ -76,31 +121,33 @@ E = ["move_next_long_word_end", "collapse_selection"]
 b = ["move_prev_word_start", "collapse_selection"]
 B = ["move_prev_long_word_start", "collapse_selection"]
 
-# deleting stuffs:
-d = { d = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "delete_selection"], e = ["move_next_word_end", "yank_main_selection_to_clipboard", "delete_selection"], E = ["move_next_word_end", "yank_main_selection_to_clipboard", "delete_selection"], w = ["move_next_word_start", "yank_main_selection_to_clipboard", "delete_selection"], W = ["move_next_long_word_start", "yank_main_selection_to_clipboard", "delete_selection"], b = ["move_prev_word_start", "yank_main_selection_to_clipboard", "delete_selection"], B = ["move_prev_long_word_start", "yank_main_selection_to_clipboard", "delete_selection"], G = ["select_mode", "goto_file_end", "yank_main_selection_to_clipboard", "delete_selection"], g = { g = ["select_mode", "goto_file_start", "yank_main_selection_to_clipboard", "delete_selection"] }, t = ["extend_till_char"], s = ["surround_delete"] }
-D = ["extend_to_line_end", "delete_selection"]
-c = { e = ["move_next_word_end", "delete_selection", "insert_mode"], E = ["move_next_long_word_end", "delete_selection", "insert_mode"], w = ["move_next_word_start", "delete_selection", "insert_mode"],  W = ["move_next_long_word_start", "delete_selection", "insert_mode"], b = ["move_prev_word_start", "delete_selection", "insert_mode"],  b = ["move_prev_long_word_start", "delete_selection", "insert_mode"], i = ["select_textobject_inner", "delete_selection", "insert_mode"] }
-# Clipboards over registers ye ye
-x = "delete_selection"
-p = ["replace_selections_with_clipboard", "collapse_selection"] # No life without this
+
+# find
+f = ["find_next_char", "collapse_selection"]
+F = ["find_prev_char", "collapse_selection"]
+
+x = ["yank_main_selection_to_clipboard","delete_selection"]
+p = ["paste_clipboard_after", "collapse_selection"]
 P = ["paste_clipboard_before", "collapse_selection"]
-# Would be nice to add ya and yi, but the surround commands can't be chained
-y = ["yank_main_selection_to_clipboard", "normal_mode", "flip_selections", "collapse_selection"]
-Y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "goto_line_start", "collapse_selection"]
+
 Y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "goto_line_start", "collapse_selection"]
 
 # Escape the madness! No more fighting with the cursor! Or with multiple cursors!
 esc = ["collapse_selection", "keep_primary_selection"]
 
 
-[keys.insert]
-j = { k = ["collapse_selection", "normal_mode"] } # Maps `jk` to exit insert mode
+[keys.insert.j]
+k = ["collapse_selection", "normal_mode"] # Maps `jk` to exit insert mode
 # Escape the madness! No more fighting with the cursor! Or with multiple cursors!
+
+[keys.insert]
 esc = ["collapse_selection", "normal_mode"]
+
+[keys.select.Z]
+Z = ":write-quit"
 
 
 [keys.select]
-# Muscle memory
 "{" = ["extend_to_line_bounds", "goto_prev_paragraph"]
 "}" = ["extend_to_line_bounds", "goto_next_paragraph"]
 0 = "goto_line_start"
@@ -110,10 +157,8 @@ G = "goto_file_end"
 D = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "delete_selection", "normal_mode"]
 C = ["goto_line_start", "extend_to_line_bounds", "change_selection"]
 c = "change_selection"
-S = "surround_add" # Basically 99% of what I use vim-surround for
-# j = { k = ["collapse_selection", "normal_mode"] } # Maps `jk` to exit insert mode
+S = "surround_add"
 
-# Visual-mode specific muscle memory
 i = "select_textobject_inner"
 a = "select_textobject_around"
 
@@ -121,7 +166,6 @@ a = "select_textobject_around"
 tab = ["insert_mode", "collapse_selection"] # tab is read by most terminal editors as "C-i"
 C-a = ["append_mode", "collapse_selection"]
 
-# Clipboards over registers ye ye
 d = ["yank_main_selection_to_clipboard", "delete_selection"]
 x = ["yank_main_selection_to_clipboard", "delete_selection"]
 y = ["yank_main_selection_to_clipboard", "normal_mode", "collapse_selection"]
@@ -129,5 +173,4 @@ Y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "goto_line_sta
 p = ["replace_selections_with_clipboard", "collapse_selection"] # No life without this
 P = ["paste_clipboard_before", "collapse_selection"]
 
-# Escape the madness! No more fighting with the cursor! Or with multiple cursors!
 esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
