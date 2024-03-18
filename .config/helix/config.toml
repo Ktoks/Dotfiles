@@ -40,7 +40,7 @@ E = ["move_next_long_word_end", "yank_main_selection_to_clipboard", "delete_sele
 w = ["move_next_word_start", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
 W = ["move_next_long_word_start", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
 b = ["move_prev_word_start", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
-B = ["move_prev_long_word_start", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"] # stuff and things
+B = ["move_prev_long_word_start", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
 i = ["select_textobject_inner", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
 f = ["find_next_char", "collapse_selection"]
 F = ["find_prev_char", "collapse_selection"]
@@ -59,15 +59,15 @@ B = ["move_prev_long_word_start", "yank_main_selection_to_clipboard", "delete_se
 G = ["select_mode", "goto_file_end", "yank_main_selection_to_clipboard", "delete_selection"]
 # t = ["find_till_char","yank_main_selection_to_clipboard", "delete_selection"]
 # T = ["till_prev_char","yank_main_selection_to_clipboard", "delete_selection"]
-j = ["extend_visual_line_down", "yank_main_selection_to_clipboard", "delete_selection"]
-k = ["extend_visual_line_up", "yank_main_selection_to_clipboard", "delete_selection"]
+j = ["goto_line_start", "extend_visual_line_down", "extend_line", "yank_main_selection_to_clipboard", "delete_selection"]
+k = ["goto_line_end", "extend_visual_line_up", "extend_line", "yank_main_selection_to_clipboard", "delete_selection"]
 
 
 [keys.normal.d.g]
 g = ["select_mode", "goto_file_start", "yank_main_selection_to_clipboard", "delete_selection"]
 
 [keys.normal.g]
-a = "code_action" # Maps `ga` to show possible code actions
+l = "code_action" # code actions
 
 [keys.normal.Z]
 Z = ":write-quit"
@@ -75,12 +75,18 @@ Z = ":write-quit"
 [keys.normal.y]
 y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "collapse_selection"]
 
+[keys.normal."space"]
+c = ":buffer-close"
+C = ":buffer-close!"
+o = ":config-open"
+r = ":config-reload"
+"/" = "toggle_comments"
+
+
 [keys.normal]
-C = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
+# C = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
 D = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection"]
 "%" = "match_brackets"
-C-o = ":config-open"
-C-r = ":config-reload"
 "'" = ["repeat_last_motion"]
 "*" = ["select_mode", "move_prev_word_start", "move_next_word_end", "normal_mode", "search_selection", "search_next"]
 
@@ -105,15 +111,13 @@ O = ["open_above", "insert_mode"]
 "{" = ["goto_prev_paragraph", "collapse_selection"]
 "}" = ["goto_next_paragraph", "collapse_selection"]
 0 = "goto_line_start"
-"$" = "goto_line_end"
+"$" = "goto_line_end_newline"
 "^" = "goto_first_nonwhitespace"
 G = "goto_file_end"
 V = ["select_mode", "extend_to_line_bounds"]
-S = "surround_add" # Would be nice to be able to do something after this but it isn't chainable
+S = "surround_add"
 a = ["move_char_right", "collapse_selection", "insert_mode"]
 
-# uncanny valley stuff, this makes w and b behave as they do Vim
-# I may try this for a while and see how I like the highlighting while moving
 w = ["move_next_word_start", "move_char_right", "collapse_selection"]
 W = ["move_next_long_word_start", "move_char_right", "collapse_selection"]
 e = ["move_next_word_end", "collapse_selection"]
@@ -132,13 +136,10 @@ P = ["paste_clipboard_before", "collapse_selection"]
 
 Y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "goto_line_start", "collapse_selection"]
 
-# Escape the madness! No more fighting with the cursor! Or with multiple cursors!
 esc = ["collapse_selection", "keep_primary_selection"]
 
-
 [keys.insert.j]
-k = ["collapse_selection", "normal_mode"] # Maps `jk` to exit insert mode
-# Escape the madness! No more fighting with the cursor! Or with multiple cursors!
+k = ["collapse_selection", "normal_mode"]
 
 [keys.insert]
 esc = ["collapse_selection", "normal_mode"]
@@ -154,23 +155,22 @@ Z = ":write-quit"
 "$" = "goto_line_end"
 "^" = "goto_first_nonwhitespace"
 G = "goto_file_end"
-D = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "delete_selection", "normal_mode"]
-C = ["goto_line_start", "extend_to_line_bounds", "change_selection"]
+D = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection", "normal_mode"]
+C = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection"]
 c = "change_selection"
 S = "surround_add"
 
 i = "select_textobject_inner"
 a = "select_textobject_around"
 
-# Some extra binds to allow us to insert/append in select mode because it's nice with multiple cursors
-tab = ["insert_mode", "collapse_selection"] # tab is read by most terminal editors as "C-i"
-C-a = ["append_mode", "collapse_selection"]
+# tab = ["insert_mode", "collapse_selection"]
+# C-a = ["append_mode", "collapse_selection"]
 
 d = ["yank_main_selection_to_clipboard", "delete_selection"]
 x = ["yank_main_selection_to_clipboard", "delete_selection"]
 y = ["yank_main_selection_to_clipboard", "normal_mode", "collapse_selection"]
 Y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "goto_line_start", "collapse_selection", "normal_mode"]
-p = ["replace_selections_with_clipboard", "collapse_selection"] # No life without this
+p = ["replace_selections_with_clipboard", "collapse_selection"]
 P = ["paste_clipboard_before", "collapse_selection"]
 
 esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]

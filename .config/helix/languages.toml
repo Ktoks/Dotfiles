@@ -1,4 +1,4 @@
-# use-grammars = { only = ["bash", "comment", "json", "markdown", "perl", "python", "rust", "toml", "xml", "yaml"]}
+use-grammars = { only = ["bash", "comment", "json", "markdown", "perl", "python", "rust", "toml", "xml"]}
 
 [[language]]
 name = "rust"
@@ -44,12 +44,5 @@ name = "toml"
 #formatter = { command = "taplo", args = ["fmt", "-"] }
 
 [[language]]
-name = "yaml"
-
-[language-server.yaml-language-server.config.yaml]
-format = { enable = true }
-validation = true
-
-[language-server.yaml-language-server.config.yaml.schemas]
-"https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}"
-"https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json" = "roles/{tasks,handlers}/*.{yml,yaml}"
+name = "nu"
+#formatter = { command = "taplo", args = ["fmt", "-"] }
