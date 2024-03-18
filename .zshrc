@@ -113,7 +113,15 @@ alias kacy="bash $HOME/kacy.sh"
 alias cemu="sudo modprobe xpad ; nohup $HOME/Cemu/bin/Cemu_release &"
 alias garage="ssh ktoks@192.168.1.15"
 alias PROTON="$HOME/.steam/debian-installation/steamapps/common/Proton\ -\ Experimental"
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
+fi
 
 # fnm
 export PATH="$HOME/.local/share/fnm:$PATH"
 eval "`fnm env`"
+
+eval "$(starship init zsh)"
+export PATH="$PATH:/usr/local/go/bin"
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
