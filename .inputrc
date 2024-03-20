@@ -1,0 +1,6 @@
+#!inputrc
+
+# $include /etc/inputrc
+
+# set fuzzy completions
+set completion-ignore-case On

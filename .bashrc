@@ -130,3 +130,6 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 eval "$(starship init bash)"
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
+if [ -f ~/.inputrc ]; then
+    . ~/.inputrc
+fi
