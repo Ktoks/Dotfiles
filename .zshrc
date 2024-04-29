@@ -217,3 +217,4 @@ setopt promptsubst
 PROMPT='$('/home/ktoks/.cargo/bin/starship' prompt --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="$STARSHIP_CMD_STATUS" --pipestatus="${STARSHIP_PIPE_STATUS[*]}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
 RPROMPT='$('/home/ktoks/.cargo/bin/starship' prompt --right --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="$STARSHIP_CMD_STATUS" --pipestatus="${STARSHIP_PIPE_STATUS[*]}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
 PROMPT2="$(/home/ktoks/.cargo/bin/starship prompt --continuation)"
+export OPENSSL_LIB_DIR=/usr/local/lib64/

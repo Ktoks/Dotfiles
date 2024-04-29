@@ -3,6 +3,8 @@
 set -e
 # set -x
 
+update_bins="$1";
+
 # get date to name the bin directory appropriately
 date=$(date "+%d-%m-%Y");
 mkdir -p ~/Downloads/bins_"${date}";
@@ -10,14 +12,17 @@ mkdir -p ~/Downloads/bins_"${date}";
 python3 -m pip install --upgrade pip
 sudo apt update
 sudo apt dist-upgrade -y
-flatpak update -y --noninteractive
+# flatpak update -y --noninteractive
 
 rustup update
 cargo install-update -a
 
 printf "new cpu targets can be found by using: rustc --print=target-cpus\n\n"
 
-
+if [ "$update_bins" = "1" ]; then 
+  printf "\nBin updates turned off.\nBye!\n";
+  exit 0;
+fi
 
 cd ~/Code/neovim/
 UPSTREAM=${1:-'@{u}'}
@@ -59,17 +64,6 @@ else
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release --features 'pcre2'
   cp ~/Code/ripgrep/target/x86_64-unknown-linux-musl/release/rg ~/Downloads/bins_"${date}"/rg_sandybridge_musl
   cargo clean
-
-  # may not work...
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release --features 'pcre2'
-  cp ~/Code/ripgrep/target/release/rg ~/Downloads/bins_"${date}"/rg_skylake
-  cargo clean
-  RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  cp ~/Code/ripgrep/target/release/rg ~/Downloads/bins_"${date}"/rg_skylake-avx512
-  cargo clean
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release --features 'pcre2'
-  cp ~/Code/ripgrep/target/release/rg ~/Downloads/bins_"${date}"/rg_sandybridge
-  cargo clean
 fi
 
 cd ~/Code/fd/
@@ -97,16 +91,6 @@ else
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/fd/target/x86_64-unknown-linux-musl/release/fd ~/Downloads/bins_"${date}"/fd_sandybridge_musl
   cargo clean
-  # may not work...
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release
-  cp ~/Code/fd/target/release/fd ~/Downloads/bins_"${date}"/fd_skylake
-  cargo clean
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  # cp ~/Code/fd/target/release/fd ~/Downloads/bins_"${date}"/fd_skylake-avx512
-  # cargo clean
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release
-  cp ~/Code/fd/target/release/fd ~/Downloads/bins_"${date}"/fd_sandybridge
-  cargo clean
 fi
 
 cd ~/Code/procs
@@ -123,18 +107,6 @@ else
   git checkout -- .
   git pull
   cargo add rust_decimal
-  RUSTFLAGS="-C target-cpu=native" cargo +nightly build --release
-  cargo clean
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release
-  cp ~/Code/procs/target/release/procs ~/Downloads/bins_"${date}"/procs_skylake
-  cargo clean
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  # cp ~/Code/procs/target/release/procs ~/Downloads/bins_"${date}"/procs_skylake-avx512
-  # cargo clean
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release
-  cp ~/Code/procs/target/release/procs ~/Downloads/bins_"${date}"/procs_sandybridge
-  cargo clean
-
   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/procs/target/x86_64-unknown-linux-musl/release/procs ~/Downloads/bins_"${date}"/procs_skylake_musl
   cargo clean
@@ -162,27 +134,11 @@ else
   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/helix/target/x86_64-unknown-linux-musl/release/hx ~/Downloads/bins_"${date}"/hx_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/helix/target/x86_64-unknown-linux-musl/release/hx ~/Downloads/bins_"${date}"/hx_skylake-avx512_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/helix/target/x86_64-unknown-linux-musl/release/hx ~/Downloads/bins_"${date}"/hx_sandybridge_musl
-  cargo clean
-
-
-  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release
-  cp ~/Code/helix/target/release/hx ~/Downloads/bins_"${date}"/hx_skylake
-  cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --release
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  # cp ~/Code/helix/target/release/hx ~/Downloads/bins_"${date}"/hx_skylake-avx512
-  # cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release
-  cp ~/Code/helix/target/release/hx ~/Downloads/bins_"${date}"/hx_sandybridge
   cargo clean
 fi
 
@@ -221,27 +177,11 @@ else
   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --features=dataframe --release
   cp ~/Code/nushell/target/x86_64-unknown-linux-musl/release/nu ~/Downloads/bins_"${date}"/nu_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --features=dataframe --release
   cp ~/Code/nushell/target/x86_64-unknown-linux-musl/release/nu ~/Downloads/bins_"${date}"/nu_skylake-avx512_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --features=dataframe --release
   cp ~/Code/nushell/target/x86_64-unknown-linux-musl/release/nu ~/Downloads/bins_"${date}"/nu_sandybridge_musl
-  cargo clean
-
-
-  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --features=dataframe --release
-  cp ~/Code/nushell/target/release/nu ~/Downloads/bins_"${date}"/nu_skylake
-  cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --release
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --features=dataframe --release
-  # cp ~/Code/nushell/target/release/nu ~/Downloads/bins_"${date}"/nu_skylake-avx512
-  # cargo clean
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --features=dataframe --release
-  cp ~/Code/nushell/target/release/nu ~/Downloads/bins_"${date}"/nu_sandybridge
   cargo clean
 fi
 
@@ -255,34 +195,18 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   printf "starship up-to-date\n\n"
 else
   echo "I'm about to update starship - stop me if you aren't ready"
-  # sleep 5
+  sleep 5
   git checkout -- .
   git pull
   # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/starship/target/x86_64-unknown-linux-musl/release/starship ~/Downloads/bins_"${date}"/starship_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/starship/target/x86_64-unknown-linux-musl/release/starship ~/Downloads/bins_"${date}"/starship_skylake-avx512_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/starship/target/x86_64-unknown-linux-musl/release/starship ~/Downloads/bins_"${date}"/starship_sandybridge_musl
-  cargo clean
-
-
-  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release
-  cp ~/Code/starship/target/release/starship ~/Downloads/bins_"${date}"/starship_skylake
-  cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --release
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  # cp ~/Code/starship/target/release/starship ~/Downloads/bins_"${date}"/starship_skylake-avx512
-  # cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release
-  cp ~/Code/starship/target/release/starship ~/Downloads/bins_"${date}"/starship_sandybridge
   cargo clean
 fi
 
@@ -297,33 +221,16 @@ if [ "$LOCAL" = "$REMOTE" ]; then
 else
   echo "I'm about to update sd - stop me if you aren't ready"
   sleep 5
-  # git checkout -- .
   git pull
   # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/sd/target/x86_64-unknown-linux-musl/release/sd ~/Downloads/bins_"${date}"/sd_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/sd/target/x86_64-unknown-linux-musl/release/sd ~/Downloads/bins_"${date}"/sd_skylake-avx512_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/sd/target/x86_64-unknown-linux-musl/release/sd ~/Downloads/bins_"${date}"/sd_sandybridge_musl
-  cargo clean
-
-
-  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release
-  cp ~/Code/sd/target/release/sd ~/Downloads/bins_"${date}"/sd_skylake
-  cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --release
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  # cp ~/Code/sd/target/release/sd ~/Downloads/bins_"${date}"/sd_skylake-avx512
-  # cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release
-  cp ~/Code/sd/target/release/sd ~/Downloads/bins_"${date}"/sd_sandybridge
   cargo clean
 fi
 
@@ -344,27 +251,11 @@ else
   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/dust/target/x86_64-unknown-linux-musl/release/dust ~/Downloads/bins_"${date}"/dust_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/dust/target/x86_64-unknown-linux-musl/release/dust ~/Downloads/bins_"${date}"/dust_skylake-avx512_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/dust/target/x86_64-unknown-linux-musl/release/dust ~/Downloads/bins_"${date}"/dust_sandybridge_musl
-  cargo clean
-
-
-  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release
-  cp ~/Code/dust/target/release/dust ~/Downloads/bins_"${date}"/dust_skylake
-  cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --release
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  # cp ~/Code/dust/target/release/dust ~/Downloads/bins_"${date}"/dust_skylake-avx512
-  # cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release
-  cp ~/Code/dust/target/release/dust ~/Downloads/bins_"${date}"/dust_sandybridge
   cargo clean
 fi
 
@@ -384,27 +275,11 @@ else
   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/pueue/target/x86_64-unknown-linux-musl/release/pueue ~/Downloads/bins_"${date}"/pueue_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/pueue/target/x86_64-unknown-linux-musl/release/pueue ~/Downloads/bins_"${date}"/pueue_skylake-avx512_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/pueue/target/x86_64-unknown-linux-musl/release/pueue ~/Downloads/bins_"${date}"/pueue_sandybridge_musl
-  cargo clean
-
-
-  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release
-  cp ~/Code/pueue/target/release/pueue ~/Downloads/bins_"${date}"/pueue_skylake
-  cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --release
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  # cp ~/Code/pueue/target/release/pueue ~/Downloads/bins_"${date}"/pueue_skylake-avx512
-  # cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release
-  cp ~/Code/pueue/target/release/pueue ~/Downloads/bins_"${date}"/pueue_sandybridge
   cargo clean
 fi
 
@@ -424,27 +299,11 @@ else
   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/bat/target/x86_64-unknown-linux-musl/release/bat ~/Downloads/bins_"${date}"/bat_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/bat/target/x86_64-unknown-linux-musl/release/bat ~/Downloads/bins_"${date}"/bat_skylake-avx512_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/bat/target/x86_64-unknown-linux-musl/release/bat ~/Downloads/bins_"${date}"/bat_sandybridge_musl
-  cargo clean
-
-
-  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release
-  cp ~/Code/bat/target/release/bat ~/Downloads/bins_"${date}"/bat_skylake
-  cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --release
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  # cp ~/Code/bat/target/release/bat ~/Downloads/bins_"${date}"/bat_skylake-avx512
-  # cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release
-  cp ~/Code/bat/target/release/bat ~/Downloads/bins_"${date}"/bat_sandybridge
   cargo clean
 fi
 
@@ -464,27 +323,11 @@ else
   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/rnr/target/x86_64-unknown-linux-musl/release/rnr ~/Downloads/bins_"${date}"/rnr_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/rnr/target/x86_64-unknown-linux-musl/release/rnr ~/Downloads/bins_"${date}"/rnr_skylake-avx512_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/rnr/target/x86_64-unknown-linux-musl/release/rnr ~/Downloads/bins_"${date}"/rnr_sandybridge_musl
-  cargo clean
-
-
-  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release
-  cp ~/Code/rnr/target/release/rnr ~/Downloads/bins_"${date}"/rnr_skylake
-  cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --release
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  # cp ~/Code/rnr/target/release/rnr ~/Downloads/bins_"${date}"/rnr_skylake-avx512
-  # cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release
-  cp ~/Code/rnr/target/release/rnr ~/Downloads/bins_"${date}"/rnr_sandybridge
   cargo clean
 fi
 
@@ -504,27 +347,83 @@ else
   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/zoxide/target/x86_64-unknown-linux-musl/release/zoxide ~/Downloads/bins_"${date}"/zoxide_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/zoxide/target/x86_64-unknown-linux-musl/release/zoxide ~/Downloads/bins_"${date}"/zoxide_skylake-avx512_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/zoxide/target/x86_64-unknown-linux-musl/release/zoxide ~/Downloads/bins_"${date}"/zoxide_sandybridge_musl
   cargo clean
+fi
 
+cd ~/Code/xsv/
+UPSTREAM=${1:-'@{u}'}
+LOCAL=$(git rev-parse @)
+git fetch
+REMOTE=$(git rev-parse "$UPSTREAM")
 
-  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release
-  cp ~/Code/zoxide/target/release/zoxide ~/Downloads/bins_"${date}"/zoxide_skylake
+if [ "$LOCAL" = "$REMOTE" ]; then
+  printf "xsv up-to-date\n\n"
+else
+  echo "I'm about to update xsv - stop me if you aren't ready"
+  sleep 5
+  git pull
+  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
+  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/xsv/target/x86_64-unknown-linux-musl/release/xsv ~/Downloads/bins_"${date}"/xsv_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --release
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  # cp ~/Code/zoxide/target/release/zoxide ~/Downloads/bins_"${date}"/zoxide_skylake-avx512
-  # cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release
-  cp ~/Code/zoxide/target/release/zoxide ~/Downloads/bins_"${date}"/zoxide_sandybridge
+  RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/xsv/target/x86_64-unknown-linux-musl/release/xsv ~/Downloads/bins_"${date}"/xsv_skylake-avx512_musl
+  cargo clean
+  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/xsv/target/x86_64-unknown-linux-musl/release/xsv ~/Downloads/bins_"${date}"/xsv_sandybridge_musl
+  cargo clean
+fi
+
+cd ~/Code/hexyl/
+UPSTREAM=${1:-'@{u}'}
+LOCAL=$(git rev-parse @)
+git fetch
+REMOTE=$(git rev-parse "$UPSTREAM")
+
+if [ "$LOCAL" = "$REMOTE" ]; then
+  printf "hexyl up-to-date\n\n"
+else
+  echo "I'm about to update hexyl - stop me if you aren't ready"
+  sleep 5
+  git pull
+  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
+  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/hexyl/target/x86_64-unknown-linux-musl/release/hexyl ~/Downloads/bins_"${date}"/hexyl_skylake_musl
+  cargo clean
+  RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/hexyl/target/x86_64-unknown-linux-musl/release/hexyl ~/Downloads/bins_"${date}"/hexyl_skylake-avx512_musl
+  cargo clean
+  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/hexyl/target/x86_64-unknown-linux-musl/release/hexyl ~/Downloads/bins_"${date}"/hexyl_sandybridge_musl
+  cargo clean
+fi
+
+cd ~/Code/broot/
+UPSTREAM=${1:-'@{u}'}
+LOCAL=$(git rev-parse @)
+git fetch
+REMOTE=$(git rev-parse "$UPSTREAM")
+
+if [ "$LOCAL" = "$REMOTE" ]; then
+  printf "broot up-to-date\n\n"
+else
+  echo "I'm about to update broot - stop me if you aren't ready"
+  sleep 5
+  git pull
+  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
+  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/broot/target/x86_64-unknown-linux-musl/release/broot ~/Downloads/bins_"${date}"/broot_skylake_musl
+  cargo clean
+  RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/broot/target/x86_64-unknown-linux-musl/release/broot ~/Downloads/bins_"${date}"/broot_skylake-avx512_musl
+  cargo clean
+  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/broot/target/x86_64-unknown-linux-musl/release/broot ~/Downloads/bins_"${date}"/broot_sandybridge_musl
   cargo clean
 fi
 
@@ -544,26 +443,36 @@ else
   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/rust-parallel/target/x86_64-unknown-linux-musl/release/rust-parallel ~/Downloads/bins_"${date}"/rust-parallel_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/rust-parallel/target/x86_64-unknown-linux-musl/release/rust-parallel ~/Downloads/bins_"${date}"/rust-parallel_skylake-avx512_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
   cp ~/Code/rust-parallel/target/x86_64-unknown-linux-musl/release/rust-parallel ~/Downloads/bins_"${date}"/rust-parallel_sandybridge_musl
   cargo clean
+fi
 
+cd ~/Code/frawk/
+UPSTREAM=${1:-'@{u}'}
+LOCAL=$(git rev-parse @)
+git fetch
+REMOTE=$(git rev-parse "$UPSTREAM")
 
-  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --release
-  cp ~/Code/rust-parallel/target/release/rust-parallel ~/Downloads/bins_"${date}"/rust-parallel_skylake
+if [ "$LOCAL" = "$REMOTE" ]; then
+  printf "frawk up-to-date\n\n"
+else
+  echo "I'm about to update frawk - stop me if you aren't ready"
+  sleep 5
+  git pull
+  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
+  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release --no-default-features --features use_jemalloc,allow_avx2,unstable
+  cp ~/Code/frawk/target/x86_64-unknown-linux-musl/release/frawk ~/Downloads/bins_"${date}"/frawk_skylake_musl
   cargo clean
-  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --release
-  # badRUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --release
-  # cp ~/Code/rust-parallel/target/release/rust-parallel ~/Downloads/bins_"${date}"/rust-parallel_skylake-avx512
-  # cargo clean
-  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --release
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --release
-  cp ~/Code/rust-parallel/target/release/rust-parallel ~/Downloads/bins_"${date}"/rust-parallel_sandybridge
+  # RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
+  RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release --no-default-features --features use_jemalloc,allow_avx2,unstable
+  cp ~/Code/frawk/target/x86_64-unknown-linux-musl/release/frawk ~/Downloads/bins_"${date}"/frawk_skylake-avx512_musl
+  cargo clean
+  # RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
+  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release --no-default-features --features use_jemalloc,allow_avx2,unstable
+  cp ~/Code/frawk/target/x86_64-unknown-linux-musl/release/frawk ~/Downloads/bins_"${date}"/frawk_sandybridge_musl
   cargo clean
 fi

@@ -216,12 +216,25 @@ themes {
         black 0 0 0
         white 180 180 180
     }
+  gruvbox-dark {
+ 		fg "#D5C4A1"
+ 		bg "#282828"
+ 		black "#3C3836"
+ 		red "#CC241D"
+ 		green "#98971A"
+ 		yellow "#D79921"
+ 		blue "#3C8588"
+ 		magenta "#B16286"
+ 		cyan "#689D6A"
+ 		white "#FBF1C7"
+ 		orange "#D65D0E"
+  }
 }
 
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "custom"
+theme "gruvbox-dark"
 
 // The name of the default layout to load on startup
 // Default: "default"
@@ -293,3 +306,18 @@ scrollback_editor "~/.cargo/bin/hx"
 // The folder in which Zellij will look for themes
 //
 // theme_dir "/path/to/my/theme_dir"
+themes {
+gruvbox-dark {
+ 		fg "#D5C4A1"
+ 		bg "#282828"
+ 		black "#3C3836"
+ 		red "#CC241D"
+ 		green "#98971A"
+ 		yellow "#D79921"
+ 		blue "#3C8588"
+ 		magenta "#B16286"
+ 		cyan "#689D6A"
+ 		white "#FBF1C7"
+ 		orange "#D65D0E"
+  }
+}
