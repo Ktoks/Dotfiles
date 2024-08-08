@@ -1,0 +1,5 @@
+frame = "full"
+title-hidden = true
+vsync = true
+wsl = false
+fork = true
