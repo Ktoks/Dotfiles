@@ -45,7 +45,12 @@ local M = {
 function M.config()
   local cmp = require "cmp"
   local luasnip = require "luasnip"
+<<<<<<< HEAD
   require("luasnip/loaders/from_vscode").lazy_load()
+=======
+  require("luasnip.loaders.from_vscode").lazy_load({})
+  require("luasnip.loaders.from_vscode").lazy_load({paths = "~/AppData/Local/nvim/lua/user/my_snippets/"})
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
 
   local check_backspace = function()
     local col = vim.fn.col "." - 1

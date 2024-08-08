@@ -25,24 +25,42 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
 keymap("n", "<C-Down>", ":resize +2<CR>", opts)
+<<<<<<< HEAD
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+=======
+keymap("n", "<C-Left>", ":vertical resize +2<CR>", opts)
+keymap("n", "<C-Right>", ":vertical resize -2<CR>", opts)
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
 
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
 -- Clear highlights
+<<<<<<< HEAD
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 
 -- Close buffer
 keymap("n", "<leader>c", "<cmd>Bdelete<CR>", opts)
 -- Close buffers
 keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
+=======
+keymap("n", "<leader>s", "<cmd>nohlsearch<CR>", opts)
+
+-- Close buffer
+keymap("n", "<leader>c", "<cmd>Bdelete<CR>", opts)
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
 
 -- Better paste
 keymap("v", "p", "P", opts)
 
+<<<<<<< HEAD
+=======
+-- Inlay Hints
+keymap("n", "<leader>h", "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", opts)
+
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
 -- Insert --
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)
@@ -54,11 +72,23 @@ keymap("v", ">", ">gv", opts)
 
 -- Plugins --
 
+<<<<<<< HEAD
 -- netrw
 -- keymap("n", "<leader>e", ":Ex<CR>", opts)
 
 keymap("n", "-", "<CMD>Oil<CR>", opts)
 
+=======
+-- Toggle NetRW
+-- keymap("n", "<leader>e", ":Lexplore<CR>", opts)
+
+-- Toggle Oil
+keymap("n", "-", "<CMD>Oil<CR>", opts)
+
+-- Toggle Terminal
+keymap("n", "<leader>t", ":Toggleterm<CR>")
+
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
 -- -- Telescope
 -- keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
 -- keymap("n", "<leader>ft", ":Telescope live_grep<CR>", opts)
@@ -66,6 +96,7 @@ keymap("n", "-", "<CMD>Oil<CR>", opts)
 -- keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 
 -- Git
+<<<<<<< HEAD
 keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
 
 -- Comment
@@ -85,3 +116,23 @@ keymap("x", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(v
 
 -- Lsp
 keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
+=======
+-- keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
+
+-- Lsp
+keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
+
+-- -- Snippets
+-- Source CMP and Snippets
+keymap("n", "<leader><leader>s", "<cmd>source ~/AppData/Local/nvim/lua/user/cmp.lua<CR>")
+-- keymap("n", "<leader><leader>x", "<cmd>source ~/AppData/Local/nvim/powerstream.json<CR>")
+-- <C-k> = select previous item
+-- <C-j> = select next item
+-- <C-b> = completions - scroll docs "i", "c" }),
+-- <C-f> = completions - scroll docs revers "i", "c" }),
+-- <C-Space> = completions - complete
+-- <C-e> = completions leader {
+  -- <CR> = confirm
+  -- <Tab> = mapping
+-- }
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4

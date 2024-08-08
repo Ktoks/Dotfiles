@@ -35,6 +35,10 @@ function M.config()
     keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
     keymap(bufnr, "n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+<<<<<<< HEAD
+=======
+    keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
   end
 
   local lspconfig = require "lspconfig"
@@ -72,14 +76,24 @@ function M.config()
 
   local config = {
     -- disable virtual text
+<<<<<<< HEAD
     virtual_text = false,
+=======
+    virtual_text = true,
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
     -- show signs
     signs = {
       active = signs,
     },
+<<<<<<< HEAD
     update_in_insert = true,
     underline = true,
     severity_sort = true,
+=======
+    update_in_insert = false,
+    underline = true,
+    severity_sort = false,
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
     float = {
       focusable = false,
       style = "minimal",

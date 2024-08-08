@@ -1,5 +1,6 @@
 local M = {
   "lukas-reineke/indent-blankline.nvim",
+<<<<<<< HEAD
   -- main = "ibl",
   -- commit = "8299fe7703dfff4b1752aeed271c3b95281a952d",
   event = "BufReadPre",
@@ -38,4 +39,27 @@ local M = {
   end,
 }
 
+=======
+  -- commit = "8299fe7703dfff4b1752aeed271c3b95281a952d",
+  event = "BufReadPre",
+  config = function ()
+    require("ibl").setup {}
+  end
+}
+
+-- M.opts = {
+--   char = "▏",
+--   show_trailing_blankline_indent = false,
+--   show_first_indent_level = true,
+--   use_treesitter = true,
+--   show_current_context = true,
+--   buftype_exclude = { "terminal", "nofile" },
+--   filetype_exclude = {
+--     "help",
+--     "packer",
+--     "NvimTree",
+--   },
+-- }
+--
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
 return M

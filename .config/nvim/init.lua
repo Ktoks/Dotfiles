@@ -2,6 +2,7 @@ require "options"
 require "keymaps"
 require "Lazy"
 require "autocommands"
+<<<<<<< HEAD
 
 vim.g.loaded_ruby_provider = 0
 
@@ -31,3 +32,5 @@ if vim.g.neovide then
   -- vim.g.neovide_theme = "dark"
 
 end
+=======
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4

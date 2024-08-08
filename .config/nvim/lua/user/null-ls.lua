@@ -27,9 +27,16 @@ function M.config()
       },
       formatting.black.with { extra_args = { "--fast" } },
       formatting.stylua,
+<<<<<<< HEAD
       formatting.shellharden,
       diagnostics.flake8.with { extra_args = {"--extend-ignore", "E501"}},
       diagnostics.shellcheck,
+=======
+--      formatting.google_java_format,
+      diagnostics.flake8.with { extra_args = { "--extend-ignore", "E501"}},
+      diagnostics.shellcheck,
+      -- diagnostics.perlnavigator,
+>>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
     },
   }
 end

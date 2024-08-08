@@ -1,0 +1,23 @@
+{
+"name": "custom-snippets",
+"contributes": {
+  "snippets": [
+    {
+      "language": "xml",
+      "path": "./powerstream.json"
+    },
+    {
+      "language": "pl",
+      "path": "./perl.json"
+    },
+    {
+      "language": "sh",
+      "path": "./bash.json"
+    },
+    {
+      "language": "bash",
+      "path": "./bash.json"
+    }
+  ]
+}
+}
