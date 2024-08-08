@@ -48,30 +48,6 @@ else
   cargo clean
 fi
 
-cd ~/Code/broot/
-UPSTREAM=${1:-'@{u}'}
-LOCAL=$(git rev-parse @)
-git fetch
-REMOTE=$(git rev-parse "$UPSTREAM")
-
-if [ "$LOCAL" = "$REMOTE" ]; then
-  printf "broot up-to-date\n\n"
-else
-  echo "I'm about to update broot - stop me if you aren't ready"
-  sleep 5
-  git pull
-  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
-  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
-  cp ~/Code/broot/target/x86_64-unknown-linux-musl/release/broot ~/Downloads/bins_"${date}"/broot_skylake_musl
-  cargo clean
-  RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
-  cp ~/Code/broot/target/x86_64-unknown-linux-musl/release/broot ~/Downloads/bins_"${date}"/broot_skylake-avx512_musl
-  cargo clean
-  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
-  cp ~/Code/broot/target/x86_64-unknown-linux-musl/release/broot ~/Downloads/bins_"${date}"/broot_sandybridge_musl
-  cargo clean
-fi
-
 cd ~/Code/dust/
 UPSTREAM=${1:-'@{u}'}
 LOCAL=$(git rev-parse @)
@@ -149,20 +125,20 @@ else
   cargo clean
 fi
 
-# cd ~/Code/fzf
-# UPSTREAM=${1:-'@{u}'}
-# LOCAL=$(git rev-parse @)
-# git fetch
-# REMOTE=$(git rev-parse "$UPSTREAM")
-# if [ "$LOCAL" = "$REMOTE" ]; then
-#     printf "fzf up-to-date\n\n"
-# else
-#   echo "I'm about to update fzf - stop me if you aren't ready"
-#   sleep 5
-#   make
-#   cp ~/Code/fzf/bin/fzf* ~/Downloads/bins_"${date}"/
-#   make clean
-# fi
+cd ~/Code/fzf
+UPSTREAM=${1:-'@{u}'}
+LOCAL=$(git rev-parse @)
+git fetch
+REMOTE=$(git rev-parse "$UPSTREAM")
+if [ "$LOCAL" = "$REMOTE" ]; then
+    printf "fzf up-to-date\n\n"
+else
+  echo "I'm about to update fzf - stop me if you aren't ready"
+  sleep 5
+  make
+  cp ~/Code/fzf/bin/fzf* ~/Downloads/bins_"${date}"/
+  make clean
+fi
 
 cd ~/Code/grex/
 UPSTREAM=${1:-'@{u}'}
@@ -188,29 +164,29 @@ else
   cargo clean
 fi
 
-# cd ~/Code/helix/
-# UPSTREAM=${1:-'@{u}'}
-# LOCAL=$(git rev-parse @)
-# git fetch
-# REMOTE=$(git rev-parse "$UPSTREAM")
-#
-# if [ "$LOCAL" = "$REMOTE" ]; then
-#   printf "Helix up-to-date\n\n"
-# else
-#   echo "I'm about to update Helix - stop me if you aren't ready"
-#   sleep 5
-#   git pull
-#   # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
-#   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
-#   cp ~/Code/helix/target/x86_64-unknown-linux-musl/release/hx ~/Downloads/bins_"${date}"/hx_skylake_musl
-#   cargo clean
-#   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
-#   cp ~/Code/helix/target/x86_64-unknown-linux-musl/release/hx ~/Downloads/bins_"${date}"/hx_skylake-avx512_musl
-#   cargo clean
-#   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
-#   cp ~/Code/helix/target/x86_64-unknown-linux-musl/release/hx ~/Downloads/bins_"${date}"/hx_sandybridge_musl
-#   cargo clean
-# fi
+cd ~/Code/helix/
+UPSTREAM=${1:-'@{u}'}
+LOCAL=$(git rev-parse @)
+git fetch
+REMOTE=$(git rev-parse "$UPSTREAM")
+
+if [ "$LOCAL" = "$REMOTE" ]; then
+  printf "Helix up-to-date\n\n"
+else
+  echo "I'm about to update Helix - stop me if you aren't ready"
+  sleep 5
+  git pull
+  # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
+  RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/helix/target/x86_64-unknown-linux-musl/release/hx ~/Downloads/bins_"${date}"/hx_skylake_musl
+  cargo clean
+  RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/helix/target/x86_64-unknown-linux-musl/release/hx ~/Downloads/bins_"${date}"/hx_skylake-avx512_musl
+  cargo clean
+  RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release
+  cp ~/Code/helix/target/x86_64-unknown-linux-musl/release/hx ~/Downloads/bins_"${date}"/hx_sandybridge_musl
+  cargo clean
+fi
 
 cd ~/Code/hexyl/
 UPSTREAM=${1:-'@{u}'}
@@ -377,30 +353,6 @@ else
   cp ~/Code/qrtool/target/x86_64-unknown-linux-musl/release/qrtool ~/Downloads/bins_"${date}"/qrtool_sandybridge_musl
   cargo clean
 fi
-
-# cd ~/Code/qsv/
-# # UPSTREAM=${1:-'@{u}'}
-# # LOCAL=$(git rev-parse @)
-# git fetch
-# # REMOTE=$(git rev-parse "$UPSTREAM")
-#
-# # if [ "$LOCAL" = "$REMOTE" ]; then
-# #   printf "qsv up-to-date\n\n"
-# # else
-#   echo "I'm about to update qsv - stop me if you aren't ready"
-#   sleep 5
-#   git pull
-#   # RUSTFLAGS="-C target-cpu=skylake" cargo +nightly-2024-02-01 build --target=x86_64-unknown-linux-musl --release
-#   RUSTFLAGS="-C target-cpu=skylake" cargo +nightly build --target=x86_64-unknown-linux-musl --release --locked --bin qsv --features feature_capable,apply,luau,fetch,foreach,polars
-#   cp ~/Code/qsv/target/x86_64-unknown-linux-musl/release/sk ~/Downloads/bins_"${date}"/qsv_skylake_musl
-#   cargo clean
-#   RUSTFLAGS="-C target-cpu=skylake-avx512" cargo +nightly build --target=x86_64-unknown-linux-musl --release --locked --bin qsv --features feature_capable,apply,luau,fetch,foreach,polars
-#   cp ~/Code/qsv/target/x86_64-unknown-linux-musl/release/sk ~/Downloads/bins_"${date}"/qsv_skylake-avx512_musl
-#   cargo clean
-#   RUSTFLAGS="-C target-cpu=sandybridge" cargo +nightly build --target=x86_64-unknown-linux-musl --release --locked --bin qsv --features feature_capable,apply,luau,fetch,foreach,polars
-#   cp ~/Code/qsv/target/x86_64-unknown-linux-musl/release/sk ~/Downloads/bins_"${date}"/qsv_sandybridge_musl
-#   cargo clean
-# # fi
 
 cd ~/Code/ripgrep
 UPSTREAM=${1:-'@{u}'}

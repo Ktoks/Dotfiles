@@ -6,7 +6,7 @@ rustup default stable
 cargo install stylua cargo-update
 # get python ready for development
 pip install --upgrade pip
-pip install pynvim cmake prettier
+pip install pynvim cmake prettier pysqlite3
 # get fonts installed for alacritty and neovim
 sudo mkdir -p ~/.local/share/fonts
 cd ~/.local/share/fonts

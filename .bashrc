@@ -1,4 +1,4 @@
-# ~/.bashrc
+#!/usr/bin/bash
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -8,6 +8,10 @@ case $- in
     *i*) ;;
       *) return;;
 esac
+
+if [ -f "/etc/bash.bashrc" ]; then
+    . "/etc/bash.bashrc"
+fi
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -75,7 +79,7 @@ esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r "$HOME/.dircolors" && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
@@ -102,12 +106,13 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
+# $HOME/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
+if [ -f "$HOME/.aliases" ]; then
+    . "$HOME/.aliases"
 fi
+
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -129,7 +134,11 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 eval "$(starship init bash)"
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
-if [ -f ~/.inputrc ]; then
-    . ~/.inputrc
+if [ -f "$HOME/.inputrc" ]; then
+    . "$HOME/.inputrc"
 fi
 . "$HOME/.cargo/env"
+# export PATH="/usr/local/cuda-12.4/bin:$PATH"
+# export LD_LIBRARY_PATH="/usr/local/cuda-12.4/lib64:${LD_LIBRARY_PATH}"
+export PATH="/usr/local/cuda-12.4/bin:/usr/local/cuda-12.4/bin:/run/user/1000/fnm_multishells/10425_1716057221761/bin:$HOME/.local/share/fnm:$HOME/.nvm/versions/node/v18.13.0/bin:/usr/local/cuda-12.4/bin:$HOME/.cargo/bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:$HOME/Android/Sdk/tools:$HOME/Android/Sdk/platforms-tools:$HOME/.local/bin:$HOME/.local/libs:$HOME/local/nvim/bin:$HOME/qemu:/usr/local/go/bin"
+export LD_LIBRARY_PATH="/usr/local/cuda-12.4/lib64:/usr/local/cuda-12.4/lib64:/usr/local/cuda-12.4/lib64:${LD_LIBRARY_PATH}"

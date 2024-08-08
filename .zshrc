@@ -97,8 +97,8 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# alias zshconfig="mate $HOME/.zshrc"
+# alias ohmyzsh="mate $HOME/.oh-my-zsh"
 export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -113,8 +113,8 @@ alias kacy="bash $HOME/kacy.sh"
 alias cemu="sudo modprobe xpad ; nohup $HOME/Cemu/bin/Cemu_release &"
 alias garage="ssh ktoks@192.168.1.15"
 alias PROTON="$HOME/.steam/debian-installation/steamapps/common/Proton\ -\ Experimental"
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
+if [ -f $HOME/.aliases ]; then
+    . $HOME/.aliases
 fi
 
 # fnm
@@ -217,4 +217,6 @@ setopt promptsubst
 PROMPT='$('/home/ktoks/.cargo/bin/starship' prompt --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="$STARSHIP_CMD_STATUS" --pipestatus="${STARSHIP_PIPE_STATUS[*]}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
 RPROMPT='$('/home/ktoks/.cargo/bin/starship' prompt --right --terminal-width="$COLUMNS" --keymap="${KEYMAP:-}" --status="$STARSHIP_CMD_STATUS" --pipestatus="${STARSHIP_PIPE_STATUS[*]}" --cmd-duration="${STARSHIP_DURATION:-}" --jobs="$STARSHIP_JOBS_COUNT")'
 PROMPT2="$(/home/ktoks/.cargo/bin/starship prompt --continuation)"
-export OPENSSL_LIB_DIR=/usr/local/lib64/
+# export OPENSSL_LIB_DIR=/usr/local/lib/
+export PATH="/usr/local/cuda-12.4/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-12.4/lib64:${LD_LIBRARY_PATH}"
