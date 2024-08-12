@@ -24,12 +24,7 @@ function M.config()
   [[                                                                       ]],
   [[                                                                       ]],
   }
-<<<<<<< HEAD
-    dashboard.section.buttons.val = {
-    -- dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
-=======
   dashboard.section.buttons.val = {
->>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
     dashboard.button("e", " " .. " New file", ":ene <BAR> startinsert <CR>"),
     -- dashboard.button("p", " " .. " Find project", ":lua require('telescope').extensions.projects.projects()<CR>"),
     -- dashboard.button("r", "󰄉 " .. " Recent files", ":Telescope oldfiles <CR>"),
@@ -38,11 +33,7 @@ function M.config()
     dashboard.button("q", " " .. " Quit", ":qa<CR>"),
   }
   local function footer()
-<<<<<<< HEAD
-    return "Welcome, ktoks"
-=======
     return "Learn by doing\nMaster by teaching"
->>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
   end
 
   dashboard.section.footer.val = footer()

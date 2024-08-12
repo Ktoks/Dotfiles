@@ -1,11 +1,5 @@
--- python
-vim.g.python3_host_prog = "C:\\Users\\rr377574\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
--- netrw stuffs
-vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3
 
 vim.opt.backup = false                          -- creates a backup file
-vim.opt.background = "dark"
 vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
 vim.opt.cmdheight = 1                           -- more space in the neovim command line for displaying messages
 vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
@@ -13,7 +7,7 @@ vim.opt.conceallevel = 0                        -- so that `` is visible in mark
 vim.opt.fileencoding = "utf-8"                  -- the encoding written to a file
 vim.opt.hlsearch = true                         -- highlight all matches on previous search pattern
 vim.opt.ignorecase = true                       -- ignore case in search patterns
--- vim.opt.mouse = "a"                             -- allow the mouse to be used in neovim
+vim.opt.mouse = "a"                             -- allow the mouse to be used in neovim
 vim.opt.pumheight = 10                          -- pop up menu height
 vim.opt.showmode = false                        -- we don't need to see things like -- INSERT -- anymore
 vim.opt.showtabline = 0                         -- always show tabs
@@ -33,11 +27,7 @@ vim.opt.shiftwidth = 2                          -- the number of spaces inserted
 vim.opt.tabstop = 2                             -- insert 2 spaces for a tab
 vim.opt.cursorline = true                       -- highlight the current line
 vim.opt.number = true                           -- set numbered lines
-<<<<<<< HEAD
-vim.opt.relativenumber = true                   -- set relative numbers from position
-=======
 vim.opt.relativenumber = true
->>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
 vim.opt.laststatus = 3                          -- only the last window will always have a status line
 vim.opt.showcmd = false                         -- hide (partial) command in the last line of the screen (for performance)
 vim.opt.ruler = false                           -- hide the line and column number of the cursor position
@@ -52,35 +42,6 @@ vim.opt.whichwrap:append "<,>,[,],h,l"          -- keys allowed to move to the p
 vim.opt.iskeyword:append "-"                    -- treats words with `-` as single words
 vim.opt.formatoptions:remove { "c", "r", "o" }  -- This is a sequence of letters which describes how automatic formatting is to be done
 vim.opt.linebreak = true
-<<<<<<< HEAD
-
-
-
--- if vim.g.neovide then
---   vim.o.guifont = "monospace:h18"               -- the font used in graphical neovim applications
---   vim.g.neovide_scroll_animation_length = 0.1
---   vim.g.neovide_scroll_animation_far_lines = 0.1
---
---   vim.g.neovide_cursor_animate_in_insert_mode = false
---   vim.g.neovide_cursor_animate_command_line = false
---
---   vim.g.neovide_hide_mouse_when_typing = true
---
---   vim.g.neovide_refresh_rate = 60
---   vim.g.neovide_refresh_rate_idle = 5
---
---   vim.g.neovide_scale_factor = 1.0
---
---   -- vim.g.neovide_fullscreen = false
---
---   -- vim.g.transparency = 1.0
---   vim.g.neovide_opacity = 1.0
---
---
---   vim.g.neovide_theme = "dark"
---
--- end
-=======
 vim.opt.fileformat = "unix"
 
 vim.opt.guifont = "FiraCode Nerd Font Mono:h14"               -- the font used in graphical neovim applications
@@ -100,4 +61,3 @@ if vim.g.neovide then
 
   vim.g.neovide_remember_window_size = true
 end
->>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4

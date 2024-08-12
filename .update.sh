@@ -24,6 +24,22 @@ if [ "$update_bins" = "1" ]; then
   exit 0;
 fi
 
+cd ~/code/wezterm/
+UPSTREAM=${1:-'@{u}'}
+LOCAL=$(git rev-parse @)
+git fetch
+REMOTE=$(git rev-parse "$UPSTREAM")
+
+if [ "$LOCAL" = "$REMOTE" ]; then
+  printf "wezterm up-to-date\n\n"
+else
+  echo "I'm about to update wezterm - stop me if you aren't ready"
+  sleep 5
+  git pull
+  RUSTFLAGS="-C target-cpu=native" cargo build --release
+  cargo clean
+fi
+
 cd ~/Code/bat/
 UPSTREAM=${1:-'@{u}'}
 LOCAL=$(git rev-parse @)

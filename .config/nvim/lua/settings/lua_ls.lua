@@ -1,8 +1,6 @@
 return {
   settings = {
     Lua = {
-<<<<<<< HEAD
-=======
       inlayHints = {
         includeInlayEnumMemberValueHints = true,
         includeInlayFunctionLikeReturnTypeHints = true,
@@ -11,7 +9,6 @@ return {
         includeInlayPropertyDeclarationTypeHints = true,
         includeInlayVariableTypeHints = true,
       },
->>>>>>> 0d0cf315624b7ef3db82bd0494eac8a73101e4d4
       format = {
         enable = false,
       },
