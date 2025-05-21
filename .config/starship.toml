@@ -1,0 +1,126 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$username\
+$hostname\
+$directory\
+$cmd_duration\
+$memory_usage\
+$status\
+$shell\
+$line_break\
+$character"""
+
+
+# Inserts a blank line between shell prompts
+add_newline = true
+scan_timeout = 10
+
+palette = "foo"
+
+[palettes.foo]
+blue = "#739588"
+green = "#79740e"
+yellow = "#ca8d0f"
+red = "#db2914"
+white = "#726364"
+cyan = "#739588"
+
+[username]
+format = '[$user](blue)[@](green)'
+# format = '[$user](bold blue)[@](bold green)'
+
+[hostname]
+format = '[$hostname](yellow) '
+# format = '[$hostname](bold yellow) '
+
+[directory]
+truncate_to_repo = false
+truncation_length = 8
+truncation_symbol = '.../'
+# style = 'red'
+style = 'bold red'
+format = '[$path]($style) [$read_only]($read_only_style)'
+
+[cmd_duration]
+min_time = 500
+# format = '🚀 [$duration](cyan)'
+format = '🚀[$duration](bold yellow) '
+
+[memory_usage]
+threshold = 10
+style = "bold white"
+format = '[RAM: ](bold cyan)[${ram_pct}](bold yellow)[ Swap: ](bold cyan)[${swap_pct}](bold yellow) '
+disabled = false
+
+
+[line_break]
+
+[status]
+
+
+
+[os]
+disabled = false
+symbols.CentOS = "🐧"
+symbols.RedHatEnterprise = "🐧"
+
+[shell]
+disabled = false
+bash_indicator = "🐚"
+nu_indicator = "✨"
+
+# Replace the '>' symbol in the prompt with '➜'
+[character] # The name of the module we are configuring is 'character'
+# success_symbol = '[➜](green)' # The 'success_symbol' segment is being set to 'âzo' with the color 'bold green'
+success_symbol = '[->](bold green)' # The 'success_symbol' segment is being set to 'âzo' with the color 'bold green'
+# error_symbol = '[✗](red) '
+error_symbol = '[XX](bold red)'
+
+
+
+# This is the default symbols table.
+# [os.symbols]
+# Alpaquita = "🔔 "
+# Alpine = "🏔️ "
+# Amazon = "🙂 "
+# Android = "🤖 "
+# Arch = "🎗️ "
+# Artix = "🎗️ "
+# CentOS = "💠 "
+# Debian = "🌀 "
+# DragonFly = "🐉 "
+# Emscripten = "🔗 "
+# EndeavourOS = "🚀 "
+# Fedora = "🎩 "
+# FreeBSD = "😈 "
+# Garuda = "🦅 "
+# Gentoo = "🗜️ "
+# HardenedBSD = "🛡️ "
+# Illumos = "🐦 "
+# Linux = "🐧 "
+# Mabox = "📦 "
+# Macos = "🍎 "
+# Manjaro = "🥭 "
+# Mariner = "🌊 "
+# MidnightBSD = "🌘 "
+# Mint = "🌿 "
+# NetBSD = "🚩 "
+# NixOS = "❄️ "
+# OpenBSD = "🐡 "
+# OpenCloudOS = "☁️ "
+# openEuler = "🦉 "
+# openSUSE = "🦎 "
+# OracleLinux = "🦴 "
+# Pop = "🍭 "
+# Raspbian = "🍓 "
+# Redhat = "🎩 "
+# RedHatEnterprise = "🎩 "
+# Redox = "🧪 "
+# Solus = "⛵ "
+# SUSE = "🦎 "
+# Ubuntu = "🎯 "
+# Unknown = "❓ "
+# Windows = "🪟 "
+

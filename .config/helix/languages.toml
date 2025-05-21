@@ -1,9 +1,9 @@
-use-grammars = { only = ["bash", "comment", "json", "markdown", "perl", "python", "rust", "toml", "xml"]}
+use-grammars = { only = ["awk", "bash", "comment", "go", "json", "log", "latex", "lua", "make", "markdown", "nu", "perl", "pkgbuild", "python", "regex", "rust", "sql", "toml", "xml", "yaml"]}
+# use-grammars = { only = []}
 
 [[language]]
 name = "rust"
 auto-format = true
-comment-token = "//"
 indent = { tab-width = 2, unit = " " }
 file-types = ["rs", "rlib"]
 
@@ -30,19 +30,9 @@ runInTerminal = true
 [[language]]
 name = "python"
 auto-format = true
-comment-token = "#"
 indent = { tab-width = 2, unit = " " }
 
 [[language]]
 name = "bash"
 auto-format = true
-comment-token = "#"
 indent = {tab-width = 2, unit = " " }
-
-[[language]]
-name = "toml"
-#formatter = { command = "taplo", args = ["fmt", "-"] }
-
-[[language]]
-name = "nu"
-#formatter = { command = "taplo", args = ["fmt", "-"] }

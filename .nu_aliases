@@ -1,0 +1,6 @@
+
+# alias ll = eza -la
+# alias lls = eza -lat modified
+
+alias ll = ls -la 
+def lls [] { ls -la | sort-by modified };
