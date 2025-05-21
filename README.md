@@ -1,6 +1,6 @@
 # Dotfiles
 
-## This is my Pop!_OS + Alacritty + TMUX + Neovim configuration.
+## This is my Pop!_OS configuration.
 
 ## Use the following command to test out my configuration:
 
