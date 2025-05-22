@@ -1,4 +1,4 @@
-theme = "gruvbox_dark_hard"
+theme = "gruvbox_material_dark_hard"
 
 [editor]
 line-number = "relative"
@@ -9,6 +9,7 @@ shell = ["sh", "-c"]
 auto-completion = true
 completion-trigger-len = 1
 end-of-line-diagnostics = "hint"
+color-modes = true
 
 [editor.inline-diagnostics]
 cursor-line = "hint"
@@ -21,7 +22,7 @@ insert = "bar"
 hidden = false
 
 [editor.gutters]
-layout = ["diff", "diagnostics", "line-numbers", "spacer"]
+layout = ["diff", "diagnostics", "line-numbers", "spacer", "spacer"]
 
 [editor.gutters.line-numbers]
 min-width = 3
@@ -40,8 +41,9 @@ smart-case = true
 wrap-around = true
 
 [editor.statusline]
-left = ["mode", "spinner", "file-name"]
-right = ["position", "position-percentage", "diagnostics", "register", "file-encoding"]
+left = ["mode", "spinner", "file-name", "file-encoding", "position-percentage"]
+center = ["selections"]
+right = ["position",  "spacer", "diagnostics", "register"]
 mode.normal = "NORMAL"
 mode.select = "SELECT"
 mode.insert = "INSERT"
@@ -71,8 +73,5 @@ C-l = "select_next_sibling"
 
 
 [keys.insert.j]
-k = ["collapse_selection", "normal_mode"]
-
-
-
+k = ["normal_mode"]
 
