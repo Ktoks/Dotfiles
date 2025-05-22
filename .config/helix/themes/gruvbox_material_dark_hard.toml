@@ -56,14 +56,15 @@
 "ui.selection" = { bg = "bg3" }
 "ui.linenr" = "grey0"
 "ui.linenr.selected" = "fg0"
-"ui.statusline" = { fg = "fg0", bg = "bg3" }
-"ui.statusline.inactive" = { fg = "grey0", bg = "bg1" }
-"ui.statusline.normal" = { fg = "bg0", bg = "fg0", modifiers = ["bold"] }
-"ui.statusline.insert" = { fg = "bg0", bg = "yellow", modifiers = ["bold"] }
+"ui.statusline" = { fg = "fg0", bg = "bg1" }
+# "ui.statusline.selections" = { fg = "red", bg = "bg0" } # could eventually be a feature for customizing based on number of selections
+"ui.statusline.inactive" = { fg = "grey0", bg = "bg0" }
+"ui.statusline.normal" = { fg = "fg0", bg = "bg0", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "fg0", bg = "bg1", modifiers = ["bold"] }
 "ui.statusline.select" = { fg = "bg0", bg = "blue", modifiers = ["bold"] }
-"ui.bufferline" = { fg = "grey0", bg = "bg1" }
-"ui.bufferline.active" = { fg = "fg0", bg = "bg3", modifiers = ["bold"] }
-"ui.popup" = { fg = "grey2", bg = "bg2" }
+"ui.bufferline" = { fg = "grey0", bg = "bg0" }
+"ui.bufferline.active" = { fg = "fg0", bg = "bg2", modifiers = ["bold"] }
+"ui.popup" = { fg = "grey2", bg = "bg1" }
 "ui.window" = { fg = "grey0", bg = "bg0" }
 "ui.help" = { fg = "fg0", bg = "bg2" }
 "ui.text" = "fg0"
@@ -86,7 +87,7 @@
 
 [palette]
 
-bg0 = "#1d2021"
+bg0 = "#000000"
 bg1 = "#282828"
 bg2 = "#282828"
 bg3 = "#3c3836"
@@ -117,6 +118,6 @@ bg_red = "#ea6962"
 bg_green = "#a9b665"
 bg_yellow = "#d8a657"
 
-grey0 = "#7c6f64"
-grey1 = "#928374"
-grey2 = "#a89984"
+grey0 = "#5c4f44"
+grey1 = "#726354"
+grey2 = "#887964"
