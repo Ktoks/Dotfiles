@@ -41,9 +41,6 @@ keymap("n", "<leader>c", "<cmd>Bdelete<CR>", opts)
 -- Better paste
 keymap("v", "p", "P", opts)
 
--- Inlay Hints
-keymap("n", "<leader>h", "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", opts)
-
 -- Insert --
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)
@@ -57,35 +54,3 @@ keymap("v", ">", ">gv", opts)
 
 -- Toggle NetRW
 -- keymap("n", "<leader>e", ":Lexplore<CR>", opts)
-
--- Toggle Oil
-keymap("n", "-", "<CMD>Oil<CR>", opts)
-
--- Toggle Terminal
-keymap("n", "<leader>t", ":Toggleterm<CR>")
-
--- -- Telescope
--- keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
--- keymap("n", "<leader>ft", ":Telescope live_grep<CR>", opts)
--- keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
--- keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
-
--- Git
--- keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
-
--- Lsp
-keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
-
--- -- Snippets
--- Source CMP and Snippets
-keymap("n", "<leader><leader>s", "<cmd>source ~/AppData/Local/nvim/lua/user/cmp.lua<CR>")
--- keymap("n", "<leader><leader>x", "<cmd>source ~/AppData/Local/nvim/powerstream.json<CR>")
--- <C-k> = select previous item
--- <C-j> = select next item
--- <C-b> = completions - scroll docs "i", "c" }),
--- <C-f> = completions - scroll docs revers "i", "c" }),
--- <C-Space> = completions - complete
--- <C-e> = completions leader {
-  -- <CR> = confirm
-  -- <Tab> = mapping
--- }
