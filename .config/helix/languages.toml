@@ -1,5 +1,26 @@
-use-grammars = { only = ["awk", "bash", "comment", "go", "json", "log", "latex", "lua", "make", "markdown", "nu", "perl", "pkgbuild", "python", "regex", "rust", "sql", "toml", "xml", "yaml"]}
+use-grammars = { only = ["awk", "bash", "comment", "git-attributes", "git-commit", "git-config", "git-ignore", "git-rebase", "go", "json", "log", "latex", "lua", "make", "markdown", "nu", "perl", "pkgbuild", "python", "regex", "rust", "sql", "toml", "xml", "yaml"]}
 # use-grammars = { only = []}
+
+[[language]]
+name = "bash"
+auto-format = true
+injection-regex = "(shell|bash|zsh|sh)"
+file-types = ["sh", "bash", "zsh", ".bash_login", ".bash_logout", ".bash_profile", ".bashrc", ".profile", ".zshenv", ".zlogin", ".zlogout", ".zprofile", ".zshrc", "APKBUILD", "PKGBUILD", "eclass", "ebuild", "bazelrc", ".bash_aliases"]
+shebangs = ["sh", "bash"]
+indent = {tab-width = 2, unit = " " }
+
+[[language]]
+name = "nu"
+
+[[language]]
+name = "perl"
+injection-regex = "perl"
+formatter = { command = "perltidy", args = ["-b", "-l=0", "-i=2"] }
+
+[[language]]
+name = "python"
+auto-format = true
+indent = { tab-width = 4, unit = " " }
 
 [[language]]
 name = "rust"
@@ -28,19 +49,12 @@ program = "{0}"
 runInTerminal = true
 
 [[language]]
-name = "python"
-auto-format = true
-indent = { tab-width = 2, unit = " " }
-
-[[language]]
-name = "bash"
-auto-format = true
-indent = {tab-width = 2, unit = " " }
-
-[[language]]
 name = "toml"
-#formatter = { command = "taplo", args = ["fmt", "-"] }
+
+[language-server.toml]
+command = "taplo"
+args = ["lsp", "stdio"]
 
 [[language]]
-name = "nu"
-#formatter = { command = "taplo", args = ["fmt", "-"] }
+name = "xml"
+injection-regex = "perl"
