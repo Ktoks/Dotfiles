@@ -1,4 +1,4 @@
-use-grammars = { only = ["awk", "bash", "comment", "git-attributes", "git-commit", "git-config", "git-ignore", "git-rebase", "go", "json", "log", "latex", "lua", "make", "markdown", "nu", "perl", "pkgbuild", "python", "regex", "rust", "sql", "toml", "xml", "yaml"]}
+use-grammars = { only = ["awk", "bash", "comment", "git-attributes", "git-commit", "git-config", "git-ignore", "git-rebase", "go", "json", "log", "latex", "lua", "make", "markdown", "nu", "perl", "pkgbuild", "python", "regex", "rust", "scheme", "sql", "toml", "xml", "yaml"]}
 # use-grammars = { only = []}
 
 [[language]]
@@ -47,6 +47,15 @@ name = "binary"
 [language.debugger.templates.args]
 program = "{0}"
 runInTerminal = true
+
+[[language]]
+name = "scheme"
+scope = "source.scheme"
+injection-regex = "scheme"
+file-types = ["ss", "rkt", "scm", "lsp"] # "scm",
+roots = []
+comment-token = ";"
+indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "toml"
