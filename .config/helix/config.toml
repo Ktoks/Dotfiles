@@ -10,6 +10,8 @@ auto-completion = true
 completion-trigger-len = 1
 end-of-line-diagnostics = "hint"
 color-modes = true
+# encoding-always-show = true
+undercurl = true
 
 [editor.inline-diagnostics]
 cursor-line = "hint"
@@ -20,6 +22,8 @@ insert = "bar"
 
 [editor.file-picker]
 hidden = false
+# max-depth = 4
+# do-sort = false
 
 [editor.gutters]
 layout = ["diff", "diagnostics", "line-numbers", "spacer", "spacer"]
@@ -41,9 +45,9 @@ smart-case = true
 wrap-around = true
 
 [editor.statusline]
-left = ["mode", "spinner", "file-name", "file-encoding", "position-percentage"]
+left = ["mode", "spinner", "file-name", "position-percentage"]
 center = ["selections"]
-right = ["position",  "spacer", "diagnostics", "register"]
+right = ["position", "spacer", "diagnostics", "register", "file-encoding"]
 mode.normal = "NORMAL"
 mode.select = "SELECT"
 mode.insert = "INSERT"
@@ -55,6 +59,10 @@ l = "code_action"
 o = ":config-open"
 r = ":config-reload"
 c = ":buffer-close"
+C-h = "swap_view_left"
+C-l = "swap_view_right"
+C-j = "swap_view_down"
+C-k = "swap_view_up"
 
 [keys.normal]
 D = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection"]
@@ -70,6 +78,10 @@ C-h = "select_prev_sibling"
 C-j = "shrink_selection"
 C-k = "expand_selection"
 C-l = "select_next_sibling"
+
+[keys.select]
+H = "goto_previous_buffer"
+L = "goto_next_buffer"
 
 
 [keys.insert.j]

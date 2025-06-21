@@ -71,23 +71,6 @@
   (helix.static.move_visual_line_down)
   (helix.static.move_visual_line_up))
 
-(require-builtin steel/random as rand::)
-
-;; Picking one from the possible themes is _fine_
-; (define possible-themes '("tokyonight_storm" "catppuccin_macchiato" "kanagawa"))
-
-(define (select-random lst)
-  (let ([index (rand::rng->gen-range 0 (length lst))]) (list-ref lst index)))
-
-(define (randomly-pick-theme options)
-  ;; Randomly select the theme from the possible themes list
-  (helix.theme (list (select-random options))))
-
-(provide change-theme-on-mode-change-hook)
-
-(define (change-theme-on-mode-change-hook _event)
-  (randomly-pick-theme (cx->themes)))
-
 (provide move-window-left)
 (define (move-window-left)
   (helix.static.move-window-far-left))
