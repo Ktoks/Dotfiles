@@ -5,7 +5,7 @@ export PATH="$PATH:$HOME/.cargo/bin:/usr/local/go/bin:$GOPATH/bin:$HOME/go/bin/:
 
 [ -f "/etc/bash.bashrc" ] && source "/etc/bash.bashrc"
 [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
-[ -d $HOME/.config/carapace ]&& source <(carapace _carapace)
+[ -f "$(which carapace)"  ] && source <(carapace _carapace)
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 [ -f "$HOME/.functions" ] && source "$HOME/.functions"
 [ -f "$HOME/.inputrc" ] && source "$HOME/.inputrc"
