@@ -13,7 +13,7 @@ export PATH="$PATH:$HOME/.cargo/bin:/usr/local/go/bin:$GOPATH/bin:$HOME/go/bin/:
 set -o vi
 
 shopt -s histappend
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoreboth:erasedups
 HISTSIZE=
 HISTFILESIZE=
 
@@ -28,7 +28,8 @@ export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 eval "$(starship init bash)"
-eval "$(fzf --bash)"
+# eval "$(fzf --bash)"
+eval "$(tv init bash)"
 eval "$(zellij setup --generate-completion bash)"
 
 source "$HOME/.cargo/env"
