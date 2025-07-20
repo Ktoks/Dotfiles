@@ -10,9 +10,7 @@ auto-completion = true
 completion-trigger-len = 1
 end-of-line-diagnostics = "hint"
 color-modes = true
-# encoding-always-show = true
 undercurl = true
-# popup-border = "none"
 
 [editor.inline-diagnostics]
 cursor-line = "hint"
@@ -24,7 +22,6 @@ insert = "bar"
 [editor.file-picker]
 hidden = false
 # max-depth = 4
-# do-sort = false
 
 [editor.gutters]
 layout = ["diff", "diagnostics", "line-numbers", "spacer", "spacer"]
@@ -49,9 +46,6 @@ wrap-around = true
 left = ["mode", "spinner", "file-name", "position-percentage"]
 center = ["selections"]
 right = ["position", "spacer", "diagnostics", "register", "file-encoding"]
-# mode.normal = "NORMAL"
-# mode.select = "SELECT"
-# mode.insert = "INSERT"
 
 [keys.normal.g]
 l = "code_action"
@@ -66,8 +60,6 @@ C-j = "swap_view_down"
 C-k = "swap_view_up"
 
 [keys.normal]
-D = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection"]
-# "%" = "match_brackets"
 C-y = [
   ':sh rm -f /tmp/unique-file',
   ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
@@ -75,10 +67,7 @@ C-y = [
   ':open %sh{cat /tmp/unique-file}',
   ':redraw',
 ]
-
-"ret" = ["goto_word"]
     
-# buffer navigation
 H = "goto_previous_buffer"
 L = "goto_next_buffer"
 

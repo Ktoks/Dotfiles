@@ -1,3 +1,8 @@
 alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias ll="eza -la"
-alias lls="eza -las modified"
+alias src="source ~/.bashrc"
+alias ls="ls --color -A"
+alias sl="ls"
+alias ll="ls -ho"
+alias lls="ll -tr"
+alias lsl="lls "
+alias lsls="lls "
