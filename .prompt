@@ -3,26 +3,25 @@
 export CMD_START_TIME=0
 
 preexec_hook() {
- [ "$BASH_COMMAND" != "$PROMPT_COMMAND" ] && CMD_START_TIME=$SECONDS
+    [ "$BASH_COMMAND" != "$PROMPT_COMMAND" ] && CMD_START_TIME=$SECONDS
 }
 
 precmd_hook() {
- local elapsed_seconds=$((SECONDS - CMD_START_TIME))
-
- PS1="\[\e[38;2;120;149;136m\]\u\[\e[38;2;121;116;14m\]@\[\e[38;2;202;141;15m\]\H \[\e[38;2;219;41;20m\]\w"
- if [[ $elapsed_seconds -gt 360 ]]; then
-   elapsed_minutes=$((elapsed_seconds / 60))
-   elapsed_hours=$((elapsed_minutes / 60))
-   remaining_seconds=$((elapsed_seconds % 60))
-   remaining_minutes=$((elapsed_minutes % 60))
-   PS1="${PS1} 🚀\[\e[38;2;202;141;15m\]${elapsed_hours}h ${remaining_minutes}m ${remaining_seconds}s"
-  elif [[ $elapsed_seconds -gt 60 ]]; then
-   remaining_seconds=$((elapsed_seconds % 60))
-   PS1="${PS1} 🚀\[\e[38;2;202;141;15m\]$((elapsed_seconds / 60))m ${remaining_seconds}s"
-  elif [[ $elapsed_seconds -gt 5 ]]; then
-   PS1="${PS1} 🚀\[\e[38;2;202;141;15m\]${elapsed_seconds}s"
- fi
- PS1="${PS1}\n\[\e[38;2;115;149;136m\]> \[\[\e[0m\]"
+    local elapsed_seconds=$((SECONDS - CMD_START_TIME))
+    PS1="\[\e[38;2;120;149;136m\]\u\[\e[38;2;121;116;14m\]@\[\e[38;2;202;141;15m\]\H \[\e[38;2;219;41;20m\]\w"
+    if [[ $elapsed_seconds -gt 360 ]]; then
+        elapsed_minutes=$((elapsed_seconds / 60))
+        elapsed_hours=$((elapsed_seconds / 360))
+        remaining_seconds=$((elapsed_seconds % 60))
+        remaining_minutes=$((elapsed_minutes % 60))
+        PS1="${PS1} 🚀\[\e[38;2;202;141;15m\]${elapsed_hours}h ${remaining_minutes}m ${remaining_seconds}s"
+    elif [[ $elapsed_seconds -gt 60 ]]; then
+        remaining_seconds=$((elapsed_seconds % 60))
+        PS1="${PS1} 🚀\[\e[38;2;202;141;15m\]$((elapsed_seconds / 60))m ${remaining_seconds}s"
+    elif [[ $elapsed_seconds -gt 5 ]]; then
+        PS1="${PS1} 🚀\[\e[38;2;202;141;15m\]${elapsed_seconds}s"
+    fi
+    PS1="${PS1}\n\[\e[38;2;115;149;136m\]> \[\[\e[0m\]"
 }
 
 trap 'preexec_hook' DEBUG
