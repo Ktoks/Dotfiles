@@ -28,4 +28,4 @@ precmd_hook() {
 
 trap 'preexec_hook' DEBUG
 
-PROMPT_COMMAND="precmd_hook"
+PROMPT_COMMAND="precmd_hook; history -a; history -c; history -r"
