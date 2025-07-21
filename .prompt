@@ -21,7 +21,7 @@ precmd_hook() {
     elif [[ $elapsed_seconds -gt 5 ]]; then
         PS1="${PS1} 🚀\[\e[38;2;202;141;15m\]${elapsed_seconds}s"
     fi
-    PS1="${PS1}\n\[\e[38;2;115;149;136m\]> \[\[\e[0m\]"
+    PS1="${PS1}\n\[\e[38;2;121;116;14m\]-> \[\[\e[0m\]"
 }
 
 trap 'preexec_hook' DEBUG
