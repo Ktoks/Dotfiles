@@ -1,13 +1,13 @@
-use-grammars = { only = ["awk", "bash", "comment", "git-attributes", "git-commit", "git-config", "git-ignore", "git-rebase", "go", "json", "log", "latex", "lua", "make", "markdown", "nu", "perl", "pkgbuild", "python", "regex", "rust", "sql", "toml", "xml", "yaml"]}
+use-grammars = { only = ["awk", "bash", "comment", "git-attributes", "git-commit", "git-config", "git-ignore", "git-rebase", "go", "json", "log", "latex", "lua", "make", "markdown", "nu", "perl", "pkgbuild", "python", "regex", "rust", "scheme", "sql", "toml", "xml", "yaml"]}
 # use-grammars = { only = []}
 
 [[language]]
 name = "bash"
 auto-format = true
 injection-regex = "(shell|bash|zsh|sh)"
-file-types = ["sh", "bash", "zsh", ".bash_login", ".bash_logout", ".bash_profile", ".bashrc", ".profile", ".zshenv", ".zlogin", ".zlogout", ".zprofile", ".zshrc", "APKBUILD", "PKGBUILD", "eclass", "ebuild", "bazelrc", ".bash_aliases"]
+file-types = ["sh", "bash", "zsh", ".login", ".bash_login", ".bash_logout", ".logout", ".bash_profile", ".bashrc", ".prompt", ".profile", ".zshenv", ".zlogin", ".zlogout", ".zprofile", ".zshrc", "APKBUILD", "PKGBUILD", "eclass", "ebuild", "bazelrc", ".bash_aliases", ".aliases"]
 shebangs = ["sh", "bash"]
-indent = {tab-width = 2, unit = " " }
+indent = {tab-width = 4, unit = " " }
 
 [[language]]
 name = "nu"
@@ -47,6 +47,15 @@ name = "binary"
 [language.debugger.templates.args]
 program = "{0}"
 runInTerminal = true
+
+[[language]]
+name = "scheme"
+scope = "source.scheme"
+injection-regex = "scheme"
+file-types = ["ss", "rkt", "scm", "lsp"] # "scm",
+roots = []
+comment-token = ";"
+indent = { tab-width = 2, unit = "  " }
 
 [[language]]
 name = "toml"
