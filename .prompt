@@ -7,8 +7,8 @@ preexec_hook() {
 }
 
 precmd_hook() {
-    [ $? -eq 0 ] && prompt_indicator="\n\[\e[38;2;121;161;14m\]->" || prompt_indicator="\n\[\e[38;2;219;41;20m\]xx"
-
+    [ $? = 0 ] && prompt_indicator="\n\[\e[38;2;121;161;14m\]->" || prompt_indicator="\n\[\e[38;2;219;41;20m\]xx"
+    # [ $? = 0 ] && prompt_indicator="\n\[\e[38;2;202;141;15m\]->" || prompt_indicator="\n\[\e[38;2;219;41;20m\]xx"
     local elapsed_seconds=$((SECONDS - CMD_START_TIME))
     PS1="\[\e[38;2;120;149;136m\]\u\[\e[38;2;121;116;14m\]@\[\e[38;2;202;141;15m\]\H \[\e[38;2;219;41;20m\]\w"
     if [[ $elapsed_seconds -gt 360 ]]; then

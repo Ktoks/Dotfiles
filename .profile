@@ -3,14 +3,6 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-source "$HOME/.cargo/env"
+[ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
 
-if [ -f "$HOME/.bashrc" ]; then
-  source "$HOME/.bashrc"
-fi
-
-
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
+# [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
