@@ -5,4 +5,4 @@
 
 [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
 
-# [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
