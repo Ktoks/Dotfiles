@@ -2,6 +2,13 @@
 
 export CMD_START_TIME=0
 
+__handle_cmd_error() {
+    exit_code="$?"
+    printf "Error: '$BASH_COMMAND' command was terminated with error code: $exit_code\n"
+}
+
+trap __handle_cmd_error ERR
+
 preexec_hook() {
     [ "$BASH_COMMAND" != "$PROMPT_COMMAND" ] && CMD_START_TIME=$SECONDS
 }
