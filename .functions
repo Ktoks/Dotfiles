@@ -3,70 +3,81 @@ function rgf {
     rg "$1" $(fd $2) "${@:3}"
 }
 
+#!/usr/bin/bash
+
+
 rnr() {
-    rnr_help() {
-        printf "USAGE:\n"
-        printf "  rnr \e[0m[-{b|c|d #|f|h|n|r}] \e[31m<SUBSTRING TO REPLACE> \e[32m<REPLACEMENT STRING> \e[0m<RENAME FILE(s)>\n\n"
-        printf "OPTIONS:\n"
-        printf "  -b, --backup:            (non-interactive)     Change and backup overwrites\n"
-        printf "  -c, --change:            (interactive)         Make change\n"
-        printf "  -f, --force:             (non-interactive)     Change and force overwrites\n"
-        printf "  -n, --nooverwrite:       (non-interactive)     Change but don't overwrite\n"
-        printf "  -r, --recurse:           (modifier req. fd)    Change recursively\n"
-        printf "  -d, --depth #:           (modifier req. opt)   Default:1 requires a numeric value\n"
-        printf "  -h, --help:                                    Display this message\n\n"
-        printf "POSITIONAL ARGUMENTS:\n"
-        printf "\e[31m  <SUBSTRING TO REPLACE>    \e[0mA subset of <RENAME FILE(s)>.\n"
-        printf "  \e[32m<REPLACEMENT STRING>      \e[0mString to replace <SUBSTRING TO REPLACE> in <RENAME FILE(s)>.\n"
-        printf "  <RENAME FILE(s)>          \e[0mFile(s) to rename.\n\n"
-        printf "EXAMPLES:\n"
-        printf "  Peek changes:  rnr \e[31mfoo \e[32mbar \e[0mfilename(s)\e[31mfoo     \e[0m-> printf \e[0mfilename\e[31mfoo \e[0mfilename\e[32mbar\e[0m\n"
-        printf "  Make changes:  rnr -c \e[31mfoo \e[32mbar \e[0mfilename(s)\e[31mfoo  \e[0m-> mv \e[0mfilename\e[31mfoo \e[0mfilename\e[32mbar\e[0m\n"
-        printf "  Recursively:   rnr -rd 2 \e[31mfoo \e[32mbar \e[0msomedir(s)   \e[0m-> mv \e[0msome(s)/file\e[31mfoo \e[0msome(s)/file\e[32mbar\e[0m\n\n"
+    show_help() {
+        builtin echo -e "USAGE:"
+        builtin echo -e "  rnr \e[0m[-{b|c|d #|f|h|n|r}] \e[31m<SUBSTRING TO REPLACE> \e[32m<REPLACEMENT STRING> \e[0m<RENAME FILE(s)>"
+        builtin echo ""
+        builtin echo -e "OPTIONS:"
+        builtin echo -e "  -b, --backup:            (non-interactive)     Change and backup overwrites"
+        builtin echo -e "  -c, --change:            (interactive)         Make change"
+        builtin echo -e "  -f, --force:             (non-interactive)     Change and force overwrites"
+        builtin echo -e "  -n, --nooverwrite:       (non-interactive)     Change but don't overwrite"
+        builtin echo -e "  -r, --recurse:           (modifier)            Change recursively"
+        builtin echo -e "  -d, --depth #:           (modifier req. opt)   Default:1 requires a numeric value"
+        builtin echo -e "  -h, --help:                                    Display this message"
+        builtin echo ""
+        builtin echo -e "POSITIONAL ARGUMENTS:"
+        builtin echo -e "\e[31m  <SUBSTRING TO REPLACE>    \e[0mA subset of <RENAME FILE(s)>."
+        builtin echo -e "  \e[32m<REPLACEMENT STRING>      \e[0mString to replace <SUBSTRING TO REPLACE> in <RENAME FILE(s)>."
+        builtin echo -e "  <RENAME FILE(s)>          \e[0mFile(s) to rename."
+        builtin echo ""
+        builtin echo "EXAMPLES:"
+        builtin echo -e "  Peek changes:  rnr \e[31mfoo \e[32mbar \e[0mfilename(s)\e[31mfoo     \e[0m-> echo \e[0mfilename\e[31mfoo \e[0mfilename\e[32mbar\e[0m"
+        builtin echo -e "  Make changes:  rnr -c \e[31mfoo \e[32mbar \e[0mfilename(s)\e[31mfoo  \e[0m-> mv \e[0mfilename\e[31mfoo \e[0mfilename\e[32mbar\e[0m"
+        builtin echo -e "  Recursively:   rnr -rd 2 \e[31mfoo \e[32mbar \e[0msomedir(s)   \e[0m-> mv \e[0msome(s)/file\e[31mfoo \e[0msome(s)/file\e[32mbar\e[0m"
+        builtin echo ""
     }
-    local temp
+
+
+    builtin local temp
     if ! temp=$(getopt -o "bcfhnrd:" --long "backup,change,depth,force,nooverwrite,recurse,help" -- "$@"); then
-        printf "Terminating..." >&2 && exit 1
+        builtin echo "Terminating..." >&2 && exit 1
     fi
-    eval set -- "$temp"
+    builtin eval set -- "$temp"
     movesetting=0;
     recurse=0;
     depth="1";
     while true; do
         case "$1" in
-            -b | --backup ) movesetting=1; shift ;;
-            -c | --change ) movesetting=2; shift ;;
-            -f | --force ) movesetting=3; shift ;;
-            -n | --nooverwrite ) movesetting=4; shift ;;
-            -r | --recurse ) recurse=1; shift;;
+            -b | --backup ) movesetting=1; builtin shift ;;
+            -c | --change ) movesetting=2; builtin shift ;;
+            -f | --force ) movesetting=3; builtin shift ;;
+            -n | --nooverwrite ) movesetting=4; builtin shift ;;
+            -r | --recurse ) recurse=1; builtin shift;;
             -d | --depth )
             [[ $recurse = 0 ]] \
-                && printf "Error: Option -r required for option -d." >&2 \
-                && rnr_help && exit
-            shift;
+                && builtin echo "Error: Option -r required for option -d." >&2 && exit
+            builtin shift;
             [[ -z "$1" ]] \
-                && printf "Error: Option -d requires a numeric argument." >&2 \
-                && rnr_help && exit
+                && builtin echo "Error: Option -d requires a numeric argument." >&2 && exit
 
-            depth="$1"; shift ;;
-            -h | --help ) rnr_help; exit;;
-            -- ) shift; break ;;
+            depth="$1"; builtin shift ;;
+            -h | --help ) show_help; exit;;
+            -- ) builtin shift; break ;;
             *) break ;;
         esac
     done
 
-    shift $((OPTIND - 1));
+    builtin shift $((OPTIND - 1));
 
-    local from="$1"
-    local to="$2"
-    local found=0
+    builtin local from="$1"
+    builtin local to="$2"
+    builtin local found=0
+
+    [ -z "$from" ] && show_help && exit
+    [ -z "$to" ] && show_help && exit
+
     if [ $recurse = 1 ]; then
 
-        for i in $(fd -H "$from" -d "$depth" "${@:3}"); do
+        for i in $(/usr/bin/fd -H "$from" -d "$depth" "${@:3}"); do
 
-                local renamed=${i//$from/$to}
+                builtin local renamed=${i//$from/$to}
 
-                printf "\e[31m%s\e[0m -> \e[32m%s\e[0m\n" "$i" "$renamed"
+                builtin echo -e "\e[31m${i}\e[0m -> \e[32m${renamed}\e[0m"
                 [ $movesetting -eq 1 ] && mv -b "$i" "$renamed"
                 [ $movesetting -eq 2 ] && mv -i "$i" "$renamed"
                 [ $movesetting -eq 3 ] && mv -f "$i" "$renamed"
@@ -77,9 +88,9 @@ rnr() {
         for i in "${@:3}"; do
             if [[ "$i" =~ $from ]]; then
 
-                local renamed=${i//$from/$to}
+                builtin local renamed=${i//$from/$to}
 
-                printf "\e[31m%s\e[0m -> \e[32m%s\e[0m\n" "$i" "$renamed"
+                builtin echo -e "\e[31m${i}\e[0m -> \e[32m${renamed}\e[0m"
                 [ $movesetting -eq 1 ] && mv -b "$i" "$renamed"
                 [ $movesetting -eq 2 ] && mv -i "$i" "$renamed"
                 [ $movesetting -eq 3 ] && mv -f "$i" "$renamed"
@@ -88,6 +99,6 @@ rnr() {
             fi
         done
     fi
-    printf
-    [ $found -ne 1 ] && printf "\e[31mNo matches found\n"
+    builtin echo
+    [ $found -ne 1 ] && builtin echo -e "\e[31mNo matches found"
 }
