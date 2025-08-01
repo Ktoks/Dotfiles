@@ -42,7 +42,7 @@ vim.o.guifont = "FiraCode Nerd Font Mono:h14"
 vim.keymap.set('n', '<leader>r', ':update<CR> :source<CR>')
 
 vim.pack.add({
-  { src = "https://github.com/ellisonleao/gruvbox.nvim" },
+  { src = "https://github.com/ktoks/gruvbox.nvim" },
   { src = "https://github.com/echasnovski/mini.pick" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/folke/which-key.nvim" },
