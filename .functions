@@ -1,4 +1,104 @@
 
 function rgf {
-	rg "$1" $(fd $2) "${@:3}"
+    rg "$1" $(fd $2) "${@:3}"
+}
+
+#!/usr/bin/bash
+
+
+rnr() {
+    show_help() {
+        builtin echo -e "USAGE:"
+        builtin echo -e "  rnr \e[0m[-{b|c|d #|f|h|n|r}] \e[31m<SUBSTRING TO REPLACE> \e[32m<REPLACEMENT STRING> \e[0m<RENAME FILE(s)>"
+        builtin echo ""
+        builtin echo -e "OPTIONS:"
+        builtin echo -e "  -b, --backup:            (non-interactive)     Change and backup overwrites"
+        builtin echo -e "  -c, --change:            (interactive)         Make change"
+        builtin echo -e "  -f, --force:             (non-interactive)     Change and force overwrites"
+        builtin echo -e "  -n, --nooverwrite:       (non-interactive)     Change but don't overwrite"
+        builtin echo -e "  -r, --recurse:           (modifier)            Change recursively"
+        builtin echo -e "  -d, --depth #:           (modifier req. opt)   Default:1 requires a numeric value"
+        builtin echo -e "  -h, --help:                                    Display this message"
+        builtin echo ""
+        builtin echo -e "POSITIONAL ARGUMENTS:"
+        builtin echo -e "\e[31m  <SUBSTRING TO REPLACE>    \e[0mA subset of <RENAME FILE(s)>."
+        builtin echo -e "  \e[32m<REPLACEMENT STRING>      \e[0mString to replace <SUBSTRING TO REPLACE> in <RENAME FILE(s)>."
+        builtin echo -e "  <RENAME FILE(s)>          \e[0mFile(s) to rename."
+        builtin echo ""
+        builtin echo "EXAMPLES:"
+        builtin echo -e "  Peek changes:  rnr \e[31mfoo \e[32mbar \e[0mfilename(s)\e[31mfoo     \e[0m-> echo \e[0mfilename\e[31mfoo \e[0mfilename\e[32mbar\e[0m"
+        builtin echo -e "  Make changes:  rnr -c \e[31mfoo \e[32mbar \e[0mfilename(s)\e[31mfoo  \e[0m-> mv \e[0mfilename\e[31mfoo \e[0mfilename\e[32mbar\e[0m"
+        builtin echo -e "  Recursively:   rnr -rd 2 \e[31mfoo \e[32mbar \e[0msomedir(s)   \e[0m-> mv \e[0msome(s)/file\e[31mfoo \e[0msome(s)/file\e[32mbar\e[0m"
+        builtin echo ""
+    }
+
+
+    builtin local temp
+    if ! temp=$(getopt -o "bcfhnrd:" --long "backup,change,depth,force,nooverwrite,recurse,help" -- "$@"); then
+        builtin echo "Terminating..." >&2 && exit 1
+    fi
+    builtin eval set -- "$temp"
+    movesetting=0;
+    recurse=0;
+    depth="1";
+    while true; do
+        case "$1" in
+            -b | --backup ) movesetting=1; builtin shift ;;
+            -c | --change ) movesetting=2; builtin shift ;;
+            -f | --force ) movesetting=3; builtin shift ;;
+            -n | --nooverwrite ) movesetting=4; builtin shift ;;
+            -r | --recurse ) recurse=1; builtin shift;;
+            -d | --depth )
+            [[ $recurse = 0 ]] \
+                && builtin echo "Error: Option -r required for option -d." >&2 && exit
+            builtin shift;
+            [[ -z "$1" ]] \
+                && builtin echo "Error: Option -d requires a numeric argument." >&2 && exit
+
+            depth="$1"; builtin shift ;;
+            -h | --help ) show_help; exit;;
+            -- ) builtin shift; break ;;
+            *) break ;;
+        esac
+    done
+
+    builtin shift $((OPTIND - 1));
+
+    builtin local from="$1"
+    builtin local to="$2"
+    builtin local found=0
+
+    [ -z "$from" ] && show_help && exit
+    [ -z "$to" ] && show_help && exit
+
+    if [ $recurse = 1 ]; then
+
+        for i in $(/usr/bin/fd -H "$from" -d "$depth" "${@:3}"); do
+
+                builtin local renamed=${i//$from/$to}
+
+                builtin echo -e "\e[31m${i}\e[0m -> \e[32m${renamed}\e[0m"
+                [ $movesetting -eq 1 ] && mv -b "$i" "$renamed"
+                [ $movesetting -eq 2 ] && mv -i "$i" "$renamed"
+                [ $movesetting -eq 3 ] && mv -f "$i" "$renamed"
+                [ $movesetting -eq 4 ] && mv -n "$i" "$renamed"
+                found=1
+        done
+    else
+        for i in "${@:3}"; do
+            if [[ "$i" =~ $from ]]; then
+
+                builtin local renamed=${i//$from/$to}
+
+                builtin echo -e "\e[31m${i}\e[0m -> \e[32m${renamed}\e[0m"
+                [ $movesetting -eq 1 ] && mv -b "$i" "$renamed"
+                [ $movesetting -eq 2 ] && mv -i "$i" "$renamed"
+                [ $movesetting -eq 3 ] && mv -f "$i" "$renamed"
+                [ $movesetting -eq 4 ] && mv -n "$i" "$renamed"
+                found=1
+            fi
+        done
+    fi
+    builtin echo
+    [ $found -ne 1 ] && builtin echo -e "\e[31mNo matches found"
 }
