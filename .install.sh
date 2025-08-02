@@ -1,10 +1,10 @@
 if [ -f "/etc/os-release" ]; then
   . /etc/os-release
-  if [ "$ID" == "arch" ]; then
-    sudo pacman -Syu
+  if [ "$ID_LIKE" == "arch" ]; then
+      sudo pacman -Syu
   else # assumed debian-based
-    sudo apt update
-    sudo apt upgrade -y
+      sudo apt update
+      sudo apt upgrade -y
   fi
 fi
 printf ".cfg\n" >> .gitignore
