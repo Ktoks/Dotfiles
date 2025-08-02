@@ -16,6 +16,8 @@ if [ "$(command -v carapace)" ]; then
   source "$HOME/.cache/carapace/init"
 fi
 
+[[ -r "/usr/share/bash-completion/bash_completion" ]] && source "/usr/share/bash-completion/bash_completion"
+
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 [ -f "$HOME/.functions" ] && source "$HOME/.functions"
 [ -f "$HOME/.inputrc" ] && source "$HOME/.inputrc"
