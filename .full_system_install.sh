@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # This script is an install of most of the things I use on a daily for work.
 
 set -ex

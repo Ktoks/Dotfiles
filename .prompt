@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 export CMD_START_TIME=0
 
@@ -7,7 +7,8 @@ export CMD_START_TIME=0
 #     printf "Error: '$BASH_COMMAND' command was terminated with error code: $exit_code\n"
 # }
 
-# trap __handle_cmd_error ERR
+# builtin trap __handle_cmd_error ERR
+
 
 preexec_hook() {
     [ "$BASH_COMMAND" != "$PROMPT_COMMAND" ] && CMD_START_TIME=$SECONDS
@@ -35,6 +36,6 @@ precmd_hook() {
     PS1="${PS1}${prompt_indicator} \[\e[\033[00m\]"
  }
 
-trap 'preexec_hook' DEBUG
+builtin trap 'preexec_hook' DEBUG SIGINT SIGTERM
 
 PROMPT_COMMAND="precmd_hook"

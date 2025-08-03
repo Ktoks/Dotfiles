@@ -1,4 +1,4 @@
-#!inputrc
+#!/usr/bin/env bash
 
 # $include /etc/inputrc
 
