@@ -1,10 +1,8 @@
+#!/usr/bin/env bash
 
 function rgf {
     rg "$1" $(fd $2) "${@:3}"
 }
-
-#!/usr/bin/bash
-
 
 rnr() {
     show_help() {
@@ -73,7 +71,7 @@ rnr() {
 
     if [ $recurse = 1 ]; then
 
-        for i in $(/usr/bin/fd -H "$from" -d "$depth" "${@:3}"); do
+        for i in $(/usr/bin/env fd -H "$from" -d "$depth" "${@:3}"); do
 
                 builtin local renamed=${i//$from/$to}
 

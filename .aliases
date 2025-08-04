@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias src="source ~/.bashrc"
 alias ls="ls --color -A"
@@ -7,3 +7,4 @@ alias ll="ls -ho"
 alias lls="ll -tr"
 alias lsl="lls "
 alias lsls="lls "
+[ ! "$(command -v  hx)" ] && alias hx="helix "
