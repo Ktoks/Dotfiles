@@ -3,10 +3,10 @@
 
 set -e
 
-# echo "setting up rust"
-# sleep 3
-# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-# source "$HOME/.profile"
+echo "setting up rust"
+sleep 3
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.profile"
 
 cd "$HOME"
 mkdir -p code
