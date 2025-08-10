@@ -3,10 +3,10 @@
 
 set -e
 
-echo "setting up rust"
-sleep 3
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source "$HOME/.profile"
+# echo "setting up rust"
+# sleep 3
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# source "$HOME/.profile"
 
 cd "$HOME"
 mkdir -p code
@@ -17,7 +17,8 @@ if [ -f "/etc/os-release" ]; then
 	if [ "$ID_LIKE" == "arch" ]; then
     	echo "Arch setup..."
     	sleep 3
-		sudo pacman -S --needed python-pip wezterm ripgrep fd dust stylua zellij perl perl-language-server-git perl-test-perltidy shellcheck ruff-lsp bash-language-server helix fzf base-devel cmake ninja curl otf-droid-nerd
+		sudo pacman -S --needed python-pip wezterm ripgrep fd dust stylua zellij perl perl-test-perltidy shellcheck ruff-lsp bash-language-server helix fzf base-devel cmake ninja curl otf-droid-nerd perl-app-cpanminus
+		cpan Perl::LanguageServer
 
     elif [[ "$ID" == "fedora" ]]; then
     	echo "Fedora setup..."
@@ -41,6 +42,7 @@ if [ -f "/etc/os-release" ]; then
 		cd code
 	fi
 fi
+hx -g fetch && hx -g build
 bash "$HOME/.update.sh"
 
 echo "setting up neovim"
@@ -50,7 +52,6 @@ cd neovim
 # git checkout release-0.12
 make CMAKE_BUILD_TYPE=Release
 sudo make install
-cd ~/code
 
 echo "Don't forget the following steps for git!"
 echo 'ssh-keygen -t ed25519 -C "<useremail>"'
