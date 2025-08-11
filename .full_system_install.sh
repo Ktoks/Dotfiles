@@ -17,12 +17,13 @@ if [ -f "/etc/os-release" ]; then
 	if [ "$ID_LIKE" == "arch" ]; then
     	echo "Arch setup..."
     	sleep 3
-		sudo pacman -S --needed python-pip wezterm ripgrep fd dust stylua zellij perl perl-language-server-git perl-test-perltidy shellcheck ruff-lsp bash-language-server helix fzf base-devel cmake ninja curl otf-droid-nerd
+		sudo pacman -S --needed python-pip wezterm ripgrep fd dust stylua zellij perl perl-test-perltidy shellcheck ruff-lsp bash-language-server helix fzf base-devel cmake ninja curl otf-droid-nerd perl-app-cpanminus
+		cpan Perl::LanguageServer
 
     elif [[ "$ID" == "fedora" ]]; then
     	echo "Fedora setup..."
     	sleep 3
-        sudo dnf -y install helix akmod-nvidia perltidy xorg-x11-drv-nvidia-cuda ninja-build cmake gcc make gettext curl glibc-gconv-extra openssl-devel perl-FindBin perl-IPC-Cmd perl-File-Compare perl-File-Copy perl perl-devel perl-AnyEvent-AIO perl-Coro perl-JSON perl-Moose perl-PadWalker perl-Scalar-List-Utils perl-App-cpanminus python3-pip alacarte
+        sudo dnf -y install helix akmod-nvidia perltidy xorg-x11-drv-nvidia-cuda ninja-build cmake gcc make gettext curl glibc-gconv-extra openssl-devel perl-FindBin perl-IPC-Cmd perl-File-Compare perl-File-Copy perl perl-devel perl-AnyEvent-AIO perl-Coro perl-JSON perl-Moose perl-PadWalker perl-Scalar-List-Utils perl-App-cpanminus python3-pip alacarte nodejs-bash-language-server
         sudo cpanm Perl::LanguageServer
         cargo install zellij cargo-update 
         # git clone --depth=1 --branch=main --recursive https://github.com/wezterm/wezterm.git
@@ -41,6 +42,7 @@ if [ -f "/etc/os-release" ]; then
 		cd code
 	fi
 fi
+hx -g fetch && hx -g build
 bash "$HOME/.update.sh"
 
 echo "setting up neovim"
@@ -50,7 +52,6 @@ cd neovim
 # git checkout release-0.12
 make CMAKE_BUILD_TYPE=Release
 sudo make install
-cd ~/code
 
 echo "Don't forget the following steps for git!"
 echo 'ssh-keygen -t ed25519 -C "<useremail>"'
