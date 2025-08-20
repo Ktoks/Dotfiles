@@ -4,8 +4,16 @@ local wezterm = require 'wezterm'
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
--- config.webgpu_power_preference = 'HighPerformance'
---
+config.webgpu_power_preference = 'HighPerformance'
+ config.webgpu_preferred_adapter = {
+   backend = 'Vulcan',
+   device = 7308,
+   device_type = 'DiscreteGpu',
+   driver = 'NVIDIA',
+   driver_info = '580.76.05',
+   name = 'NVIDIA GeForce GTX 1050 Ti',
+   vendor = 4318,
+ }
 -- config.webgpu_preferred_adapter = {
 --   backend = 'Vulcan',
 --   device = 8712,
@@ -30,6 +38,13 @@ config.colors = {
 config.window_frame = {
   active_titlebar_bg = '#151515',
   inactive_titlebar_bg = 'black',
+}
+config.keys = {
+  {
+    key = 'n',
+    mods = 'SHIFT|CTRL',
+    action = wezterm.action.ToggleFullScreen,
+  }
 }
 
 -- and finally, return the configuration to wezterm
