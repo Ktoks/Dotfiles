@@ -9,6 +9,12 @@ file-types = ["sh", "bash", "zsh", ".login", ".bash_login", ".bash_logout", ".lo
 shebangs = ["sh", "bash"]
 indent = {tab-width = 4, unit = " " }
 
+# [[language]]
+# name = "cobol"
+# file-types = ["cbl", "cobol"]
+# shebangs = ["cbl"]
+# indent = { tab-width = 8, unit = " " }
+
 [[language]]
 name = "nu"
 
