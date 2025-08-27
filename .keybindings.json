@@ -1,11 +1,11 @@
 // Place your key bindings in this file to override the defaults
 [
     {
-        "key": "ctrl+l",
+        "key": "shift+l",
         "command": "workbench.action.nextEditor",
     },
     {
-        "key": "ctrl+h",
+        "key": "shiftl+h",
         "command": "workbench.action.previousEditor",
     },
     {
