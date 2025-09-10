@@ -31,6 +31,12 @@ HISTCONTROL="ignoreboth:erasedups"
 HISTSIZE=''
 HISTFILESIZE=''
 
+# cd niceties
+shopt -s autocd
+shopt -s cdspell
+# shopt -s dotglob
+shopt -s globstar
+
 # enable history search with existing input:
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
