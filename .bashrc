@@ -35,7 +35,7 @@ HISTFILESIZE=''
 shopt -s autocd
 shopt -s cdspell
 # shopt -s dotglob
-shopt -s globstar
+# shopt -s globstar
 
 # enable history search with existing input:
 bind '"\e[A": history-search-backward'
