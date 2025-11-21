@@ -1,10 +1,22 @@
 #!/usr/bin/env bash
+alias aliases='alias | grep -E "config|ls|hx|src"'
 alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias src="source ~/.bashrc"
-alias ls="ls --color -A"
+
+if ls --color >/dev/null 2>&1; then
+  alias ls='ls --color=auto -A'
+else # ls alias for BSD
+  alias ls='ls -G -A'
+fi
 alias sl="ls"
 alias ll="ls -ho"
 alias lls="ll -tr"
 alias lsl="lls "
 alias lsls="lls "
-[ ! "$(command -v  hx)" ] && alias hx="helix "
+
+command -v helix >/dev/null && alias hx="helix"
+
+alias servnvim="nvim -n --headless --listen localhost:6666 &"
+alias nvide="neovide.exe --server localhost:6666 &"
+
+alias watcher="watch -d -n 5 -- "

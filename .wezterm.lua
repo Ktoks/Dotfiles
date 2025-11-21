@@ -24,12 +24,12 @@ config.color_scheme = 'Gruvbox Dark (Gogh)'
 config.colors = {
   background = 'black',
   tab_bar = {
-    inactive_tab_edge = '#222222',
+    inactive_tab_edge = '#111111',
   },
 }
 config.window_frame = {
-  active_titlebar_bg = '#151515',
-  inactive_titlebar_bg = 'black',
+  active_titlebar_bg = '#111111',
+  inactive_titlebar_bg = '#000000',
 }
 
 -- and finally, return the configuration to wezterm
