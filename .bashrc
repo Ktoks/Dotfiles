@@ -6,10 +6,13 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 [ -f "/etc/bash.bashrc" ] && source "/etc/bash.bashrc"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 [ "${debian_chroot:-}" = "" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
-[ "$(command -v go)" ] && export GOPATH="$HOME/code/go" && PATH="$PATH:/usr/local/go/bin:$GOPATH/bin:$HOME/go/bin/:"
+[ -d "/usr/local/go/bin" ] && export GOPATH="$HOME/code/go" && PATH="$PATH:/usr/local/go/bin:$GOPATH/bin:$HOME/go/bin/:"
 [ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native"
 [ "$(command -v fzf)" ] && eval "$(fzf --bash)"
 [ "$(command -v zellij)" ] && eval "$(zellij setup --generate-completion bash)"
+[ -f "$HOME/.ops/scripts/bash_completion.sh" ] && export OPS_DIR="$HOME/.ops" && export PATH="$HOME/.ops/bin:$PATH" && source "$HOME/.ops/scripts/bash_completion.sh"
+[ -d "$HOME/.nvm" ] && export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
 
 if [ "$(command -v carapace)" ]; then
   [ ! -s "$HOME/.cache/carapace/init" ] && carapace _carapace > "$HOME/.cache/carapace/init"
@@ -31,8 +34,7 @@ HISTCONTROL="ignoreboth:erasedups"
 HISTSIZE=''
 HISTFILESIZE=''
 
-# cd niceties
-shopt -s autocd
+# shopt -s autocd
 shopt -s cdspell
 # shopt -s dotglob
 # shopt -s globstar
@@ -41,5 +43,3 @@ shopt -s cdspell
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-[ -d "$HOME/.nvm" ] && export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
