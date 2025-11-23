@@ -3,8 +3,12 @@
 set -e
 # set -x
 
-# python3 -m venv myenv
-# python3 -m pip install --upgrade pip
+if [ "$(command -v python3)" ]; then
+   python3 -m venv myenv && source "$HOME/myenv/bin/activate" && python3 -m pip install --upgrade pip
+elif [ "$(command -v python)" ]; then
+   python -m venv myenv && source "$HOME/myenv/bin/activate" && python -m pip install --upgrade pip
+fi
+
 if [ -f "/etc/os-release" ]; then
    . /etc/os-release
    if [ "$ID_LIKE" == "arch" ]; then
