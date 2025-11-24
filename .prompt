@@ -1,13 +1,22 @@
 #!/usr/bin/env bash
 
-precmd_hook() {
-    [ $? = 0 ] && prompt_indicator="\n\[\e[38;2;121;161;14m\]->" || prompt_indicator="\n\[\e[38;2;219;41;20m\]xx"
-    # [ $? = 0 ] && prompt_indicator="\n\[\e[38;2;202;141;15m\]->" || prompt_indicator="\n\[\e[38;2;219;41;20m\]xx"
-    history -a; history -r
+C_SUCCESS="\[\e[38;2;121;161;14m\]\n->"
+C_FAIL="\[\e[38;2;219;41;20m\]\nxx"
+C_RESET="\[\e[0m\]"
 
-    PS1="\[\e[38;2;120;149;136m\]\u\[\e[38;2;121;116;14m\]@\[\e[38;2;202;141;15m\]\H \[\e[38;2;219;41;20m\]\w${prompt_indicator} \[\e[\033[00m\]"
- }
+C_PROMPT_BEGIN="\[\e[38;2;120;149;136m\]\u\[\e[38;2;121;116;14m\]@\[\e[38;2;202;141;15m\]\H "
 
-# builtin trap 'preexec_hook' DEBUG SIGINT SIGTERM
+update_prompt_status() {
+    local EXIT_CODE=$?
+    
+    history -a; history -n
 
-PROMPT_COMMAND="precmd_hook"
+    if [ $EXIT_CODE -eq 0 ]; then
+        PROMPT_INDICATOR="${C_SUCCESS}${C_RESET}"
+    else
+        PROMPT_INDICATOR="${C_FAIL}${C_RESET}"
+    fi
+    PS1="${C_PROMPT_BEGIN}\[\e[38;2;219;41;20m\]\w ${PROMPT_INDICATOR} "
+}
+
+PROMPT_COMMAND="update_prompt_status"
