@@ -6,7 +6,7 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 [ -f "/etc/bash.bashrc" ] && source "/etc/bash.bashrc"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 [ "${debian_chroot:-}" = "" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
-[ -d "/usr/local/go/bin" ] && export GOPATH="$HOME/code/go" && PATH="$PATH:/usr/local/go/bin:$GOPATH/bin:$HOME/go/bin/:"
+[ -d "/usr/local/go/bin" ] || [ -f "/usr/bin/go" ] && export GOPATH="$HOME/code/go" && PATH="$PATH:/usr/local/go/bin:$GOPATH/bin:$HOME/go/bin/:"
 [ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native"
 [ "$(command -v fzf)" ] && eval "$(fzf --bash)"
 [ "$(command -v zellij)" ] && eval "$(zellij setup --generate-completion bash)"
