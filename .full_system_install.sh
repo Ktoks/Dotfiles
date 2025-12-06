@@ -19,6 +19,7 @@ if [ -f "/etc/os-release" ]; then
     	sleep 3
 		sudo pacman -S --needed python-pip wezterm ripgrep fd dust stylua zellij perl perl-test-perltidy shellcheck ruff-lsp bash-language-server helix fzf base-devel cmake ninja curl otf-droid-nerd perl-app-cpanminus
 		cpan Perl::LanguageServer
+		trap 'echo for virtual machines: sudo pacman -S qemu-full' EXIT
 
     elif [[ "$ID" == "fedora" ]]; then
     	echo "Fedora setup..."
