@@ -3,11 +3,15 @@ use-grammars = { only = ["awk", "bash", "comment", "git-attributes", "git-commit
 
 [[language]]
 name = "bash"
-auto-format = true
+auto-format = false
 injection-regex = "(shell|bash|zsh|sh)"
 file-types = ["sh", "bash", "zsh", ".login", ".bash_login", ".bash_logout", ".logout", ".bash_profile", ".bashrc", ".prompt", ".profile", ".zshenv", ".zlogin", ".zlogout", ".zprofile", ".zshrc", "APKBUILD", "PKGBUILD", "eclass", "ebuild", "bazelrc", ".bash_aliases", ".aliases"]
 shebangs = ["sh", "bash"]
 indent = {tab-width = 4, unit = "\t" }
+
+[[language-server.bash-language-server]]
+command = "bash-language-server"
+args = ["start"]
 
 # [[language]]
 # name = "cobol"

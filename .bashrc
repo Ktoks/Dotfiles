@@ -43,8 +43,5 @@ shopt -s cdspell
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-[ -d "$HOME/.nvm" ] && export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
-
 # OPS config
-[ -d $HOME/.ops ] && export OPS_DIR="$HOME/.ops" && export PATH="$HOME/.ops/bin:$PATH" && source "$HOME/.ops/scripts/bash_completion.sh"
+[ -d "$HOME/.ops" ] && export OPS_DIR="$HOME/.ops" && export PATH="$HOME/.ops/bin:$PATH" && source "$HOME/.ops/scripts/bash_completion.sh"
