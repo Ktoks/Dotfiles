@@ -10,6 +10,9 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 [ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native"
 [ "$(command -v fzf)" ] && eval "$(fzf --bash)"
 [ "$(command -v zellij)" ] && eval "$(zellij setup --generate-completion bash)"
+[ -f "$HOME/.ops/scripts/bash_completion.sh" ] && export OPS_DIR="$HOME/.ops" && export PATH="$HOME/.ops/bin:$PATH" && source "$HOME/.ops/scripts/bash_completion.sh"
+[ -d "$HOME/.nvm" ] && export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
 
 if [ "$(command -v carapace)" ]; then
   [ ! -s "$HOME/.cache/carapace/init" ] && carapace _carapace > "$HOME/.cache/carapace/init"
@@ -31,8 +34,7 @@ HISTCONTROL="ignoreboth:erasedups"
 HISTSIZE=''
 HISTFILESIZE=''
 
-# cd niceties
-shopt -s autocd
+# shopt -s autocd
 shopt -s cdspell
 # shopt -s dotglob
 # shopt -s globstar

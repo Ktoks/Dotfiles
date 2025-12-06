@@ -64,6 +64,13 @@ config.keys = {
     action = wezterm.action.ToggleFullScreen,
   }
 }
+config.keys = {
+  {
+    key = '|',
+    mods = 'SHIFT|CTRL|ALT',
+    action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+  }
+}
 
 -- and finally, return the configuration to wezterm
 return config-- Pull in the wezterm API

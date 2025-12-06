@@ -7,7 +7,7 @@ auto-format = true
 injection-regex = "(shell|bash|zsh|sh)"
 file-types = ["sh", "bash", "zsh", ".login", ".bash_login", ".bash_logout", ".logout", ".bash_profile", ".bashrc", ".prompt", ".profile", ".zshenv", ".zlogin", ".zlogout", ".zprofile", ".zshrc", "APKBUILD", "PKGBUILD", "eclass", "ebuild", "bazelrc", ".bash_aliases", ".aliases"]
 shebangs = ["sh", "bash"]
-indent = {tab-width = 4, unit = " " }
+indent = {tab-width = 4, unit = "\t" }
 
 # [[language]]
 # name = "cobol"

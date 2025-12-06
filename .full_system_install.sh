@@ -17,7 +17,7 @@ if [ -f "/etc/os-release" ]; then
 	if [ "$ID_LIKE" == "arch" ]; then
     	echo "Arch setup..."
     	sleep 3
-		sudo pacman -S --needed python-pip wezterm ripgrep fd dust stylua zellij perl perl-test-perltidy shellcheck ruff-lsp bash-language-server helix fzf base-devel cmake ninja curl otf-droid-nerd perl-app-cpanminus
+		sudo pacman -S --needed python-pip wezterm ripgrep fd dust stylua zellij perl perl-test-perltidy shellcheck ruff-lsp bash-language-server helix fzf base-devel cmake ninja curl otf-droid-nerd perl-app-cpanminus golangci-lint cosmic cosmic-session golangci-lint perlnavigator
 		cpan Perl::LanguageServer
 		trap 'echo for virtual machines: sudo pacman -S qemu-full' EXIT
 
@@ -53,6 +53,15 @@ cd neovim
 # git checkout release-0.12
 make CMAKE_BUILD_TYPE=Release
 sudo make install
+cd
+
+echo "setting up golang"
+sleep 3
+# install and set up go for development
+curl https://ops.city/get.sh -sSfL | sh
+go install golang.org/x/tools/gopls@latest
+go install github.com/nametake/golangci-lint-langserver@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
 
 echo "Don't forget the following steps for git!"
 echo 'ssh-keygen -t ed25519 -C "<useremail>"'
