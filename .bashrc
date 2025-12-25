@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/lib:$HOME/.local/bin"
+[ -d "$HOME/.fzf/bin/" ] && PATH="$PATH:$HOME/.fzf/bin"
 
 [ -f "/etc/bashrc" ] && source "/etc/bashrc"
 [ -f "/etc/bash.bashrc" ] && source "/etc/bash.bashrc"
