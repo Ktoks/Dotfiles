@@ -46,3 +46,10 @@ bind '"\e[B": history-search-forward'
 
 # OPS config
 [ -d "$HOME/.ops" ] && export OPS_DIR="$HOME/.ops" && export PATH="$HOME/.ops/bin:$PATH" && source "$HOME/.ops/scripts/bash_completion.sh"
+PATH="$PATH:/opt/minecraft"
+if [ -f ~/.todo ] && [ -s ~/.todo ]; then
+    echo "--- TODOs ---"
+    cat ~/.todo
+    echo "-------------"
+fi
+

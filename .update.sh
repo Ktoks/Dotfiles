@@ -15,7 +15,6 @@ if [ -f "/etc/os-release" ]; then
       sudo pacman -Syu
    elif [[ "$ID" == "fedora" ]]; then
       sudo dnf upgrade -y
-      cargo install-update -a
    elif [[ "$ID_LIKE" == "debian" ]]; then
       sudo apt update && sudo apt upgrade -y
       cargo install-update -a
