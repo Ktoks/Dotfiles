@@ -24,20 +24,19 @@ if [ -f "/etc/os-release" ]; then
 	elif [[ "$ID" == "fedora" ]]; then
 		echo "Fedora setup..."
 		sleep 3
-		sudo dnf -y install helix akmod-nvidia perltidy xorg-x11-drv-nvidia-cuda ninja-build cmake gcc make gettext curl glibc-gconv-extra openssl-devel perl-FindBin perl-IPC-Cmd perl-File-Compare perl-File-Copy perl perl-devel perl-AnyEvent-AIO perl-Coro perl-JSON perl-Moose perl-PadWalker perl-Scalar-List-Utils perl-App-cpanminus python3-pip alacarte nodejs-bash-language-server
+		echo "ip_resolve=4" | sudo tee /etc/dnf/dnf.conf
+		sudo dnf copr enable wezfurlong/wezterm-nightly
+		sudo dnf -y install helix perltidy ninja-build cmake gcc make gettext curl glibc-gconv-extra openssl-devel perl-FindBin perl-IPC-Cmd perl-File-Compare perl-File-Copy perl perl-devel perl-AnyEvent-AIO perl-Coro perl-JSON perl-Moose perl-PadWalker perl-Scalar-List-Utils perl-App-cpanminus python3-pip alacarte nodejs-bash-language-server ripgrep fd-find bat wezterm vlc vlc-plugin*x86_64
 		sudo cpanm Perl::LanguageServer
-		cargo install zellij cargo-update 
-		# git clone --depth=1 --branch=main --recursive https://github.com/wezterm/wezterm.git
-		# cd wezterm
-		# ./get-deps
-		# cargo build --release
+		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+		cargo install zellij 
 	else
 		echo "Debian setup..."
 		sleep 3
 		sudo apt install python3-pip libssl-dev build-essential libreadline-dev unzip shellcheck bat ripgrep
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 		cargo install cargo-update cargo-binstall
-		cargo-binstall fd-find ripgrep bat zellij
+		cargo-binstall fd-find bat zellij
 	fi
 fi
 hx -g fetch && hx -g build
