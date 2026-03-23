@@ -14,9 +14,3 @@ alias lls="ll -tr"
 alias lsl="lls "
 alias lsls="lls "
 
-command -v helix >/dev/null && alias hx="helix"
-
-alias servnvim="nvim -n --headless --listen localhost:6666 &"
-alias nvide="neovide.exe --server localhost:6666 &"
-
-alias watcher="watch -d -n 5 -- "

@@ -2,16 +2,17 @@
 
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/lib:$HOME/.local/bin"
 [ -d /opt/mssql-tools18/bin ] && export PATH="$PATH:/opt/mssql-tools18/bin"
-
 [ -f "/etc/bashrc" ] && source "/etc/bashrc"
 [ -f "/etc/bash.bashrc" ] && source "/etc/bash.bashrc"
 [ -f "$HOME/.nav" ] && source "$HOME/.nav"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 [ "${debian_chroot:-}" = "" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
-[ -d /usr/local/go/ ] && export gopath="$home/code/go" && path="$path:/usr/local/go/bin:$gopath/bin:$home/go/bin/:"
+[ -d /usr/local/go/ ] && export gopath="$HOME/code/go" && path="$path:/usr/local/go/bin:$gopath/bin:$HOME/go/bin/:"
 [ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native"
+[ -d "$HOME/.fzf/bin/" ] && PATH="$PATH:$HOME/.fzf/bin"
 [ "$(command -v fzf)" ] && eval "$(fzf --bash)"
 [ "$(command -v zellij)" ] && eval "$(zellij setup --generate-completion bash)"
+[ -f "$HOME/.ops/scripts/bash_completion.sh" ] && export OPS_DIR="$HOME/.ops" && export PATH="$HOME/.ops/bin:$PATH" && source "$HOME/.ops/scripts/bash_completion.sh"
 
 if [ "$(command -v carapace)" ]; then
   [ ! -s "$HOME/.cache/carapace/init" ] && carapace _carapace > "$HOME/.cache/carapace/init"
@@ -33,15 +34,21 @@ HISTCONTROL="ignoreboth:erasedups"
 HISTSIZE=''
 HISTFILESIZE=''
 
+# shopt -s autocd
+shopt -s cdspell
+# shopt -s dotglob
+# shopt -s globstar
+
 # enable history search with existing input:
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-# shopt -s autocd
-shopt -s cdspell
-# shopt -s dotglob
-# shopt -s nocaseglob
-# shopt -s nocasematchc
-
 [ -d "$HOME/.nvm" ] && export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -d "/opt/minecraft" ] && PATH="$PATH:/opt/minecraft"
+if [ -f ~/.todo ] && [ -s ~/.todo ]; then
+    echo "--- TODOs ---"
+    cat ~/.todo
+    echo "-------------"
+fi
+
