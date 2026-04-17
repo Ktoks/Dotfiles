@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
+alias aliases='alias | grep -E "config|ls|hx|src"'
 alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias src="source ~/.bashrc"
-alias ls="ls --color -A"
+
+if ls --color >/dev/null 2>&1; then
+  alias ls='ls --color=auto -A'
+else # ls alias for BSD
+  alias ls='ls -G -A'
+fi
 alias sl="ls"
 alias ll="ls -ho"
 alias lls="ll -tr"
