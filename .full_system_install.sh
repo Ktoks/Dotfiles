@@ -3,11 +3,6 @@
 
 set -e
 
-# echo "setting up rust"
-# sleep 3
-# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-# source "$HOME/.profile"
-
 cd "$HOME"
 mkdir -p code
 cd code
@@ -18,7 +13,7 @@ if [ -f "/etc/os-release" ]; then
 		echo "Arch setup..."
 		sleep 3
 		sudo pacman -S --needed python-pip wezterm ripgrep fd dust stylua zellij perl perl-test-perltidy shellcheck ruff-lsp bash-language-server helix fzf base-devel cmake ninja curl otf-droid-nerd perl-app-cpanminus golangci-lint cosmic cosmic-session golangci-lint perlnavigator
-		cpan Perl::LanguageServer
+		sudo cpanm Perl::LanguageServer Perl::Critic
 		trap 'echo for virtual machines: sudo pacman -S qemu-full' EXIT
 
 	elif [[ "$ID" == "fedora" ]]; then
@@ -26,10 +21,11 @@ if [ -f "/etc/os-release" ]; then
 		sleep 3
 		echo "ip_resolve=4" | sudo tee /etc/dnf/dnf.conf
 		sudo dnf copr enable wezfurlong/wezterm-nightly
-		sudo dnf -y install helix perltidy ninja-build cmake gcc make gettext curl glibc-gconv-extra openssl-devel perl-FindBin perl-IPC-Cmd perl-File-Compare perl-File-Copy perl perl-devel perl-AnyEvent-AIO perl-Coro perl-JSON perl-Moose perl-PadWalker perl-Scalar-List-Utils perl-App-cpanminus python3-pip alacarte nodejs-bash-language-server ripgrep fd-find bat wezterm vlc vlc-plugin*x86_64
-		sudo cpanm Perl::LanguageServer
-		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-		cargo install zellij 
+		sudo curl -o /etc/yum.repos.d/msprod.repo https://packages.microsoft.com/config/rhel/10/prod.repo
+		sudo dnf -y install helix perltidy ninja-build cmake gcc make gettext curl glibc-gconv-extra openssl-devel perl-FindBin perl-IPC-Cmd perl-File-Compare perl-File-Copy perl perl-devel perl-AnyEvent-AIO perl-Coro perl-JSON perl-Moose perl-PadWalker perl-Scalar-List-Utils perl-App-cpanminus python3.13 python3.13-pip alacarte nodejs-bash-language-server ripgrep fd-find bat wezterm vlc vlc-plugin*x86_64 cargo rustup mssql-tools18
+		sudo cpanm Perl::LanguageServer Perl::Critic
+		sudo npm install -g perlnavigator-server
+		cargo install zellij sd
 	else
 		echo "Debian setup..."
 		sleep 3
