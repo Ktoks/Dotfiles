@@ -7,3 +7,8 @@ set completion-ignore-case On
 
 # tab complete on one press
 set show-all-if-ambiguous on
+
+TAB: menu-complete
+
+# Shift+Tab expands everything (glob or word) onto the line
+"\e[Z": glob-expand-word
