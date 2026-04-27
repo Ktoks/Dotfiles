@@ -1,22 +1,34 @@
 #!/usr/bin/env bash
 
-C_SUCCESS="\[\e[38;2;121;161;14m\]\n->"
-C_FAIL="\[\e[38;2;219;41;20m\]\nxx"
-C_RESET="\[\e[0m\]"
+ # Ensure Bash automatically updates $COLUMNS when the window resizes
+ shopt -s checkwinsize
 
-C_PROMPT_BEGIN="\[\e[38;2;120;149;136m\]\u\[\e[38;2;121;116;14m\]@\[\e[38;2;202;141;15m\]\H "
+ C_SUCCESS="\[\e[38;2;121;161;14m\]\n->"
+ C_FAIL="\[\e[38;2;219;41;20m\]\nxx"
+ C_RESET="\[\e[0m\]"
 
-update_prompt_status() {
-    local EXIT_CODE=$?
+ C_PROMPT_BEGIN="\[\e[38;2;120;149;136m\]\u\[\e[38;2;121;116;14m\]@\[\e[38;2;202;141;15m\]\H "
+
+
+ update_prompt_status() {
+     local EXIT_CODE=$?
+
+     # Print the invisible padding trick to handle missing newlines
+     local cols=${COLUMNS:-80}
+     (( cols > 0 )) || cols=80
     
-    history -a; history -n
+     # Print $cols spaces to force a wrap, snap to beginning of line (\r), and clear line (\e[K)
+     printf "%*s\r\e[K" "$cols" ""
 
-    if [ $EXIT_CODE -eq 0 ]; then
-        PROMPT_INDICATOR="${C_SUCCESS}${C_RESET}"
-    else
-        PROMPT_INDICATOR="${C_FAIL}${C_RESET}"
-    fi
-    PS1="${C_PROMPT_BEGIN}\[\e[38;2;219;41;20m\]\w ${PROMPT_INDICATOR} "
-}
+     history -a; history -n
 
-PROMPT_COMMAND="update_prompt_status"
+     if [ $EXIT_CODE -eq 0 ]; then
+         PROMPT_INDICATOR="${C_SUCCESS}${C_RESET}"
+     else
+         PROMPT_INDICATOR="${C_FAIL}${C_RESET}"
+     fi
+    
+     PS1="${C_PROMPT_BEGIN}\[\e[38;2;219;41;20m\]\w ${PROMPT_INDICATOR} "
+ }
+
+ PROMPT_COMMAND="update_prompt_status"
