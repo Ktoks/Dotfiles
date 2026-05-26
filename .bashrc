@@ -5,24 +5,20 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 [ -d /opt/mssql-tools18/bin ] && export PATH="$PATH:/opt/mssql-tools18/bin"
 [ -f "/etc/bash.bashrc" ] && source "/etc/bash.bashrc"
 [ "${debian_chroot:-}" = "" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
-[ -d /usr/local/go/ ] && export gopath="$HOME/code/go" && path="$path:/usr/local/go/bin:$gopath/bin:$HOME/go/bin/:"
+[ -f /usr/bin/go ] || [ -f /usr/local/go ] && export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/"
 [ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native"
 [ -d "$HOME/.fzf/bin/" ] && PATH="$PATH:$HOME/.fzf/bin"
 [ "$(command -v fzf)" ] && eval "$(fzf --bash)"
 [ "$(command -v zellij)" ] && eval "$(zellij setup --generate-completion bash)"
-[ -f "$HOME/.ops/scripts/bash_completion.sh" ] && export OPS_DIR="$HOME/.ops" && export PATH="$HOME/.ops/bin:$PATH" && source "$HOME/.ops/scripts/bash_completion.sh"
+# [ -f "$HOME/.ops/scripts/bash_completion.sh" ] && export OPS_DIR="$HOME/.ops" && export PATH="$HOME/.ops/bin:$PATH" && source "$HOME/.ops/scripts/bash_completion.sh"
 
-# Setup ls colors
-if [ -f ~/.ls_colors ]; then
-    eval "$(dircolors -b ~/.ls_colors)"
-# else
-#     export LS_COLORS='di=1;97;100:ln=36:ex=31'
-fi
+# may need some colors if the terminal doesn't come with anything
+# export LS_COLORS='di=1;97;100:ln=36:ex=31'
 
-if [ "$(command -v carapace)" ]; then
-  [ ! -s "$HOME/.cache/carapace/init" ] && carapace _carapace > "$HOME/.cache/carapace/init"
-  source "$HOME/.cache/carapace/init"
-fi
+# if [ "$(command -v carapace)" ]; then
+#   [ ! -s "$HOME/.cache/carapace/init" ] && carapace _carapace > "$HOME/.cache/carapace/init"
+#   source "$HOME/.cache/carapace/init"
+# fi
 
 # --- Source Configuration Files ---
 for file in "/etc/bashrc" "$HOME/.aliases" "$HOME/.cargo/env" "$HOME/.functions" "$HOME/.nav" "$HOME/.prompt" "$HOME/.fzf_commands.sh"; do

@@ -1,6 +1,11 @@
 use-grammars = { only = ["awk", "bash", "comment", "git-attributes", "git-commit", "git-config", "git-ignore", "git-rebase", "go", "json", "log", "latex", "lua", "make", "markdown", "nu", "perl", "pkgbuild", "python", "regex", "rust", "scheme", "sql", "toml", "xml", "yaml"]}
 # use-grammars = { only = []}
 
+[language-server.golangci-lint-lsp]
+command = "golangci-lint-langserver"
+[language-server.golangci-lint-lsp.config]
+command = ["golangci-lint", "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code=1"]
+
 [[language]]
 name = "bash"
 auto-format = false
