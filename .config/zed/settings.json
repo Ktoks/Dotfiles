@@ -7,11 +7,11 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-    "ui_font_family": "FiraCode Nerd Font",
-    "buffer_font_family": "FiraCode Nerd Font Mono",
-    "buffer_font_features": {
-        "calt": true
-    },
+    // "ui_font_family": "FiraCode Nerd Font",
+    // "buffer_font_family": "FiraCode Nerd Font Mono",
+    // "buffer_font_features": {
+    //     "calt": true,
+    // },
     "format_on_save": "on",
     "tab_size": 4,
     "soft_wrap": null,
@@ -22,43 +22,43 @@
             "user": "rr377574",
             "projects": [
                 {
-                    "paths": ["/home/rr377574"]
+                    "paths": ["/home/rr377574"],
                 },
                 {
-                    "paths": ["/home/rr377574/.bashrc"]
+                    "paths": ["/home/rr377574/.bashrc"],
                 },
                 {
-                    "paths": ["/home/rr377574/code/remote/./"]
-                }
-            ]
+                    "paths": ["/home/rr377574/code/remote/./"],
+                },
+            ],
         },
         {
             "distro_name": "FedoraLinux-43",
             "user": null,
-            "projects": []
-        }
+            "projects": [],
+        },
     ],
     "title_bar": {
         "show_user_menu": false,
         "show_user_picture": false,
-        "show_sign_in": false
+        "show_sign_in": false,
     },
     "status_bar": {
         "show_active_file": false,
-        "line_endings_button": true
+        "line_endings_button": true,
     },
     "icon_theme": "Zed (Default)",
     "telemetry": {
         "diagnostics": false,
-        "metrics": false
+        "metrics": false,
     },
     "lsp": {
         "perlnavigator-server": {
             "settings": {
                 "perlnavigator": {
-                    "includePaths": ["local/lib/perl5", "lib"]
-                }
-            }
+                    "includePaths": ["local/lib/perl5", "lib"],
+                },
+            },
         },
         "gopls": {
             "initialization_options": {
@@ -69,7 +69,7 @@
                     "constantValues": true,
                     "functionTypeParameters": true,
                     "parameterNames": true,
-                    "rangeVariableTypes": true
+                    "rangeVariableTypes": true,
                 },
                 "codelenses": {
                     "test": true,
@@ -77,22 +77,22 @@
                     "regenerate_cgo": true,
                     "tidy": true,
                     "upgrade_dependency": true,
-                    "vendor": true
-                }
-            }
-        }
+                    "vendor": true,
+                },
+            },
+        },
     },
     "session": {
-        "trust_all_worktrees": true
+        "trust_all_worktrees": true,
     },
     "terminal": {
         "copy_on_select": true,
-        "shell": {
-            "program": "wsl.exe -d FedoraLinux-43"
-            // "args": ["~"],
-        },
+        // "shell": {
+        //     "program": "wsl.exe -d FedoraLinux-43",
+        //     // "args": ["~"],
+        // },
         "font_size": 16.0,
-        "font_family": "FiraCode Nerd Font Mono"
+        "font_family": "FiraCode Nerd Font Mono",
     },
     "helix_mode": true,
     "ui_font_size": 16,
@@ -100,7 +100,7 @@
     "theme": {
         "mode": "dark",
         "light": "Gruvbox Light",
-        "dark": "Gruvbox Muted"
+        "dark": "Gruvbox Muted",
     },
     "languages": {
         "Go": {
@@ -110,10 +110,10 @@
             },
             "formatter": {
                 "language_server": {
-                    "name": "gofmt"
-                }
+                    "name": "gofmt",
+                },
             },
-            "language_servers": ["gopls"]
+            "language_servers": ["gopls"],
         },
         "Perl": {
             "code_actions_on_format": {
@@ -121,39 +121,39 @@
             },
             "formatter": {
                 "language_server": {
-                    "name": "perltidy"
-                }
+                    "name": "perltidy",
+                },
             },
             "language_servers": [
                 // Enable ty, disable basedpyright, and enable all
                 // other registered language servers (ruff, pylsp, pyright).
                 "perlnavigator-server",
-                "perltidy"
-            ]
+                "perltidy",
+            ],
         },
         "Python": {
             "code_actions_on_format": {
-                "source.organizeImports.ruff": true
+                "source.organizeImports.ruff": true,
             },
             "formatter": {
                 "language_server": {
-                    "name": "ruff"
-                }
+                    "name": "ruff",
+                },
             },
             "language_servers": [
                 // Enable ty, disable basedpyright, and enable all
                 // other registered language servers (ruff, pylsp, pyright).
                 "ty",
-                "!basedpyright"
-            ]
+                "!basedpyright",
+            ],
         },
-        "XML": {
-            "formatter": {
-                "external": {
-                    "command": "C:\\tools\\bin\\xmlfmt.exe"
-                }
-            }
-        }
+        // "XML": {
+        //     "formatter": {
+        //         "external": {
+        //             "command": "C:\\tools\\bin\\xmlfmt.exe"
+        //         }
+        //     }
+        // }
         // "language_servers": [
         //     // Enable ty, disable basedpyright, and enable all
         //     // other registered language servers (ruff, pylsp, pyright).
@@ -164,5 +164,5 @@
         //     // "source.organizeImports.ruff": true,
         // }
         // }
-    }
+    },
 }
