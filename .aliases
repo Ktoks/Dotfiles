@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+alias winhome='cd /mnt/c/Users/$(whoami)'
 alias aliases='alias | grep -E "config|ls|hx|src"'
 alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias src="source ~/.bashrc"
@@ -14,4 +15,4 @@ alias lls="ll -tr"
 alias lsl="lls "
 alias lsls="lls "
 [ ! "$(command -v  hx)" ] && alias hx="helix "
-[ "$(command -v  go)" ] && alias gobld="go build -ldflags \"-w -s\""
+[ "$(command -v  go)" ] && alias gobld="CGO_ENABLED=0 go build -trimpath -ldflags \"-w -s\""

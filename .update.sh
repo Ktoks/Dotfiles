@@ -3,11 +3,8 @@
 set -e
 # set -x
 
-if [ "$(command -v python3)" ]; then
-   python3 -m venv myenv && source "$HOME/myenv/bin/activate" && python3 -m pip install --upgrade pip
-elif [ "$(command -v python)" ]; then
-   python -m venv myenv && source "$HOME/myenv/bin/activate" && python -m pip install --upgrade pip
-fi
+[ "$(command -v python3)" ] && python3 -m venv myenv && source "$HOME/myenv/bin/activate" && python3 -m pip install --upgrade pip
+[ "$(command -v python)" ] && python -m venv myenv && source "$HOME/myenv/bin/activate" && python -m pip install --upgrade pip
 
 if [ -f "/etc/os-release" ]; then
    . /etc/os-release
