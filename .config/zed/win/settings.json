@@ -1,0 +1,168 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+    "ui_font_family": "FiraCode Nerd Font",
+    "buffer_font_family": "FiraCode Nerd Font Mono",
+    "buffer_font_features": {
+        "calt": true
+    },
+    "format_on_save": "on",
+    "tab_size": 4,
+    "soft_wrap": null,
+    "relative_line_numbers": "enabled",
+    "wsl_connections": [
+        {
+            "distro_name": "FedoraLinux-43",
+            "user": "rr377574",
+            "projects": [
+                {
+                    "paths": ["/home/rr377574"]
+                },
+                {
+                    "paths": ["/home/rr377574/.bashrc"]
+                },
+                {
+                    "paths": ["/home/rr377574/code/remote/./"]
+                }
+            ]
+        },
+        {
+            "distro_name": "FedoraLinux-43",
+            "user": null,
+            "projects": []
+        }
+    ],
+    "title_bar": {
+        "show_user_menu": false,
+        "show_user_picture": false,
+        "show_sign_in": false
+    },
+    "status_bar": {
+        "show_active_file": false,
+        "line_endings_button": true
+    },
+    "icon_theme": "Zed (Default)",
+    "telemetry": {
+        "diagnostics": false,
+        "metrics": false
+    },
+    "lsp": {
+        "perlnavigator-server": {
+            "settings": {
+                "perlnavigator": {
+                    "includePaths": ["local/lib/perl5", "lib"]
+                }
+            }
+        },
+        "gopls": {
+            "initialization_options": {
+                "hints": {
+                    "assignVariableTypes": true,
+                    "compositeLiteralFields": true,
+                    "compositeLiteralTypes": true,
+                    "constantValues": true,
+                    "functionTypeParameters": true,
+                    "parameterNames": true,
+                    "rangeVariableTypes": true
+                },
+                "codelenses": {
+                    "test": true,
+                    "generate": true,
+                    "regenerate_cgo": true,
+                    "tidy": true,
+                    "upgrade_dependency": true,
+                    "vendor": true
+                }
+            }
+        }
+    },
+    "session": {
+        "trust_all_worktrees": true
+    },
+    "terminal": {
+        "copy_on_select": true,
+        "shell": {
+            "program": "wsl.exe -d FedoraLinux-43"
+            // "args": ["~"],
+        },
+        "font_size": 16.0,
+        "font_family": "FiraCode Nerd Font Mono"
+    },
+    "helix_mode": true,
+    "ui_font_size": 16,
+    "buffer_font_size": 15,
+    "theme": {
+        "mode": "dark",
+        "light": "Gruvbox Light",
+        "dark": "Gruvbox Muted"
+    },
+    "languages": {
+        "Go": {
+            "tab_size": 4,
+            "code_actions_on_format": {
+                // "source.organizeImports": true,
+            },
+            "formatter": {
+                "language_server": {
+                    "name": "gofmt"
+                }
+            },
+            "language_servers": ["gopls"]
+        },
+        "Perl": {
+            "code_actions_on_format": {
+                // "source.organizeImports.ruff": true,
+            },
+            "formatter": {
+                "language_server": {
+                    "name": "perltidy"
+                }
+            },
+            "language_servers": [
+                // Enable ty, disable basedpyright, and enable all
+                // other registered language servers (ruff, pylsp, pyright).
+                "perlnavigator-server",
+                "perltidy"
+            ]
+        },
+        "Python": {
+            "code_actions_on_format": {
+                "source.organizeImports.ruff": true
+            },
+            "formatter": {
+                "language_server": {
+                    "name": "ruff"
+                }
+            },
+            "language_servers": [
+                // Enable ty, disable basedpyright, and enable all
+                // other registered language servers (ruff, pylsp, pyright).
+                "ty",
+                "!basedpyright"
+            ]
+        },
+        "XML": {
+            "formatter": {
+                "external": {
+                    "command": "C:\\tools\\bin\\xmlfmt.exe"
+                }
+            }
+        }
+        // "language_servers": [
+        //     // Enable ty, disable basedpyright, and enable all
+        //     // other registered language servers (ruff, pylsp, pyright).
+        //     // "ty",
+        //     // "!basedpyright",
+        // ],
+        // "code_actions_on_format": {
+        //     // "source.organizeImports.ruff": true,
+        // }
+        // }
+    }
+}
