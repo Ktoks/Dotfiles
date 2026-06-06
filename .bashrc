@@ -5,7 +5,8 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 [ -d /opt/mssql-tools18/bin ] && export PATH="$PATH:/opt/mssql-tools18/bin"
 [ -f "/etc/bash.bashrc" ] && source "/etc/bash.bashrc"
 [ "${debian_chroot:-}" = "" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
-[ -f /usr/bin/go ] || [ -f /usr/local/go ] && export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/"
+[ -f /usr/bin/go ] && export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/"
+[ -f /usr/local/go/bin/go ] && export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/:/usr/local/go/bin/"
 [ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native"
 [ -d "$HOME/.fzf/bin/" ] && PATH="$PATH:$HOME/.fzf/bin"
 [ "$(command -v fzf)" ] && eval "$(fzf --bash)"
