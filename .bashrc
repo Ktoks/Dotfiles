@@ -11,6 +11,9 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 [ -d "$HOME/.fzf/bin/" ] && PATH="$PATH:$HOME/.fzf/bin"
 [ "$(command -v fzf)" ] && eval "$(fzf --bash)"
 [ "$(command -v zellij)" ] && eval "$(zellij setup --generate-completion bash)"
+[ "$ID" == "fedora" ] && export __GLX_VENDOR_LIBRARY_NAME="nvidia" && export WLR_NO_HARDWARE_CURSORS="1"
+[ -d "/usr/local/cuda-13.3/bin" ] && PATH="$PATH:/usr/local/cuda-13.3/bin"
+[ -d "/usr/local/cuda-13.3/lib64" ] && LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/cuda-13.3/lib64"
 # [ -f "$HOME/.ops/scripts/bash_completion.sh" ] && export OPS_DIR="$HOME/.ops" && export PATH="$HOME/.ops/bin:$PATH" && source "$HOME/.ops/scripts/bash_completion.sh"
 
 # may need some colors if the terminal doesn't come with anything
