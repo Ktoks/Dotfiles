@@ -7,12 +7,36 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-    // "ui_font_family": "FiraCode Nerd Font",
-    // "buffer_font_family": "FiraCode Nerd Font Mono",
-    // "buffer_font_features": {
-    //     "calt": true,
-    // },
+    "disable_ai": true,
+    "show_completions_on_input": true,
+    "agent": {
+        "enabled": true,
+        "button": true,
+        "default_model": {
+            "provider": "google",
+            "model": "gemini-cli",
+        },
+    },
+    // "ui_font_family": "FiraCode Nerd Font", // windows
+    // "buffer_font_family": "FiraCode Nerd Font Mono", // windows
+    "ui_font_family": "Fira Code", // linux
+    "buffer_font_family": "Fira Code", // linux
+    "buffer_font_features": {
+        "calt": true,
+    },
     "format_on_save": "on",
+    "edit_predictions": {
+        "provider": "none",
+    },
+
+    "node": null,
+    "git": {
+        "disable_git": true,
+    },
+    "file_types": {
+        "exclude": ["**/target", "**/node_modules", "**/.git", "**/build"],
+    },
+
     "tab_size": 4,
     "soft_wrap": null,
     "relative_line_numbers": "enabled",
@@ -52,6 +76,7 @@
         "diagnostics": false,
         "metrics": false,
     },
+    "auto_update": false,
     "lsp": {
         "perlnavigator-server": {
             "settings": {
@@ -87,12 +112,16 @@
     },
     "terminal": {
         "copy_on_select": true,
-        // "shell": {
+        // "shell": { // windows
         //     "program": "wsl.exe -d FedoraLinux-43",
         //     // "args": ["~"],
         // },
         "font_size": 16.0,
-        "font_family": "FiraCode Nerd Font Mono",
+        // "font_family": "FiraCode Nerd Font Mono", // windows
+        "font_family": "Fira Code", // linux
+        "font_features": {
+            "calt": true,
+        },
     },
     "helix_mode": true,
     "ui_font_size": 16,
@@ -116,20 +145,13 @@
             "language_servers": ["gopls"],
         },
         "Perl": {
-            "code_actions_on_format": {
-                // "source.organizeImports.ruff": true,
-            },
+            "code_actions_on_format": {},
             "formatter": {
                 "language_server": {
                     "name": "perltidy",
                 },
             },
-            "language_servers": [
-                // Enable ty, disable basedpyright, and enable all
-                // other registered language servers (ruff, pylsp, pyright).
-                "perlnavigator-server",
-                "perltidy",
-            ],
+            "language_servers": ["perlnavigator-server", "perltidy"],
         },
         "Python": {
             "code_actions_on_format": {
@@ -147,7 +169,7 @@
                 "!basedpyright",
             ],
         },
-        // "XML": {
+        // "XML": { // Work Windows
         //     "formatter": {
         //         "external": {
         //             "command": "C:\\tools\\bin\\xmlfmt.exe"
