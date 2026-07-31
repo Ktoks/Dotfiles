@@ -28,7 +28,8 @@ done
 
 [[ -r "/usr/share/bash-completion/bash_completion" ]] && source "/usr/share/bash-completion/bash_completion"
 
-export EDITOR="/usr/sbin/hx"
+[[ -e "/usr/sbin/hx" ]] && export EDITOR="/usr/sbin/hx"  && export SYSTEMD_EDITOR="/usr/sbin/hx" && export VISUAL="/usr/sbin/hx"
+[[ -e "/usr/bin/hx" ]] && export EDITOR="/usr/bin/hx" && export SYSTEMD_EDITOR="/usr/bin/hx" && export VISUAL="/usr/bin/hx"
 export TERM='xterm-256color'
 
 set -o vi
