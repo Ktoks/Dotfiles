@@ -1,8 +1,17 @@
 use-grammars = { only = ["awk", "bash", "comment", "git-attributes", "git-commit", "git-config", "git-ignore", "git-rebase", "go", "json", "log", "latex", "lua", "make", "markdown", "nu", "perl", "pkgbuild", "python", "regex", "rust", "scheme", "sql", "toml", "xml", "yaml"]}
 # use-grammars = { only = []}
 
+[language-server.helix-gpt]
+command = "helix-gpt"
+args = ["--handler", "copilot", "--copilotApiKey", "<add it here>"]
+
+[[language]]
+name = "go"
+language-servers = ["gopls"]
+
 [language-server.golangci-lint-lsp]
 command = "golangci-lint-langserver"
+
 [language-server.golangci-lint-lsp.config]
 command = ["golangci-lint", "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code=1"]
 
@@ -13,6 +22,7 @@ injection-regex = "(shell|bash|zsh|sh)"
 file-types = ["sh", "bash", "zsh", ".login", ".bash_login", ".bash_logout", ".logout", ".bash_profile", ".bashrc", ".prompt", ".profile", ".zshenv", ".zlogin", ".zlogout", ".zprofile", ".zshrc", "APKBUILD", "PKGBUILD", "eclass", "ebuild", "bazelrc", ".bash_aliases", ".aliases"]
 shebangs = ["sh", "bash"]
 indent = {tab-width = 4, unit = "\t" }
+language-servers = ["bash-language-server"]
 
 [language-server.bash-language-server]
 command = "bash-language-server"
@@ -31,11 +41,13 @@ name = "nu"
 name = "perl"
 injection-regex = "perl"
 formatter = { command = "perltidy", args = ["-b", "-l=0", "-i=2"] }
+language-servers = ["perlnavigator"]
 
 [[language]]
 name = "python"
 auto-format = true
 indent = { tab-width = 4, unit = "\t" }
+language-servers = ["pylsp"]
 
 [[language]]
 name = "rust"

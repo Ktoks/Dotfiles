@@ -1,5 +1,36 @@
 #!/usr/bin/env bash
 
+fp ()
+{
+    local fname=$1;
+    [[ -e "$fname" ]] && realpath "$fname" || echo "$fname does not exist"
+}
+
+# Mount a specific remote directory
+# Usage: rmount /bcs/lgnt/clientapp/zzzkacy my_client_app
+rmount() {
+    REMOTE_PATH=$1
+    LOCAL_DIR="$HOME/workspaces/$2"
+    
+    mkdir -p "$LOCAL_DIR"
+    rclone mount "dev4:$REMOTE_PATH" "$LOCAL_DIR" \
+        --vfs-cache-mode full \
+        --vfs-write-back 1s \
+        --vfs-cache-max-age 1h \
+        --dir-cache-time 1m \
+        --daemon
+        
+    echo "Mounted dev4:$REMOTE_PATH to $LOCAL_DIR"
+}
+
+# Unmount a workspace
+# Usage: rumount my_client_app
+rumount() {
+    LOCAL_DIR="$HOME/workspaces/$1"
+    fusermount3 -u "$LOCAL_DIR"
+    echo "Unmounted $LOCAL_DIR"
+}
+
 rgf() {
     mapfile -t files < <(fd "$2")
     rg "$1" "${files[@]}" "${@:3}"

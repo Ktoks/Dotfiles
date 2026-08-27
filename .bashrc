@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if command -v gh &> /dev/null; then
+    export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
+    export COPILOT_GITHUB_TOKEN=$GITHUB_TOKEN
+fi
+
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/lib:$HOME/.local/bin"
 
 [ -d /opt/mssql-tools18/bin ] && export PATH="$PATH:/opt/mssql-tools18/bin"
@@ -7,7 +12,7 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 [ "${debian_chroot:-}" = "" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
 [ -f /usr/bin/go ] && export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/"
 [ -f /usr/local/go/bin/go ] && export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/:/usr/local/go/bin/"
-[ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native"
+[ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native -C lto=thin -C codegen-units=1 -C strip=symbols"
 [ -d "$HOME/.fzf/bin/" ] && PATH="$PATH:$HOME/.fzf/bin"
 [ "$(command -v fzf)" ] && eval "$(fzf --bash)"
 [ "$(command -v zellij)" ] && eval "$(zellij setup --generate-completion bash)"
@@ -41,8 +46,8 @@ set -o vi
 shopt -s histappend
 shopt -s checkwinsize
 HISTCONTROL="ignoreboth:erasedups"
-HISTSIZE=''
-HISTFILESIZE=''
+HISTSIZE=
+HISTFILESIZE=
 
 # up arrow for history match current command
 bind '"\e[A": history-search-backward'
@@ -61,5 +66,14 @@ if [ -f ~/.todo ] && [ -s ~/.todo ]; then
     cat ~/.todo
     echo "-------------"
 fi
+
+# export XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+
+# # Allow Zed to run on WSL's virtualized GPU
+# export ZED_ALLOW_EMULATED_GPU=1
+
+# # Create an alias forcing X11 compatibility and foreground execution
+# alias zed="WAYLAND_DISPLAY='' zed --foreground"
+
 
 bind -f ~/.inputrc

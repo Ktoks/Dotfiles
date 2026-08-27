@@ -11,6 +11,9 @@ completion-trigger-len = 1
 end-of-line-diagnostics = "hint"
 color-modes = true
 undercurl = true
+# Increases the time Helix waits before triggering hover popups or LSP requests.
+# This prevents spamming the network drive if you rapidly scroll through a file.
+idle-timeout = 600
 
 [editor.inline-diagnostics]
 cursor-line = "hint"
@@ -20,8 +23,12 @@ other-lines = "hint"
 insert = "bar"
 
 [editor.file-picker]
-hidden = false
 # max-depth = 4
+# Prevents Helix's internal file picker from trying to read deeply nested
+# ignored folders (like node_modules) over the network.
+hidden = false
+git-ignore = true
+git-global = true
 
 [editor.gutters]
 layout = ["diff", "diagnostics", "line-numbers", "spacer", "spacer"]
@@ -36,7 +43,10 @@ skip-levels = 1
 
 [editor.lsp]
 enable = true
-display-messages = true
+# Extends the timeout for format-on-save. If Rclone is busy writing a file,
+# we want to give the LSP more time to format it before giving up.
+auto-signature-help = false # Prevents constant network queries on every keystroke
+display-messages = true     # Lets you see if the LSP is indexing in the background
 
 [editor.search]
 smart-case = true
