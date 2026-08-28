@@ -12,7 +12,7 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 [ "${debian_chroot:-}" = "" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
 [ -f /usr/bin/go ] && export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/"
 [ -f /usr/local/go/bin/go ] && export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/:/usr/local/go/bin/"
-[ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native -C lto=thin -C codegen-units=1 -C strip=symbols"
+[ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native -C codegen-units=1 -C strip=symbols" && export CARGO_PROFILE_RELEASE_LTO=thin
 [ -d "$HOME/.fzf/bin/" ] && PATH="$PATH:$HOME/.fzf/bin"
 [ "$(command -v fzf)" ] && eval "$(fzf --bash)"
 [ "$(command -v zellij)" ] && eval "$(zellij setup --generate-completion bash)"
