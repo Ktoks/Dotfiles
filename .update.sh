@@ -18,7 +18,6 @@ if [ -f "/etc/os-release" ]; then
   fi
 fi
 
-rustup update
 cargo install-update -a
 echo "Updating Helix"
 sleep 3
