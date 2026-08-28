@@ -21,6 +21,5 @@ fi
 cargo install-update -a
 echo "Updating Helix"
 sleep 3
-mkdir -p ~/.config/helix/runtime && curl -sL https://github.com/helix-editor/helix/archive/refs/heads/master.tar.gz | tar -xzf - -C ~/.config/helix/runtime --strip-components=2 "*/runtime
-/"
+mkdir -p ~/.config/helix/runtime && curl -sL https://github.com/helix-editor/helix/archive/refs/heads/master.tar.gz | tar -xzf - -C ~/.config/helix/runtime --strip-components=2 "*/runtime"
 cargo install --git https://github.com/helix-editor/helix --bins helix-term --locked
