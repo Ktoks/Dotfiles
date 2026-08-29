@@ -22,8 +22,17 @@ wezterm.on('window-config-reloaded', function(window, pane)
   end
 end)
 
+-- 1. Remove the OS title bar and merge minimize/maximize/exit into WezTerm's tab bar
+config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
+
+-- Hide the entire tab line completely if you only have one terminal window open
+config.hide_tab_bar_if_only_one_tab = true
+
+-- config.front_end = 'OpenGL'
+config.front_end = 'WebGpu'
 config.webgpu_power_preference = 'HighPerformance'
 
+ -- configuration for blackhawk laptop
  -- config.webgpu_preferred_adapter = {
  --   backend = 'Vulcan',
  --   device = 7308,
@@ -42,9 +51,6 @@ config.webgpu_preferred_adapter = {
   name = 'NVIDIA GeForce RTX 3080 Ti',
   vendor = 4318,
 }
--- config.front_end = 'WebGpu'
-
--- config.front_end = 'OpenGL'
 
 -- For example, changing the color scheme:
 config.color_scheme = 'Gruvbox Dark (Gogh)'
@@ -63,22 +69,35 @@ config.keys = {
     key = 'n',
     mods = 'SHIFT|CTRL',
     action = wezterm.action.ToggleFullScreen,
-  }
-}
-config.keys = {
+  },
   {
     key = '|',
     mods = 'SHIFT|CTRL|ALT',
     action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
-  }
-}
-config.mouse_bindings = {
-  {
-    event = { Up = { streak = 1, button = 'Left' } },
-    mods = 'NONE',
-    action = wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor 'Clipboard',
   },
 }
 
--- and finally, return the configuration to wezterm
-return config-- Pull in the wezterm API
+config.mouse_bindings = {
+  -- Override default un-modified left-click so it finishes selections instead of opening links
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'NONE',
+    action = wezterm.action.CompleteSelection('ClipboardAndPrimarySelection'),
+  },
+
+  -- Bind CTRL + Left-Click to open the hyperlink under the mouse cursor
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'CTRL',
+    action = wezterm.action.OpenLinkAtMouseCursor,
+  },
+
+  -- Prevent terminal apps (like Helix) from intercepting the initial mouse down when holding CTRL for hyperlinks
+  {
+    event = { Down = { streak = 1, button = 'Left' } },
+    mods = 'CTRL',
+    action = wezterm.action.Nop,
+  },
+}
+
+return config
