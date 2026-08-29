@@ -72,6 +72,13 @@ config.keys = {
     action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
   }
 }
+config.mouse_bindings = {
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'NONE',
+    action = wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor 'Clipboard',
+  },
+}
 
 -- and finally, return the configuration to wezterm
 return config-- Pull in the wezterm API
