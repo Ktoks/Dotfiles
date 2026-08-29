@@ -10,7 +10,6 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 [ -d /opt/mssql-tools18/bin ] && export PATH="$PATH:/opt/mssql-tools18/bin"
 [ -f "/etc/bash.bashrc" ] && source "/etc/bash.bashrc"
 [ "${debian_chroot:-}" = "" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
-[ -f /usr/bin/go ] && export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/"
 [ -f /usr/local/go/bin/go ] && export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/:/usr/local/go/bin/"
 [ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native -C codegen-units=1 -C strip=symbols" && export CARGO_PROFILE_RELEASE_LTO=thin
 [ -d "$HOME/.fzf/bin/" ] && PATH="$PATH:$HOME/.fzf/bin"
@@ -19,8 +18,7 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 [ "$ID" == "fedora" ] && export __GLX_VENDOR_LIBRARY_NAME="nvidia" && export WLR_NO_HARDWARE_CURSORS="1"
 [ -d "/usr/local/cuda-13.3/bin" ] && PATH="$PATH:/usr/local/cuda-13.3/bin"
 [ -d "/usr/local/cuda-13.3/lib64" ] && LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/cuda-13.3/lib64"
-[ -d "$HOME/code/llama.cpp/build/bin" ] && PATH="$PATH:$HOME/code/llama.cpp/build/bin"
-# [ -f "$HOME/.ops/scripts/bash_completion.sh" ] && export OPS_DIR="$HOME/.ops" && export PATH="$HOME/.ops/bin:$PATH" && source "$HOME/.ops/scripts/bash_completion.sh"
+# [ -d "$HOME/code/llama.cpp/build/bin" ] && PATH="$PATH:$HOME/code/llama.cpp/build/bin"
 
 # may need some colors if the terminal doesn't come with anything
 # export LS_COLORS='di=1;97;100:ln=36:ex=31'
@@ -60,7 +58,6 @@ shopt -s cdspell
 
 [ -d "$HOME/.nvm" ] && export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -d "/opt/minecraft" ] && PATH="$PATH:/opt/minecraft"
 if [ -f ~/.todo ] && [ -s ~/.todo ]; then
     echo "--- TODOs ---"
     cat ~/.todo
@@ -77,3 +74,9 @@ fi
 
 
 bind -f ~/.inputrc
+
+# CUDA Environment Variables
+if [ -d "/usr/local/cuda" ]; then
+    export PATH="/usr/local/cuda/bin:$PATH"
+    export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+fi
