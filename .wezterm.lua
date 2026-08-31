@@ -42,15 +42,17 @@ config.webgpu_power_preference = 'HighPerformance'
  --   name = 'NVIDIA GeForce GTX 1050 Ti',
  --   vendor = 4318,
  -- }
-config.webgpu_preferred_adapter = {
-  backend = 'Vulcan',
-  device = 8712,
-  device_type = 'DiscreteGpu',
-  driver = 'NVIDIA',
-  driver_info = '595.71.05',
-  name = 'NVIDIA GeForce RTX 3080 Ti',
-  vendor = 4318,
-}
+
+-- For main desktop
+-- config.webgpu_preferred_adapter = {
+--   backend = 'Vulcan',
+--   device = 8712,
+--   device_type = 'DiscreteGpu',
+--   driver = 'NVIDIA',
+--   driver_info = '595.71.05',
+--   name = 'NVIDIA GeForce RTX 3080 Ti',
+--   vendor = 4318,
+-- }
 
 -- For example, changing the color scheme:
 config.color_scheme = 'Gruvbox Dark (Gogh)'

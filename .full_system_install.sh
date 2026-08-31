@@ -53,7 +53,7 @@ wget https://go.dev/dl/go1.27.0.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.27.0.linux-amd64.tar.gz
 rm -f $HOME/Downloads/go1.27.0.linux-amd64.tar.gz
 export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/:/usr/local/go/bin/"
-go env -w GOAMD64=v3 GOOS=linux GOARCH=amd64 CGO_ENABLED=0 GOFLAGS="-trimpath -ldflags=-s -w"
+go env -w GOAMD64=v3 GOOS=linux GOARCH=amd64 CGO_ENABLED=0 GOFLAGS='-trimpath -ldflags="-s -w"'
 go install golang.org/x/tools/gopls@latest
 go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
 go install github.com/nametake/golangci-lint-langserver@latest
