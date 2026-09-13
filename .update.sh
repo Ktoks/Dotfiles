@@ -2,7 +2,7 @@
 
 set -e
 
-uv self update
+# uv self update
 uv tool upgrade --all
 
 [ "$(command -v flatpak)" ] && flatpak update -y
@@ -13,7 +13,7 @@ if [ -f "/etc/os-release" ]; then
       sudo pacman -Syu
    elif [[ "$ID" == "fedora" ]]; then
       sudo dnf upgrade -y
-   elif [[ "$ID_LIKE" == "debian" ]]; then
+   else
       sudo apt update && sudo apt upgrade -y
   fi
 fi

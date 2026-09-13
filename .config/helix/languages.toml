@@ -1,19 +1,42 @@
 use-grammars = { only = ["awk", "bash", "comment", "git-attributes", "git-commit", "git-config", "git-ignore", "git-rebase", "go", "json", "log", "latex", "lua", "make", "markdown", "nu", "perl", "pkgbuild", "python", "regex", "rust", "scheme", "sql", "toml", "xml", "yaml"]}
-# use-grammars = { only = []}
 
-[language-server.helix-gpt]
-command = "helix-gpt"
-args = ["--handler", "copilot", "--copilotApiKey", "<add it here>"]
+[language-server.lsp-ai]
+command = "lsp-ai"
 
-[[language]]
-name = "go"
-language-servers = ["gopls"]
+[language-server.lsp-ai.config.memory]
+file_store = {}
+
+[language-server.lsp-ai.config.models.model1]
+type = "open_ai"
+chat_endpoint = "http://localhost:8080/v1/chat/completions"
+completions_endpoint = "http://localhost:8080/v1/completions"
+model = "qwen3-coder"
+auth_token = "not-needed"
+
+[[language-server.lsp-ai.config.chat]]
+trigger = "!C"
+action_display_name = "Chat with AI"
+model = "model1"
+[language-server.lsp-ai.config.chat.parameters]
+max_context = 4096
+max_tokens = 1024
+system = "You are a helpful coding assistant."
+
+[language-server.lsp-ai.config.completion]
+model = "model1"
 
 [language-server.golangci-lint-lsp]
 command = "golangci-lint-langserver"
 
 [language-server.golangci-lint-lsp.config]
-command = ["golangci-lint", "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code=1"]
+command = ["golangci-lint", "run", "--output.json.path", "stdout", "--show-stats=false", "--issues-exit-code=1"]
+
+# [language-server.gopls.config]
+# memoryMode = "DegradeClosed" 
+
+[[language]]
+name = "go"
+language-servers = ["gopls", "golangci-lint-lsp", "lsp-ai"]
 
 [[language]]
 name = "bash"
@@ -22,41 +45,39 @@ injection-regex = "(shell|bash|zsh|sh)"
 file-types = ["sh", "bash", "zsh", ".login", ".bash_login", ".bash_logout", ".logout", ".bash_profile", ".bashrc", ".prompt", ".profile", ".zshenv", ".zlogin", ".zlogout", ".zprofile", ".zshrc", "APKBUILD", "PKGBUILD", "eclass", "ebuild", "bazelrc", ".bash_aliases", ".aliases"]
 shebangs = ["sh", "bash"]
 indent = {tab-width = 4, unit = "\t" }
-language-servers = ["bash-language-server"]
+language-servers = ["bash-language-server", "lsp-ai"]
 
 [language-server.bash-language-server]
 command = "bash-language-server"
 args = ["start"]
 
-# [[language]]
-# name = "cobol"
-# file-types = ["cbl", "cobol"]
-# shebangs = ["cbl"]
-# indent = { tab-width = 8, unit = " " }
-
-[[language]]
-name = "nu"
-
 [[language]]
 name = "perl"
 injection-regex = "perl"
 formatter = { command = "perltidy", args = ["-b", "-l=0", "-i=2"] }
-language-servers = ["perlnavigator"]
+language-servers = ["perlnavigator", "lsp-ai"]
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
 
 [[language]]
 name = "python"
 auto-format = true
 indent = { tab-width = 4, unit = "\t" }
-language-servers = ["pylsp"]
+language-servers = ["ruff", "lsp-ai"]
 
 [[language]]
 name = "rust"
 auto-format = true
 indent = { tab-width = 2, unit = " " }
 file-types = ["rs", "rlib"]
+language-servers = ["rust-analyzer", "lsp-ai"]
 
-[[language-server.rust-analyzer.config.check]]
-command = "clippy"
+[language-server.rust-analyzer.config]
+check = { command = "check" } 
+cargo = { buildScripts = { enable = false } } 
+diagnostics = { disabled = ["unresolved-proc-macro"] } 
 
 [language.debugger]
 command = "codelldb"
@@ -79,7 +100,7 @@ runInTerminal = true
 name = "scheme"
 scope = "source.scheme"
 injection-regex = "scheme"
-file-types = ["ss", "rkt", "scm", "lsp"] # "scm",
+file-types = ["ss", "rkt", "scm", "lsp"]
 roots = []
 comment-token = ";"
 indent = { tab-width = 2, unit = "  " }
@@ -93,4 +114,21 @@ args = ["lsp", "stdio"]
 
 [[language]]
 name = "xml"
-injection-regex = "perl"
+injection-regex = "xml" 
+
+[language-server.lua-ls]
+command = "lua-language-server"
+
+[language-server.lua-ls.config.Lua.workspace]
+checkThirdParty = "Disable" 
+ignoreDir = [".git", "node_modules", "target", "vendor"] 
+maxPreload = 1000            
+
+[language-server.lua-ls.config.Lua.diagnostics]
+workspaceDelay = 3000        
+
+[[language]]
+name = "lua"
+formatter = { command = "stylua", args = ["-"] }
+auto-format = true
+language-servers = ["lua-ls", "lsp-ai"]
