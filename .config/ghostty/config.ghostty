@@ -9,6 +9,7 @@ background = 000000
 # Removes standard OS titlebars.
 # Note: Ghostty natively hides the tab bar when only one tab is open.
 window-decoration = false
+scrollbar = never
 
 # --- Mouse Behavior ---
 # Automatically copies selections to the clipboard upon mouse release
