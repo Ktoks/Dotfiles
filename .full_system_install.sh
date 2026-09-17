@@ -129,7 +129,7 @@ mkdir -p ~/.config/autostart
 cp /etc/xdg/autostart/io.elementary.appcenter-daemon.desktop ~/.config/autostart/
 echo "X-GNOME-Autostart-enabled=false" >> ~/.config/autostart/io.elementary.appcenter-daemon.desktop
 
-For desktop machine with massive memory add this to /etc/sysctl.d/99-custom-performance.conf:
+# For desktop machine with massive memory add this to /etc/sysctl.d/99-custom-performance.conf:
 # Keep active data in physical RAM; swap only under extreme emergency
 vm.swappiness = 1
 
@@ -146,13 +146,13 @@ vm.dirty_background_bytes = 67108864
 # Block process I/O only if unwritten dirty data reaches 256 MB
 vm.dirty_bytes = 268435456
 
-Then run sudo sysctl --system
+# Then run sudo sysctl --system
 
-Turn off zRAM compression:
+# Turn off zRAM compression:
 sudo systemctl disable --now pop-default-settings-zram.service
 sudo swapoff -a
 
-Turn off unnecessary autostart features:
+# Turn off unnecessary autostart features:
 mkdir -p ~/.config/autostart
 
 for file in \
@@ -173,13 +173,17 @@ for file in \
     echo "X-GNOME-Autostart-enabled=false" >> ~/.config/autostart/"$file"
 done
 
-Then modify the systemd behavior to remove files over 500M, and system files over 100M:
-sudo hx /etc/systemd/journald.conf
+echo Then modify the systemd behavior to remove files over 500M, and system files over 100M, then turn off swap by commenting out the line in the 2nd and 3rd files:
+sudo hx /etc/systemd/journald.conf /etc/crypttab /etc/fstab
 
-then change:
+sudo sysctl --system
 
-SystemMaxUse=500M
-SystemMaxFileSize=100M
-Storage=persistent
+sudo update-initramfs -u
+
+# then change:
+
+# SystemMaxUse=500M
+# SystemMaxFileSize=100M
+# Storage=persistent
 
 "
