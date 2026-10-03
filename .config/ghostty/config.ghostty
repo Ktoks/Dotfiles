@@ -8,7 +8,7 @@ background = 000000
 # --- Window & Tabs ---
 # Removes standard OS titlebars.
 # Note: Ghostty natively hides the tab bar when only one tab is open.
-window-decoration = false
+window-decoration = true
 scrollbar = never
 
 # --- Mouse Behavior ---
