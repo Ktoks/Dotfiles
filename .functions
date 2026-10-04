@@ -239,3 +239,11 @@ rainbowColor()
     done
     resetOutput
 }
+
+bt_rssi2dist() {
+  local rssi=${1:-$(cat)}
+  local A=${2:--59}    # calibrate: RSSI at 1m from the device
+  local n=${3:-2.7}    # 2=free space, 2.7=indoors, 3.3=obstructed
+  awk -v r="$rssi" -v a="$A" -v n="$n" \
+    'BEGIN { d = 10^((a - r)/(10*n)); printf "%.1f ft\n", d * 3.281 }'
+}
