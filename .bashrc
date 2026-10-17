@@ -21,7 +21,7 @@ export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
 # [ -d "$HOME/code/llama.cpp/build/bin" ] && PATH="$PATH:$HOME/code/llama.cpp/build/bin"
 
 # may need some colors if the terminal doesn't come with anything
-# export LS_COLORS='di=1;97;100:ln=36:ex=31'
+export LS_COLORS='di=1;97;100:ln=36:ex=31'
 
 # if [ "$(command -v carapace)" ]; then
 #   [ ! -s "$HOME/.cache/carapace/init" ] && carapace _carapace > "$HOME/.cache/carapace/init"
