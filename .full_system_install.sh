@@ -90,100 +90,11 @@ rm luals.tar.gz
 
 # 4. Expose the binary to your terminal path via a symlink
 ln -sf ~/.local/share/lua-language-server/bin/lua-language-server ~/.local/bin/lua-language-server"
-# echo "Don't forget the following steps for git!"
-# echo 'ssh-keygen -t ed25519 -C "<useremail>"'
-# echo 'eval "$(ssh-agent -s)"'
-# echo 'ssh-add ~/.ssh/id_ed25519'
-# echo 'cat ~/.ssh/id_ed25519.pub'
-# echo 'git config --global user.name "<username>"'
-# echo 'git config --global user.email "<useremail>"'
-echo "if running Ubuntu-like:
-sudo systemctl disable --now \
-  snapd.service \
-  snapd.apparmor.service \
-  snapd.autoimport.service \
-  snapd.core-fixup.service \
-  snapd.recovery-chooser-trigger.service \
-  snapd.seeded.service \
-  snapd.system-shutdown.service \
-  snap.cups.cups-browsed.service \
-  snap.cups.cupsd.service \
-  wpa_supplicant.service \
-  ModemManager.service \
-  cups.service \
-  cups-browsed.service \
-  apport.service \
-  rsyslog.service \
-  ubuntu-advantage.service \
-  ua-reboot-cmds.service \
-  switcheroo-control.service \
-  NetworkManager-wait-online.service
-Then:
-sudo systemctl mask --now cups.service cups.socket cups.path snapd.service snapd.socket
-sudo systemctl disable --now apt-daily.timer apt-daily-upgrade.timer
-sudo systemctl mask --now apt-daily.timer apt-daily-upgrade.timer
-sudo apt purge pop-transition
-sudo systemctl disable --now com.system76.SystemUpdater.service
-sudo systemctl mask --now com.system76.SystemUpdater.service
-mkdir -p ~/.config/autostart
-cp /etc/xdg/autostart/io.elementary.appcenter-daemon.desktop ~/.config/autostart/
-echo "X-GNOME-Autostart-enabled=false" >> ~/.config/autostart/io.elementary.appcenter-daemon.desktop
-
-# For desktop machine with massive memory add this to /etc/sysctl.d/99-custom-performance.conf:
-# Keep active data in physical RAM; swap only under extreme emergency
-vm.swappiness = 1
-
-# Maximize filesystem metadata (dentry/inode) retention in 94GB RAM
-vm.vfs_cache_pressure = 10
-
-# Disable percentage-based dirty ratios (set to 0 to enable byte limits)
-vm.dirty_ratio = 0
-vm.dirty_background_ratio = 0
-
-# Start background NVMe writes as soon as 64 MB of dirty data accumulates
-vm.dirty_background_bytes = 67108864
-
-# Block process I/O only if unwritten dirty data reaches 256 MB
-vm.dirty_bytes = 268435456
-
-# Then run sudo sysctl --system
-
-# Turn off zRAM compression:
-sudo systemctl disable --now pop-default-settings-zram.service
-sudo swapoff -a
-
-# Turn off unnecessary autostart features:
-mkdir -p ~/.config/autostart
-
-for file in \
-  print-applet.desktop \
-  snap-userd-autostart.desktop \
-  geoclue-demo-agent.desktop \
-  orca-autostart.desktop \
-  at-spi-dbus-bus.desktop \
-  com.system76.CosmicInitialSetup.desktop \
-  im-launch.desktop \
-  org.pop_os.transition.Notify.desktop \
-  pop-app-folders.desktop \
-  pop-flatpak-repos.desktop \
-  user-dirs-update-gtk.desktop \
-  xdg-user-dirs.desktop; do
-    cp /etc/xdg/autostart/"$file" ~/.config/autostart/ 2>/dev/null
-    echo "Hidden=true" >> ~/.config/autostart/"$file"
-    echo "X-GNOME-Autostart-enabled=false" >> ~/.config/autostart/"$file"
-done
-
-echo Then modify the systemd behavior to remove files over 500M, and system files over 100M, then turn off swap by commenting out the line in the 2nd and 3rd files:
-sudo hx /etc/systemd/journald.conf /etc/crypttab /etc/fstab
-
-sudo sysctl --system
-
-sudo update-initramfs -u
-
-# then change:
-
-# SystemMaxUse=500M
-# SystemMaxFileSize=100M
-# Storage=persistent
-
-"
+echo "Don't forget the following steps for git!"
+echo 'ssh-keygen -t ed25519 -C "<useremail>"'
+echo 'eval "$(ssh-agent -s)"'
+echo 'ssh-add ~/.ssh/id_ed25519'
+echo 'cat ~/.ssh/id_ed25519.pub'
+echo 'git config --global user.name "<username>"'
+echo 'git config --global user.email "<useremail>"'
+echo "if running Pop 26x+ - run the .pop_optimization.sh script for lower overhead"
