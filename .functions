@@ -1,5 +1,47 @@
 #!/usr/bin/env bash
 
+dupe_file_remover() {
+    counter=0
+
+    echo "Scanning directories and calculating file checksums..."
+
+    declare -A hash_map
+
+    # Recursively find all files and group them by their SHA-256 content hash
+    while IFS= read -r -d '' file; do
+        hash=$(sha256sum "$file" 2>/dev/null | awk '{print $1}')
+        if [ -n "$hash" ]; then
+            hash_map["$hash"]+="$file"$'\n'
+        fi
+    done < <(find . -type f -print0)
+
+    echo "Processing duplicates..."
+
+    for hash in "${!hash_map[@]}"; do
+        mapfile -t file_array < <(printf '%s' "${hash_map[$hash]}")
+    
+        # If a hash has more than one file, they are duplicates
+        if [ "${#file_array[@]}" -gt 1 ]; then
+            # echo "--------------------------------------------------"
+            # echo "Duplicate Group Found (Total: ${#file_array[@]})"
+            # echo "-> KEEPING:"
+            # echo "    ${file_array[0]}"
+        
+            # echo "-> DELETING (Extra duplicates):"
+            # Keep index 0, delete indices 1 through N-1
+            for ((i=1; i<${#file_array[@]}; i++)); do
+                dup_file="${file_array[i]}"
+                # echo "    $dup_file"
+            
+                rm -- "$dup_file" || echo "Warning: Failed to delete $dup_file" >&2
+                ((counter++))
+            done
+        fi
+    done
+
+    echo "Removed $counter duplicate files."
+}
+
 fp ()
 {
     local fname=$1;
@@ -165,10 +207,10 @@ resetOutput()
 # ranging between 0 and 255 inclusive
 rainbowColor()
 { 
-        let h=$1/43
-        let f=$1-43*$h
-        let t=$f*255/43
-        let q=255-t
+    local h=$(( $1 / 43 ))
+    local f=$(( $1 - 43 * h ))
+    local t=$(( f * 255 / 43 ))
+    local q=$(( 255 - t ))
 
         if [ $h -eq 0 ]
         then

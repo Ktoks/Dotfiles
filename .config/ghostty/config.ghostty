@@ -32,6 +32,7 @@ keybind = ctrl+shift+f=toggle_fullscreen
 
 # --- Pane (Split) Creation ---
 keybind = ctrl+shift+alt+%=new_split:right
+keybind = ctrl+shift+"=new_split:down
 keybind = ctrl+shift+alt+"=new_split:down
 
 # --- Pane Navigation ---
