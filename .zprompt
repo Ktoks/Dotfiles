@@ -1,0 +1,29 @@
+# Ensure prompt substitution is active
+setopt PROMPT_SUBST
+
+# Define all color segments using ANSI-C quoting ($'...') so \033 becomes a real escape byte
+C_SUCCESS=$'%{\033[38;2;121;161;14m%}->%{\033[0m%}'
+C_FAIL=$'%{\033[38;2;219;41;20m%}xx%{\033[0m%}'
+C_PROMPT_BEGIN=$'%{\033[38;2;120;149;136m%}%n%{\033[38;2;121;116;14m%}@%{\033[38;2;202;141;15m%}%M '
+C_PATH_COLOR=$'%{\033[38;2;219;41;20m%}'
+C_RESET=$'%{\033[0m%}'
+
+precmd() {
+    local EXIT_CODE=$?
+
+    # Force a wrap, snap to beginning of line (\r), and clear line
+    local cols=${COLUMNS:-80}
+    (( cols > 0 )) || cols=80
+    printf "%*s\r\033[K" "$cols" ""
+
+    local prompt_indicator
+    if (( EXIT_CODE == 0 )); then
+        prompt_indicator="${C_SUCCESS}"
+    else
+        prompt_indicator="${C_FAIL}"
+    fi
+
+    # Assemble final prompt using pre-defined ANSI-C quoted variables
+    PROMPT="${C_PROMPT_BEGIN}${C_PATH_COLOR}%~${C_RESET}
+${prompt_indicator} "
+}
