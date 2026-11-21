@@ -1,82 +1,74 @@
 #!/usr/bin/env bash
 
 if command -v gh &> /dev/null; then
-    export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
-    export COPILOT_GITHUB_TOKEN=$GITHUB_TOKEN
+    export GITHUB_TOKEN="$(gh auth token 2>/dev/null)"
+    export COPILOT_GITHUB_TOKEN="$GITHUB_TOKEN"
 fi
 
-export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/lib:$HOME/.local/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/lib:$HOME/.local/bin"
 
-[ -d /opt/mssql-tools18/bin ] && export PATH="$PATH:/opt/mssql-tools18/bin"
-[ -f "/etc/bash.bashrc" ] && source "/etc/bash.bashrc"
-[ "${debian_chroot:-}" = "" ] && [ -r /etc/debian_chroot ] && debian_chroot=$(cat /etc/debian_chroot)
-[ -f /usr/local/go/bin/go ] && export GOPATH="$HOME/code/go" && export GOBIN="$HOME/code/go/bin" && PATH="$PATH:$GOBIN:$HOME/go/bin/:/usr/local/go/bin/"
-[ "$(command -v cargo)" ] && PATH="$PATH:$HOME/.cargo/bin" && export RUSTFLAGS="-C target-cpu=native -C codegen-units=1 -C strip=symbols" && export CARGO_PROFILE_RELEASE_LTO=thin
-[ -d "$HOME/.fzf/bin/" ] && PATH="$PATH:$HOME/.fzf/bin"
-[ "$(command -v fzf)" ] && eval "$(fzf --bash)"
-[ "$(command -v zellij)" ] && eval "$(zellij setup --generate-completion bash)"
-[ "$ID" == "fedora" ] && export __GLX_VENDOR_LIBRARY_NAME="nvidia" && export WLR_NO_HARDWARE_CURSORS="1"
-[ -d "/usr/local/cuda-13.3/bin" ] && PATH="$PATH:/usr/local/cuda-13.3/bin"
-[ -d "/usr/local/cuda-13.3/lib64" ] && LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/cuda-13.3/lib64"
-# [ -d "$HOME/code/llama.cpp/build/bin" ] && PATH="$PATH:$HOME/code/llama.cpp/build/bin"
+[[ -d /opt/mssql-tools18/bin ]] && export PATH="$PATH:/opt/mssql-tools18/bin"
+[[ -d /usr/local/cuda/bin ]] && export PATH="$PATH:/usr/local/cuda/bin"
+[[ -d /usr/local/cuda-13.3/bin ]] && export PATH="$PATH:/usr/local/cuda-13.3/bin"
+[[ -d "$HOME/.fzf/bin" ]] && export PATH="$PATH:$HOME/.fzf/bin"
 
-# may need some colors if the terminal doesn't come with anything
+if [[ -f /usr/local/go/bin/go ]]; then
+    export GOPATH="$HOME/code/go"
+    export GOBIN="$GOPATH/bin"
+    export PATH="$PATH:$GOBIN:$HOME/go/bin:/usr/local/go/bin"
+fi
+
+if command -v cargo &> /dev/null; then
+    export PATH="$PATH:$HOME/.cargo/bin"
+    export RUSTFLAGS="-C target-cpu=native -C codegen-units=1 -C strip=symbols"
+    export CARGO_PROFILE_RELEASE_LTO="thin"
+fi
+
+[[ -f "/etc/bash.bashrc" ]] && source "/etc/bash.bashrc"
+[[ -z "${debian_chroot:-}" && -r /etc/debian_chroot ]] && debian_chroot="$(< /etc/debian_chroot)"
+
+[[ -d "/usr/local/cuda-13.3/lib64" ]] && export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/cuda-13.3/lib64"
+
+if [[ -e "/usr/sbin/hx" ]]; then
+    export EDITOR="/usr/sbin/hx" SYSTEMD_EDITOR="/usr/sbin/hx" VISUAL="/usr/sbin/hx"
+elif [[ -e "/usr/bin/hx" ]]; then
+    export EDITOR="/usr/bin/hx" SYSTEMD_EDITOR="/usr/bin/hx" VISUAL="/usr/bin/hx"
+else
+    export EDITOR="/usr/bin/vi" SYSTEMD_EDITOR="/usr/bin/vi" VISUAL="/usr/bin/vi"
+fi
+
+export TERM='xterm-256color'
 export LS_COLORS='di=1;97;100:ln=36:ex=31'
 
-# if [ "$(command -v carapace)" ]; then
-#   [ ! -s "$HOME/.cache/carapace/init" ] && carapace _carapace > "$HOME/.cache/carapace/init"
-#   source "$HOME/.cache/carapace/init"
-# fi
-
-# --- Source Configuration Files ---
-for file in "/etc/bashrc" "$HOME/.aliases" "$HOME/.cargo/env" "$HOME/.functions" "$HOME/.nav" "$HOME/.prompt" "$HOME/.fzf_commands.sh"; do
-    [ -f "$file" ] && source "$file"
-done
-
-[[ -r "/usr/share/bash-completion/bash_completion" ]] && source "/usr/share/bash-completion/bash_completion"
-
-[[ -e "/usr/sbin/hx" ]] && export EDITOR="/usr/sbin/hx"  && export SYSTEMD_EDITOR="/usr/sbin/hx" && export VISUAL="/usr/sbin/hx"
-[[ -e "/usr/bin/hx" ]] && export EDITOR="/usr/bin/hx" && export SYSTEMD_EDITOR="/usr/bin/hx" && export VISUAL="/usr/bin/hx"
-export TERM='xterm-256color'
-
-set -o vi
+command -v fzf &> /dev/null && eval "$(fzf --bash)"
+command -v zellij &> /dev/null && eval "$(zellij setup --generate-completion bash)"
 
 shopt -s histappend
-shopt -s checkwinsize
-HISTCONTROL="ignoreboth:erasedups"
-HISTSIZE=
-HISTFILESIZE=
+shopt -s cmdhist
+HISTCONTROL=ignoredups:ignorespace
+HISTSIZE=-1
+HISTFILESIZE=-1
+HISTFILE="$HOME/.bash_history"
 
-# up arrow for history match current command
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-# shopt -s autocd
-shopt -s cdspell
-# shopt -s dotglob
-# shopt -s globstar
+shopt -s cdable_vars 2>/dev/null
 
-[ -d "$HOME/.nvm" ] && export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
-if [ -f ~/.todo ] && [ -s ~/.todo ]; then
-    echo "--- TODOs ---"
+[[ -d "$HOME/.nvm" ]] && export NVM_DIR="$HOME/.nvm"
+[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+
+if [[ -s ~/.todo ]]; then
+    echo -e "\033[36m--- TODOs ---\033[0m"
     cat ~/.todo
-    echo "-------------"
+    echo -e "\033[36m-------------\033[0m"
 fi
 
-# export XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+for file in "$HOME/.aliases" "$HOME/.cargo/env" "$HOME/.functions" "$HOME/.nav" "$HOME/.prompt" "$HOME/.fzf_commands.sh"; do
+    [[ -f "$file" ]] && source "$file"
+done
 
-# # Allow Zed to run on WSL's virtualized GPU
-# export ZED_ALLOW_EMULATED_GPU=1
+set -o vi
 
-# # Create an alias forcing X11 compatibility and foreground execution
-# alias zed="WAYLAND_DISPLAY='' zed --foreground"
+[[ -f "$HOME/.inputrc" ]] && bind -f ~/.inputrc
 
-
-bind -f ~/.inputrc
-
-# CUDA Environment Variables
-if [ -d "/usr/local/cuda" ]; then
-    export PATH="/usr/local/cuda/bin:$PATH"
-    export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
-fi
